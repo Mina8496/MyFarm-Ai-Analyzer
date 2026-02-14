@@ -44,29 +44,22 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
           /// 🔹 طبقة شفافة (اختياري عشان النص يبان)
           Container(color: Colors.black.withOpacity(0.3)),
-          SizedBox(
-            height: 400.h,
-            width: 400.w,
-            child: SlideTransition(
-              position: slideHelper.animation,
-              child: Image.asset('assets/back_and_icon/Logo-white-1.png'),
-            ),
+          SlideTransition(
+            position: slideHelper.animation,
+            child: Image.asset('assets/back_and_icon/Logo-white-1.png'),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 30.h),
-              SlideTransition(
-                position: slideHelper.animation,
-                child: Center(
-                  child: Text(
-                    "My Farm",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Center(
+                child: Text(
+                  "My Farm",
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -85,7 +78,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       if (!mounted) return;
 
       if (userType == null) {
-        Get.offAllNamed('/user_type'); // المستخدم لم يحدد نوعه بعد
+        Get.offAllNamed('/onboarding'); // المستخدم لم يحدد نوعه بعد
       } else {
         Get.offAllNamed(
           '/onboarding',

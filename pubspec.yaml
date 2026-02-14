@@ -47,6 +47,7 @@ flutter:
   assets:
     - assets/back_and_icon/Splash_Scren.png
     - assets/back_and_icon/Logo-white-1.png
+    - assets/boarding/
     - assets/usertype/
     - assets/models/mango/
     - assets/texts/gall_midges.txt

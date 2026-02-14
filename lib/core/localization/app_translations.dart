@@ -5,19 +5,19 @@ class AppTranslations extends Translations {
   Map<String, Map<String, String>> get keys => {
     'en': {
       // Onboarding Titles
-      'onboard_title1': 'Welcome to My Farm',
-      'onboard_title2': 'Track Your Crops',
-      'onboard_title3': 'Grow Smart, Earn More',
+      'onboard_title1': 'Welcome to MyFarm',
+      'onboard_title2': 'In the My Farm app',
+      'onboard_title3': 'Grow Smart',
 
       // Onboarding Descriptions
-      'onboard_desc1': 'Discover the best way to manage your farm efficiently.',
-      'onboard_desc2': 'Keep track of all your crops and farm activities.',
+      'onboard_desc1': 'Analyze plant diseases with AI.',
+      'onboard_desc2': 'Discover the best way to manage your farm efficiently.',
       'onboard_desc3': 'Get insights and tips to maximize your yield.',
 
       // Buttons
-      'back': 'Back',
-      'next': 'Next',
-      'start': 'Start',
+      'Back': 'Back',
+      'Next': 'Next',
+      'Start': 'Start',
       'continue': 'continue',
 
       'plant_analysis': 'Plant Analysis',
@@ -28,6 +28,7 @@ class AppTranslations extends Translations {
 
       // user teyer
       'Discover': 'Discover the best way to manage your farm efficiently.',
+      'Please_select_user_type': 'Please select a user type first.',
       'Farmer': 'Farmer',
       'Supervisor': 'Supervisor',
       'Farm Owner': 'Farm Owner',
@@ -66,20 +67,20 @@ class AppTranslations extends Translations {
     },
     'ar': {
       // Onboarding Titles
-      'onboard_title1': 'مرحباً بك في مزرعتي',
-      'onboard_title2': 'تتبع محاصيلك',
-      'onboard_title3': 'ازرع بذكاء واربح أكثر',
+      'onboard_title1': 'مرحباً بك فى مزرعتى',
+      'onboard_title2': 'فى تطبيق مزرعتى',
+      'onboard_title3': 'ازرع بذكاء',
 
       // Onboarding Descriptions
-      'onboard_desc1': 'اكتشف أفضل طريقة لإدارة مزرعتك بكفاءة.',
-      'onboard_desc2': 'تتبع جميع محاصيلك وأنشطة مزرعتك بسهولة.',
+      'onboard_desc1': 'حلل أمراض النباتات باستخدام الذكاء الاصطناعى.',
+      'onboard_desc2': 'اكتشف أفضل طريقة لإدارة مزرعتك بكفاءة.',
       'onboard_desc3': 'احصل على رؤى ونصائح لزيادة محصولك.',
 
       // Buttons
-      'back': 'رجوع',
-      'next': 'التالي',
-      'start': 'ابدأ',
-      'continue': 'متابعة',
+      'Back': 'رجوع',
+      'Next': 'التالى',
+      'Start': 'ابدأ',
+      'Continue': 'متابعة',
 
       'plant_analysis': 'تحليل النبات',
       'pick_image': 'اختار صورة',
@@ -89,6 +90,7 @@ class AppTranslations extends Translations {
 
       // user teyer
       'Discover': 'اكتشف أفضل طريقة لإدارة مزرعتك بكفاءة.',
+      'Please_select_user_type': 'يرجى اختيار نوع المستخدم اولاً.',
       'Farmer': 'فلاح',
       'Supervisor': 'مشرف',
       'Farm Owner': 'مالك مزرعة',
