@@ -4,11 +4,15 @@ import 'package:myfarm/common/helpers/get_swatch.dart';
 class ColorPalette {
   ColorPalette._();
 
-  static const int primaryColor = 0xff6ACAC6;
-  static const int primaryColorDark = 0xff08ACA5;
+  static const kprimaryColor = Color(0xFF7ECF74);
+  static const primaryColorDark = 0xff08ACA5;
 
-  static MaterialColor primaryMaterialColor = getSwatch(const Color.fromARGB(255, 0, 0, 0));
-  static MaterialColor primaryMaterialColorDark = getSwatch(const Color.fromARGB(255, 4, 6, 6));
+  static MaterialColor primaryMaterialColor = getSwatch(
+    const Color.fromARGB(255, 0, 0, 0),
+  );
+  static MaterialColor primaryMaterialColorDark = getSwatch(
+    const Color.fromARGB(255, 4, 6, 6),
+  );
 
   static const int secondaryColor = 0xff3544C4;
 
@@ -50,7 +54,12 @@ class ColorPalette {
   static const Color whiteShadow = Color.fromARGB(255, 184, 183, 183);
 
   static const Color failedContainerBg = Color.fromRGBO(255, 230, 219, 1);
-  static const Color assignScannedPalletToShelves = Color.fromRGBO(195, 219, 230, 1);
+  static const Color assignScannedPalletToShelves = Color.fromRGBO(
+    195,
+    219,
+    230,
+    1,
+  );
   static const Color orange = Colors.orange;
 
   static const Color customPopUpBg = Color.fromRGBO(243, 250, 244, 1);

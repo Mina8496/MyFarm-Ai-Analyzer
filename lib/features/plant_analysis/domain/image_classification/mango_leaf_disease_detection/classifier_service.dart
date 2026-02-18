@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:myfarm/features/plant_analysis/data/model/classification_result.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:myfarm/common/constants/paths.dart';
+import 'package:myfarm/core/utils/Asset_Paths.dart';
 
 class ClassifierService {
   late Interpreter _interpreter;

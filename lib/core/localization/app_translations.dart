@@ -19,7 +19,7 @@ class AppTranslations extends Translations {
       'Next': 'Next',
       'Start': 'Start',
       'continue': 'continue',
-
+      // Plant analysis page
       'plant_analysis': 'Plant Analysis',
       'pick_image': 'Pick Image',
       'analyzing': 'Analyzing plant...',
@@ -34,6 +34,25 @@ class AppTranslations extends Translations {
       'Farm Owner': 'Farm Owner',
       'Doctor': 'Doctor',
       'Engineer': 'Engineer',
+
+      // Login And Sign up
+      'Create_Account': 'Create Account',
+      'Let’s_Create_Account_Together': 'Let’s Create Account Together',
+      'Your_Name': 'Your Name',
+      'Full_Name': 'Full Name',
+      'Email_Address': 'Email Address',
+      'Phone_required': 'Phone Required',
+      'Email required': 'Email Required',
+      'Enter_valid_email': 'Enter valid email',
+      'Password_must': 'Password must be 6+ chars',
+      'Phone_Number': 'Phone Number',
+      'Password': 'Password',
+      'Location': 'Location',
+      'Location_being_determined': 'Location is being determined...',
+      'Location_service_not_enabled': 'Location service is not enabled',
+      'permission_denied': 'Permission denied',
+      'error_occurred_while_determining_location':
+          'An error occurred while determining location',
 
       // Plant analysis page
       'Capture': 'Capture with Camera',
@@ -96,6 +115,24 @@ class AppTranslations extends Translations {
       'Farm Owner': 'مالك مزرعة',
       'Doctor': 'دكتور',
       'Engineer': 'مهندس',
+
+      // Login And Sign up
+      'Create_Account': 'انشاء حساب',
+      'Let’s_Create_Account_Together': 'هيا ننشئ حساب معاً',
+      'Your_Name': 'أسم المستخدم',
+      'Full_Name': 'الأسم بالكامل',
+      'Email_Address': 'البريد الإلكترونى',
+      'Phone_required': 'يجب إدخال رقم الهاتف',
+      'Email_required': 'يجب إدخال بريد الإلكترونى',
+      'Enter_valid_email': 'إدخال بريد الإلكترونى',
+      'Password_must': 'كلمة المرور يجب أن تكون 6 أحرف أو أكثر',
+      'Phone_Number': 'رقم الهاتف',
+      'Password': 'كلمة المرور',
+      'Location': 'الموقع',
+      'Location_being_determined': 'جارى تحديد الموقع...',
+      'Location_service_not_enabled': 'خدمة الموقع غير مفعلة',
+      'permission_denied': 'تم رفض الإذن',
+      'error_occurred_while_determining_location': 'حدث خطأ أثناء تحديد الموقع',
 
       // Plant analysis page
       'Capture': 'التقاط بالكاميرا',

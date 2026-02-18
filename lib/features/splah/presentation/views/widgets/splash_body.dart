@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myfarm/core/storage/app_storage.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Controller/animation_helper.dart';
+import 'package:myfarm/core/utils/Asset_Paths.dart';
+import 'package:myfarm/features/splah/presentation/views/widgets/sliding_animation.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -14,60 +14,57 @@ class SplashViewBody extends StatefulWidget {
 
 class _SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
-  late final SlideAnimationHelper slideHelper;
-  // (اختياري) لو مش مستخدمين fadingAnimation أو animationController نحذفهم
+  late AnimationController animationController;
+  late Animation<Offset> slidingAnimation;
 
   @override
   void initState() {
     super.initState();
-    slideHelper = SlideAnimationHelper(vsync: this);
+    initSlidingAnimation();
     goToNextView();
   }
 
   @override
   void dispose() {
-    slideHelper.controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.lightGreen,
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/back_and_icon/Splash_Scren.png',
-            fit: BoxFit.cover,
-          ),
+          Image.asset(AssetPaths.background, fit: BoxFit.cover),
 
-          /// 🔹 طبقة شفافة (اختياري عشان النص يبان)
+          ///  طبقة شفافة
           Container(color: Colors.black.withOpacity(0.3)),
-          SlideTransition(
-            position: slideHelper.animation,
-            child: Image.asset('assets/back_and_icon/Logo-white-1.png'),
-          ),
+
+          // logo and text
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 30.h),
-              Center(
-                child: Text(
-                  "My Farm",
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              Image.asset(AssetPaths.logo),
+              SlidingAnimation(slidingAnimation: slidingAnimation),
+              // SizedBox(height: 30.h),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void initSlidingAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    slidingAnimation = Tween<Offset>(
+      begin: Offset(0, 2),
+      end: Offset.zero,
+    ).animate(animationController);
+    animationController.forward();
   }
 
   void goToNextView() {

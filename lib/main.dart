@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myfarm/AppConfig.dart';
+import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/routes/app_pages.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
@@ -36,17 +37,16 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Image Classification',
-          theme: ThemeData(
+          theme: ThemeData.light().copyWith(
+            scaffoldBackgroundColor: ColorPalette.kprimaryColor,
             useMaterial3: true,
-            colorSchemeSeed: Colors.green,
             textTheme: GoogleFonts.poppinsTextTheme(),
           ),
           translations: AppTranslations(),
           locale: Get.deviceLocale,
           fallbackLocale: const Locale('en'),
           initialBinding: InitialBinding(),
-          initialRoute: '/splash',
+          initialRoute: '/splashBody',
           getPages: AppPages.pages,
         );
       },

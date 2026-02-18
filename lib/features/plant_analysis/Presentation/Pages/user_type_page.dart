@@ -20,13 +20,13 @@ class _UserTypeSelectionPageState extends State<UserTypeSelectionPage> {
       'title': 'Farmer'.tr,
       'image': 'assets/usertype/flah.avif',
       'code': 'farmer',
-      'route': '/login',
+      'route': '/signup',
     },
     {
       'title': 'Supervisor'.tr,
       'image': 'assets/usertype/moshraf.avif',
       'code': 'supervisor',
-      'route': '/login',
+      'route': '/signup',
     },
     {
       'title': 'Farm Owner'.tr,
@@ -38,13 +38,13 @@ class _UserTypeSelectionPageState extends State<UserTypeSelectionPage> {
       'title': 'Doctor'.tr,
       'image': 'assets/usertype/Doctor.avif',
       'code': 'doctor',
-      'route': '/login',
+      'route': '/signup',
     },
     {
       'title': 'Engineer'.tr,
       'image': 'assets/usertype/engner.avif',
       'code': 'engineer',
-      'route': '/login',
+      'route': '/signup',
     },
   ];
   void onConfirm() {

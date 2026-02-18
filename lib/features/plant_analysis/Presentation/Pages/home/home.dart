@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myfarm/common/constants/paths.dart';
+import 'package:myfarm/core/utils/Asset_Paths.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
