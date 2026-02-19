@@ -29,7 +29,7 @@ class RegisterPage extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(AssetPaths.backGroundBorder),
+                    image: AssetImage(AssetPaths.backGround_1),
                     fit: BoxFit.cover,
                     // opacity: 2.9,
                   ),

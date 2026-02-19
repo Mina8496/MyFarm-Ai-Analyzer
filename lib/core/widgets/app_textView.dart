@@ -7,7 +7,7 @@ class AppTextView extends StatelessWidget {
   Color? color;
   double? fontSize;
 
-  AppTextView({super.key, required this.text, this.color, this.fontSize,});
+  AppTextView({super.key, required this.text, this.color, this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class AppTextView extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(
         color: color,
-        fontSize: fontSize ?? 16.sp,
+        fontSize: fontSize ?? 18.sp,
         fontWeight: FontWeight.bold,
       ),
     );

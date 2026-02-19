@@ -5,8 +5,14 @@ import 'package:myfarm/common/constants/color_palette.dart';
 class AppButton extends StatelessWidget {
   final GestureTapCallback? controller;
   final Widget child;
+  final Color? backgroundColor;
 
-  const AppButton({super.key, required this.controller, required this.child});
+  const AppButton({
+    super.key,
+    required this.controller,
+    required this.child,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class AppButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: ColorPalette.kButtonColor,
+          color: backgroundColor ?? ColorPalette.kButtonColor,
           borderRadius: BorderRadius.circular(30.r),
           boxShadow: [
             BoxShadow(

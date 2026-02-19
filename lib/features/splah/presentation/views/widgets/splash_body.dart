@@ -36,7 +36,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(AssetPaths.background, fit: BoxFit.cover),
+          Image.asset(AssetPaths.background_2, fit: BoxFit.cover),
 
           ///  طبقة شفافة
           Container(color: Colors.black.withOpacity(0.3)),

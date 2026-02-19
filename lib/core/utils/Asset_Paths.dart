@@ -1,8 +1,7 @@
 class AssetPaths {
-  static const String backGroundBorder =
-      'assets/images/back_graound_border.jpg';
+  static const String backGround_1 = 'assets/back_and_icon/back_graound_1.jpg';
 
-  static const String background = 'assets/back_and_icon/Splash_Scren.png';
+  static const String background_2 = 'assets/back_and_icon/back_ground_2.png';
 
   static const String logo = 'assets/back_and_icon/Logo-white-1.png';
   ///////////////

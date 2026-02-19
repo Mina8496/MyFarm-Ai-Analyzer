@@ -8,7 +8,7 @@ import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnal
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home_shell.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
 import 'package:myfarm/features/splah/presentation/views/widgets/splash_body.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/user_type_page.dart';
+import 'package:myfarm/features/UserType/presentation/views/user_type_page.dart';
 
 class AppPages {
   static final pages = [
