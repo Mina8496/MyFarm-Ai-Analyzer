@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/plant_analysis_controller.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/widgets/_ImagePickerCard.dart';
@@ -189,10 +188,10 @@ class _ResultCard extends GetView<PlantAnalysisController> {
               const Spacer(),
               Text(
                 '${(result.confidence * 100).toStringAsFixed(1)}%',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+                // style: GoogleFonts.poppins(
+                //   fontWeight: FontWeight.w600,
+                //   color: Colors.white,
+                // ),
               ),
             ],
           ),
@@ -266,10 +265,10 @@ class _StatusBadge extends StatelessWidget {
       ),
       child: Text(
         isHealthy ? 'Healthy'.tr : 'Injured'.tr,
-        style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w600,
-          color: isHealthy ? Colors.green : Colors.red,
-        ),
+        // style: GoogleFonts.poppins(
+        //   fontWeight: FontWeight.w600,
+        //   color: isHealthy ? Colors.green : Colors.red,
+        // ),
       ),
     );
   }
@@ -292,10 +291,10 @@ class _InfoCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-              ),
+              // style: GoogleFonts.poppins(
+              //   fontWeight: FontWeight.w600,
+              //   fontSize: 16.sp,
+              // ),
             ),
             // SizedBox(height: 12.h),
             // child,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/image_classification/mango_leaf_disease_detection/tFLite_classifier_page.dart';
@@ -51,11 +50,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                     ListTile(
                       title: Text(
                         'Are you sure you want to exit?'.tr,
-                        style: GoogleFonts.poppins(
-                          color: Colors.green,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        
                       ),
                     ),
                     SizedBox(height: 10.h),
@@ -71,10 +66,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                         child: Center(
                           child: Text(
                             'NO'.tr,
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
+                            
                           ),
                         ),
                       ),
@@ -92,10 +84,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                         child: Center(
                           child: Text(
                             'YES'.tr,
-                            style: GoogleFonts.poppins(
-                              color: Colors.green,
-                              fontSize: 16.sp,
-                            ),
+                            
                           ),
                         ),
                       ),

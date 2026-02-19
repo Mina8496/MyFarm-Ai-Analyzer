@@ -6,7 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/LocationController.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/RegisterController.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/widgets/custom_text.dart';
+import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/widgets/custom_text_feild.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -53,14 +53,14 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
               ),
-              CustomText(text: 'Your_Name'.tr),
+              AppTextView(text: 'Your_Name'.tr),
               // name
               CustomeTextField(
                 controller: controller.nameController,
                 hint: "Full_Name".tr,
               ),
               // Email Addrass
-              CustomText(text: 'Email_Address'.tr),
+              AppTextView(text: 'Email_Address'.tr),
               CustomeTextField(
                 controller: controller.emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -69,7 +69,7 @@ class RegisterPage extends StatelessWidget {
               ),
 
               /// Password
-              CustomText(text: 'Password'.tr),
+              AppTextView(text: 'Password'.tr),
               Obx(
                 () => CustomeTextField(
                   controller: controller.passwordController,
@@ -88,7 +88,7 @@ class RegisterPage extends StatelessWidget {
               ),
 
               /// phone
-              CustomText(text: 'Phone_Number'.tr),
+              AppTextView(text: 'Phone_Number'.tr),
               CustomeTextField(
                 controller: controller.phoneController,
                 hint: "Phone_Number".tr,
@@ -98,7 +98,7 @@ class RegisterPage extends StatelessWidget {
               ),
 
               /// Location
-              CustomText(text: 'Location'.tr),
+              AppTextView(text: 'Location'.tr),
               Obx(
                 () => CustomeTextField(
                   controller: TextEditingController(

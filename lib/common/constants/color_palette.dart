@@ -5,6 +5,7 @@ class ColorPalette {
   ColorPalette._();
 
   static const kprimaryColor = Color(0xFF7ECF74);
+  static const kButtonColor = Color(0xFF1F4E20);
   static const primaryColorDark = 0xff08ACA5;
 
   static MaterialColor primaryMaterialColor = getSwatch(

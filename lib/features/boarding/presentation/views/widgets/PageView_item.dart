@@ -1,9 +1,9 @@
-class OnboardingItem {
+class PageViewItem {
   final String image;
   final String titleKey;
   final String descKey;
 
-  const OnboardingItem({
+  const PageViewItem({
     required this.image,
     required this.titleKey,
     required this.descKey,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
-class CustomText extends StatelessWidget {
+class AppTextView extends StatelessWidget {
   String? text;
   Color? color;
   double? fontSize;
 
-  CustomText({super.key, required this.text, this.color, this.fontSize});
+  AppTextView({super.key, required this.text, this.color, this.fontSize,});
 
   @override
   Widget build(BuildContext context) {

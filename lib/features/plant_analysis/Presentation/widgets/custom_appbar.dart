@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBack;
 
-  const CustomAppBar({
-    super.key,
-    required this.title,
-    this.showBack = false,
-  });
+  const CustomAppBar({super.key, required this.title, this.showBack = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             const Icon(Icons.eco_rounded, color: Colors.white),
             const SizedBox(width: 8),
-            Text(
-              title,
-              style: GoogleFonts.poppins(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.3,
-              ),
-            ),
+            Text(title),
           ],
         ),
         flexibleSpace: Container(

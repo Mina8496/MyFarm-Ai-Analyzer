@@ -1,5 +1,5 @@
-import 'package:myfarm/features/plant_analysis/domain/entities/onboarding_item.dart';
+import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
 
 abstract class OnboardingRepository {
-  Future<List<OnboardingItem>> fetchOnboardingItems(String lang);
+  Future<List<PageViewItem>> fetchOnboardingItems(String lang);
 }

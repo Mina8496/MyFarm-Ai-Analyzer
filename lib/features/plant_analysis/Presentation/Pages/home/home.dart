@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
 
 class HomePage extends StatelessWidget {
@@ -47,18 +46,18 @@ class HomePage extends StatelessWidget {
                             duration: const Duration(milliseconds: 500),
                             child: Text(
                               ' Leaf Disease Detector'.tr,
-                              style: GoogleFonts.poppins(
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: const [
-                                  Shadow(
-                                    color: Colors.black26,
-                                    offset: Offset(2.0, 2.0),
-                                    blurRadius: 4.0,
-                                  ),
-                                ],
-                              ),
+                              // style: GoogleFonts.poppins(
+                              //   fontSize: 24.sp,
+                              //   fontWeight: FontWeight.bold,
+                              //   color: Colors.white,
+                              //   shadows: const [
+                              //     Shadow(
+                              //       color: Colors.black26,
+                              //       offset: Offset(2.0, 2.0),
+                              //       blurRadius: 4.0,
+                              //     ),
+                              //   ],
+                              // ),
                             ),
                           ),
                         ),
@@ -72,11 +71,11 @@ class HomePage extends StatelessWidget {
                           'Empowering Farmers with AI-Driven Disease Detection'
                               .tr,
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontSize: 15.sp,
-                            color: Colors.white70,
-                            fontStyle: FontStyle.italic,
-                          ),
+                          // style: GoogleFonts.poppins(
+                          //   fontSize: 15.sp,
+                          //   color: Colors.white70,
+                          //   fontStyle: FontStyle.italic,
+                          // ),
                         ),
                       ),
                     ),
@@ -195,19 +194,19 @@ class HomePage extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green[700],
-                      ),
+                      // style: GoogleFonts.poppins(
+                      //   fontSize: 16,
+                      //   fontWeight: FontWeight.bold,
+                      //   color: Colors.green[700],
+                      // ),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       description,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: Colors.grey[700],
-                      ),
+                      // style: GoogleFonts.poppins(
+                      //   fontSize: 14,
+                      //   color: Colors.grey[700],
+                      // ),
                     ),
                   ],
                 ),

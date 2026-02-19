@@ -3,7 +3,7 @@ import 'package:myfarm/features/plant_analysis/Presentation/Binding/OnboardingBi
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/Login/login_page.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/Login/register_page.dart';
-import 'package:myfarm/features/boarding/views/onBoarding_Page.dart';
+import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home_shell.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';

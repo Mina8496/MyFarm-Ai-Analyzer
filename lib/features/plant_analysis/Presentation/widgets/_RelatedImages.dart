@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Related_Images extends StatelessWidget {
   const Related_Images({super.key});
@@ -11,7 +10,6 @@ class Related_Images extends StatelessWidget {
       children: [
         Text(
           'Related Images',
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         SizedBox(

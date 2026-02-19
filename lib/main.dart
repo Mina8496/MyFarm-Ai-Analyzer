@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:myfarm/AppConfig.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
@@ -40,7 +39,6 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: ColorPalette.kprimaryColor,
             useMaterial3: true,
-            textTheme: GoogleFonts.poppinsTextTheme(),
           ),
           translations: AppTranslations(),
           locale: Get.deviceLocale,

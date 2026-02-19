@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ImagePickerCard extends StatelessWidget {
   final File? imageFile;
@@ -41,14 +40,7 @@ class ImagePickerCard extends StatelessWidget {
                             color: Colors.green.shade700,
                           ),
                           SizedBox(height: 12.h),
-                          Text(
-                            'pick_image'.tr,
-                            style: GoogleFonts.poppins(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.green.shade700,
-                            ),
-                          ),
+                          Text('pick_image'.tr),
                         ],
                       ),
                     ),

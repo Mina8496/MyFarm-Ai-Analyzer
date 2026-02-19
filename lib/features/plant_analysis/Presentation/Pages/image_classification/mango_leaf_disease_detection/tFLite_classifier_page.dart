@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myfarm/common/helpers/bar_chart.dart';
 import 'package:myfarm/common/helpers/disease_resources.dart';
@@ -272,21 +271,21 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                         children: [
                           Text(
                             _result!.label,
-                            style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
+                            // style: GoogleFonts.poppins(
+                            //   fontSize: 20,
+                            //   fontWeight: FontWeight.bold,
+                            //   color: Colors.black87,
+                            // ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 6),
                           Text(
                             "Confidence: ${_result!.confidence.toStringAsFixed(2)}%",
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.green.shade800,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            // style: GoogleFonts.poppins(
+                            //   fontSize: 16,
+                            //   color: Colors.green.shade800,
+                            //   fontWeight: FontWeight.w500,
+                            // ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 30),
@@ -308,11 +307,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                                 children: [
                                   Text(
                                     value,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      height: 1.5,
-                                      color: Colors.black87,
-                                    ),
+                                    // style: GoogleFonts.poppins(
+                                    //   fontSize: 14,
+                                    //   height: 1.5,
+                                    //   color: Colors.black87,
+                                    // ),
                                     textAlign: TextAlign.justify,
                                   ),
                                   const SizedBox(height: 20),
@@ -320,11 +319,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                                       value == _fullText) ...[
                                     Text(
                                       'Learn More',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blueGrey.shade800,
-                                      ),
+                                      // style: GoogleFonts.poppins(
+                                      //   fontSize: 16,
+                                      //   fontWeight: FontWeight.bold,
+                                      //   color: Colors.blueGrey.shade800,
+                                      // ),
                                     ),
                                     const SizedBox(height: 16),
                                     _buildVideoSection(
@@ -374,7 +373,9 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
       header = '';
     }
 
-    return Text(header, style: GoogleFonts.poppins(color: Colors.black));
+    return Text(header,
+    //  style: GoogleFonts.poppins(color: Colors.black,),
+     );
   }
 
   Widget getImages(String label) {
@@ -397,7 +398,7 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
       children: [
         Text(
           'Related Images',
-          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+          // style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         SizedBox(
@@ -434,7 +435,7 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
     if (videos.isEmpty) {
       return Text(
         'No videos available.',
-        style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+        // style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
       );
     }
     return Column(
@@ -442,11 +443,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
       children: [
         Text(
           title,
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey.shade800,
-          ),
+          // style: GoogleFonts.poppins(
+          //   fontSize: 16,
+          //   fontWeight: FontWeight.w600,
+          //   color: Colors.grey.shade800,
+          // ),
         ),
         const SizedBox(height: 12),
         SizedBox(
@@ -520,11 +521,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                             children: [
                               Text(
                                 video['title']!,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
+                                // style: GoogleFonts.poppins(
+                                //   fontSize: 13,
+                                //   fontWeight: FontWeight.w500,
+                                //   color: Colors.black87,
+                                // ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -532,10 +533,10 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                               if (video['source'] != null)
                                 Text(
                                   video['source']!,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 6,
-                                    color: Colors.black,
-                                  ),
+                                  // style: GoogleFonts.poppins(
+                                  //   fontSize: 6,
+                                  //   color: Colors.black,
+                                  // ),
                                 ),
                             ],
                           ),
@@ -556,7 +557,7 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
     if (links.isEmpty) {
       return Text(
         'No articles available.',
-        style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+        // style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
       );
     }
     return Column(
@@ -564,11 +565,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
       children: [
         Text(
           title,
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey.shade800,
-          ),
+          // style: GoogleFonts.poppins(
+          //   fontSize: 16,
+          //   fontWeight: FontWeight.w600,
+          //   color: Colors.grey.shade800,
+          // ),
         ),
         const SizedBox(height: 12),
         ...links.asMap().entries.map((entry) {
@@ -584,11 +585,11 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                 ),
                 title: Text(
                   link['title']!,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: Colors.blue.shade700,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  // style: GoogleFonts.poppins(
+                  //   fontSize: 14,
+                  //   color: Colors.blue.shade700,
+                  //   fontWeight: FontWeight.w500,
+                  // ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
