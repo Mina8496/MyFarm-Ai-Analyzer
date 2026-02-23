@@ -20,13 +20,10 @@ class UserTypeViewItem extends StatelessWidget {
       children: [
         SizedBox(
           height: 80.h,
-          child: Image.asset(
-            item.image,
-            fit: BoxFit.contain,
-          ),
+          child: Image.asset(item.image, fit: BoxFit.contain),
         ),
         SizedBox(height: 10.h),
-        AppTextView(
+        AppText(
           text: item.title,
           fontSize: 12.sp,
           color: isSelected ? Colors.white : Colors.black,

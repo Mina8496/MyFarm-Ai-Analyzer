@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/AppConfig.dart';
+import 'package:myfarm/app_config.dart';
 
 class TranslationController extends GetxController {
   /// اللغة الحالية

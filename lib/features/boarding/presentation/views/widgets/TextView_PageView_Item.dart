@@ -16,17 +16,9 @@ class TextViewPageViewItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppTextView(
-            text: item.titleKey.tr,
-            color: Colors.white.withOpacity(0.9),
-            fontSize: 24.sp,
-          ),
+          AppText(text: item.titleKey.tr, fontSize: 24.sp),
           SizedBox(height: 18.h),
-          AppTextView(
-            text: item.descKey.tr,
-            color: Colors.white,
-            fontSize: 17.sp,
-          ),
+          AppText(text: item.descKey.tr, fontSize: 16.sp),
         ],
       ),
     );

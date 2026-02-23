@@ -16,22 +16,25 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: controller,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? ColorPalette.kButtonColor,
-          borderRadius: BorderRadius.circular(30.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 10.r,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: controller,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? ColorPalette.kButtonColor,
+            borderRadius: BorderRadius.circular(30.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 10.r,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }

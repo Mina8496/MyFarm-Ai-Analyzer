@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/features/boarding/presentation/controllers/controller_onboarding.dart';
-import 'package:myfarm/features/boarding/presentation/views/widgets/ButtonContent.dart';
+import 'package:myfarm/core/widgets/button_content.dart';
 import 'package:myfarm/features/boarding/presentation/views/widgets/Page_View_OnBoarding.dart';
 
 class OnboardingPageBody extends GetView<ControllerOnboardingPage> {

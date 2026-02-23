@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:myfarm/AppConfig.dart';
+import 'package:myfarm/app_config.dart';
 import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseKnowledge.dart';
 import 'package:myfarm/features/plant_analysis/data/model/plant_analysis_model.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';

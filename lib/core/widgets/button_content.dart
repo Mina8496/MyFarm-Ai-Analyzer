@@ -8,15 +8,17 @@ class ButtonContent extends StatelessWidget {
     required this.text,
     this.icon,
     this.iconFirst = false,
+    this.col,
   });
 
   final String text;
   final IconData? icon;
   final bool iconFirst;
+  final Color? col;
 
   @override
   Widget build(BuildContext context) {
-    final textWidget = AppTextView(text: text, color: Colors.white);
+    final textWidget = AppText(text: text, color: col);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -28,7 +30,7 @@ class ButtonContent extends StatelessWidget {
         textWidget,
         if (icon != null && !iconFirst) ...[
           SizedBox(width: 10.w),
-          Icon(icon, size: 18.sp, color: Colors.white),
+          Icon(icon, size: 18.sp, color: col ?? Colors.white),
         ],
       ],
     );

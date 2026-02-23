@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomeTextField extends StatelessWidget {
+class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? label;
   final String? hint;
@@ -15,7 +15,7 @@ class CustomeTextField extends StatelessWidget {
   final VoidCallback? onTap;
 
   // ignore: use_super_parameters
-  const CustomeTextField({
+  const AppTextField({
     Key? key,
     required this.controller,
     this.label,

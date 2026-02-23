@@ -2,18 +2,17 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/OnboardingBinding.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/Login/login_page.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/Login/register_page.dart';
+import 'package:myfarm/features/register/presentation/Binding/register_binding.dart';
+import 'package:myfarm/features/register/presentation/view/register_page.dart';
 import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home_shell.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
-import 'package:myfarm/features/splah/presentation/views/widgets/splash_body.dart';
 import 'package:myfarm/features/UserType/presentation/views/user_type_page.dart';
 
 class AppPages {
   static final pages = [
     GetPage(name: '/splash', page: () => const SplashView()),
-    GetPage(name: '/splashBody', page: () => const SplashViewBody()),
     GetPage(
       name: '/onboarding',
       page: () => const OnboardingPage(),
@@ -23,7 +22,11 @@ class AppPages {
     GetPage(name: '/user_type', page: () => UserTypeSelectionPage()),
     GetPage(name: '/homeMain', page: () => HomeMainShell()),
     GetPage(name: '/login', page: () => LoginPage()),
-    GetPage(name: '/signup', page: () => RegisterPage()),
+    GetPage(
+      name: '/signup',
+      page: () => const RegisterPage(),
+      binding: RegisterBinding(),
+    ),
     GetPage(
       name: '/plant-analysis',
       page: () => const PlantAnalysisPage(),

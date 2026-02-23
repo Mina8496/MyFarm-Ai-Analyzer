@@ -5,39 +5,51 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class LocationController extends GetxController {
-  final locationController = TextEditingController();
-
   var locationText = "Location_being_determined".tr.obs;
+
+  final locationTextController = TextEditingController();
+
+  /// تحديث الموقع
+  void updateLocation(String value) {
+    locationText.value = value;
+    locationTextController.text = value;
+  }
 
   @override
   void onInit() {
     super.onInit();
-    getLocation(); // تحديد تلقائي عند فتح الصفحة
+    onLocationTapped(); // تحديد الموقع تلقائياً
   }
 
-  Future<void> getLocation() async {
-    locationText.value =
-        "Location_being_determined".tr; // تحديث النص أثناء تحديد الموقع
+  String? validateLocation(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Location_required".tr;
+    }
+    return null;
+  }
+
+  Future<void> onLocationTapped() async {
+    locationText.value = "Location_being_determined".tr;
+
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        locationText.value = "Location_service_not_enabled".tr;
-        locationController.text = locationText.value;
-
+        updateLocation("Location_service_not_enabled".tr);
         return;
       }
 
       LocationPermission permission = await Geolocator.checkPermission();
+
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          locationText.value = "permission_denied".tr;
+          updateLocation("permission_denied".tr);
           return;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        locationText.value = "permission_denied".tr;
+        updateLocation("permission_denied".tr);
         return;
       }
 
@@ -56,16 +68,15 @@ class LocationController extends GetxController {
       String governorate = place.administrativeArea ?? "";
       String city = place.locality ?? "";
 
-      locationText.value = "$country - $governorate - $city";
-      locationController.text = locationText.value;
+      updateLocation("$country - $governorate - $city");
     } catch (e) {
-      locationText.value = "error_occurred_while_determining_location".tr;
+      updateLocation("error_occurred_while_determining_location".tr);
     }
   }
 
   @override
   void onClose() {
-    locationController.dispose();
+    locationTextController.dispose();
     super.onClose();
   }
 }

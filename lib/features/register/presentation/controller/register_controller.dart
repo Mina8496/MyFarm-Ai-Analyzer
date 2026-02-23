@@ -8,12 +8,41 @@ class RegisterController extends GetxController {
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  
 
   var isPasswordHidden = true.obs;
   var isLoading = false.obs;
 
+  ///////////
+  Future<void> registerUser({
+  required String name,
+  required String email,
+  required String password,
+  required String phone,
+}) async {
+  await Future.delayed(const Duration(seconds: 2));
+}
+
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+  String? validateName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Name_required".tr;
+    }
+
+    if (value.trim().length < 3) {
+      return "Name_too_short".tr;
+    }
+
+    final nameRegex = RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$');
+
+    if (!nameRegex.hasMatch(value.trim())) {
+      return "Enter_valid_name".tr;
+    }
+
+    return null;
   }
 
   String? validatePhone(String? value) {
@@ -44,17 +73,18 @@ class RegisterController extends GetxController {
     return null;
   }
 
-  void register() {
-    if (!formKey.currentState!.validate()) return;
+  Future<void> onRegisterPressed() async {
+  if (!formKey.currentState!.validate()) return;
 
+  try {
     isLoading.value = true;
 
-    // Call UseCase هنا
+    // await registerUser(); // UseCase حقيقي
 
-    Future.delayed(const Duration(seconds: 2), () {
-      isLoading.value = false;
-    });
+  } finally {
+    isLoading.value = false;
   }
+}
 
   @override
   void onClose() {

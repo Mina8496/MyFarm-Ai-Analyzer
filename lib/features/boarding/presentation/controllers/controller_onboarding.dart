@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/AppConfig.dart';
+import 'package:myfarm/app_config.dart';
 import 'package:myfarm/features/plant_analysis/data/repositories/onboarding_repository.dart';
 import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';

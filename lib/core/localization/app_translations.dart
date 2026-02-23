@@ -53,6 +53,13 @@ class AppTranslations extends Translations {
       'permission_denied': 'Permission denied',
       'error_occurred_while_determining_location':
           'An error occurred while determining location',
+      'Log_in': 'Log in',
+      'Enter_valid_name': 'Enter a valid name',
+      'Name_too_short': 'Name is too short',
+      'Name_required': 'Name is required',
+      'Do_you_have_account': 'Do you have an account?',
+      'Login': 'Login',
+      'Register': 'Register',
 
       // Plant analysis page
       'Capture': 'Capture with Camera',
@@ -133,6 +140,13 @@ class AppTranslations extends Translations {
       'Location_service_not_enabled': 'خدمة الموقع غير مفعلة',
       'permission_denied': 'تم رفض الإذن',
       'error_occurred_while_determining_location': 'حدث خطأ أثناء تحديد الموقع',
+      'Log_in': 'تسجيل الدخول',
+      'Enter_valid_name': 'أدخل اسمًا صالحًا',
+      'Name_too_short': 'الاسم قصير جداً',
+      'Name_required': 'الاسم مطلوب',
+      'Do_you_have_account': 'هل لديك حساب؟',
+      'Login': 'تسجيل الدخول',
+      'Register': 'تسجيل حساب جديد',
 
       // Plant analysis page
       'Capture': 'التقاط بالكاميرا',

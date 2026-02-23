@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:myfarm/AppConfig.dart';
+import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/routes/app_pages.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           locale: Get.deviceLocale,
           fallbackLocale: const Locale('en'),
           initialBinding: InitialBinding(),
-          initialRoute: '/splashBody',
+          initialRoute: '/splash',
           getPages: AppPages.pages,
         );
       },

@@ -27,7 +27,7 @@ class _UserTypeSelectionPageBodyState extends State<UserTypeSelectionPageBody> {
         Column(
           children: [
             SizedBox(height: 80.h),
-            AppTextView(text: 'Please_select_user_type'.tr),
+            AppText(text: 'Please_select_user_type'.tr),
             SizedBox(height: 20.h),
             Expanded(
               child: Padding(
@@ -62,9 +62,10 @@ class _UserTypeSelectionPageBodyState extends State<UserTypeSelectionPageBody> {
               controller: controller.selectedType == null
                   ? null
                   : controller.onConfirm,
-                  backgroundColor: controller.selectedType == null ? Colors.white.withOpacity(0.2) // شفاف 
+              backgroundColor: controller.selectedType == null
+                  ? Colors.white.withOpacity(0.2) // شفاف
                   : ColorPalette.kButtonColor,
-              child: AppTextView(text: 'Continue'.tr, color: Colors.white),
+              child: AppText(text: 'Continue'.tr, color: Colors.white),
             ),
 
             SizedBox(height: 200.h),

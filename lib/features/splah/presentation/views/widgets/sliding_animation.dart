@@ -14,11 +14,7 @@ class SlidingAnimation extends StatelessWidget {
       builder: (context, _) {
         return SlideTransition(
           position: slidingAnimation,
-          child: AppTextView(
-            text: 'My Farm',
-            color: Colors.white,
-            fontSize: 25.sp,
-          ),
+          child: AppText(text: 'My Farm', color: Colors.white, fontSize: 25.sp),
         );
       },
     );
