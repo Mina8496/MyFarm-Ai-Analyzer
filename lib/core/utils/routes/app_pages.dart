@@ -1,0 +1,55 @@
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
+import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
+import 'package:myfarm/features/login/presentation/view/login_page.dart';
+import 'package:myfarm/features/signup/presentation/Binding/signup_binding.dart';
+import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
+import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
+import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
+import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home_shell.dart';
+import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
+import 'package:myfarm/features/UserType/presentation/views/user_type_page.dart';
+
+class AppPages {
+  static final pages = [
+    GetPage(
+      name: '/splash',
+      page: () => const SplashView(),
+      transition: Transition.leftToRight,
+    ),
+    GetPage(
+      name: '/onboarding',
+      page: () => const OnboardingPage(),
+      binding: OnboardingBinding(),
+      transition: Transition.leftToRight,
+    ),
+
+    GetPage(
+      name: '/user_type',
+      page: () => UserTypeSelectionPage(),
+      transition: Transition.leftToRight,
+    ),
+    GetPage(
+      name: '/homeMain',
+      page: () => HomeMainShell(),
+      transition: Transition.upToDown,
+    ),
+    GetPage(
+      name: '/login',
+      page: () => LoginPage(),
+      transition: Transition.leftToRight,
+    ),
+    GetPage(
+      name: '/signup',
+      page: () => const SignupPage(),
+      binding: SignupBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/plant-analysis',
+      page: () => const PlantAnalysisPage(),
+      binding: PlantAnalysisBinding(),
+    ),
+  ];
+}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SingleButton extends StatelessWidget {
-  SingleButton({
+  const SingleButton({
     super.key,
     required this.text,
     required this.onPressed,

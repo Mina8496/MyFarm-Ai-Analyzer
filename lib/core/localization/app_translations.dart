@@ -34,6 +34,7 @@ class AppTranslations extends Translations {
       'Farm Owner': 'Farm Owner',
       'Doctor': 'Doctor',
       'Engineer': 'Engineer',
+      'Route_not_found': 'Route not found',
 
       // Login And Sign up
       'Create_Account': 'Create Account',
@@ -59,7 +60,12 @@ class AppTranslations extends Translations {
       'Name_required': 'Name is required',
       'Do_you_have_account': 'Do you have an account?',
       'Login': 'Login',
+      'Welcome': 'Welcome You\'ve Been !',
       'Register': 'Register',
+      'Please_enter_following_information':
+          'Please enter the following information.',
+      'EnterYourEmail': 'Enter your email',
+      'forget_your_password': 'Do you forget your password?',
 
       // Plant analysis page
       'Capture': 'Capture with Camera',
@@ -122,6 +128,7 @@ class AppTranslations extends Translations {
       'Farm Owner': 'مالك مزرعة',
       'Doctor': 'دكتور',
       'Engineer': 'مهندس',
+      'Route_not_found': 'الروت غير موجود',
 
       // Login And Sign up
       'Create_Account': 'انشاء حساب',
@@ -140,13 +147,16 @@ class AppTranslations extends Translations {
       'Location_service_not_enabled': 'خدمة الموقع غير مفعلة',
       'permission_denied': 'تم رفض الإذن',
       'error_occurred_while_determining_location': 'حدث خطأ أثناء تحديد الموقع',
-      'Log_in': 'تسجيل الدخول',
       'Enter_valid_name': 'أدخل اسمًا صالحًا',
       'Name_too_short': 'الاسم قصير جداً',
       'Name_required': 'الاسم مطلوب',
       'Do_you_have_account': 'هل لديك حساب؟',
       'Login': 'تسجيل الدخول',
       'Register': 'تسجيل حساب جديد',
+      'Welcome': 'أهلاً وسهلاً بك!',
+      'Please_enter_following_information': 'يرجي إدخال البيانات التاليه',
+      'EnterYourEmail': 'ادخل بريدك الإلكترونى',
+      'forget_your_password': 'هل نسيت كلمة المرور الخاصة بك؟',
 
       // Plant analysis page
       'Capture': 'التقاط بالكاميرا',

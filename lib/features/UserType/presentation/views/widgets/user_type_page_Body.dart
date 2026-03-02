@@ -27,7 +27,7 @@ class _UserTypeSelectionPageBodyState extends State<UserTypeSelectionPageBody> {
         Column(
           children: [
             SizedBox(height: 80.h),
-            AppText(text: 'Please_select_user_type'.tr),
+            AppText(text: 'Please_select_user_type'.tr, color: Colors.white),
             SizedBox(height: 20.h),
             Expanded(
               child: Padding(

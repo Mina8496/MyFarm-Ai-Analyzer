@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/features/boarding/presentation/controllers/controller_onboarding.dart';
-import 'package:myfarm/core/widgets/button_content.dart';
+import 'package:myfarm/features/auth/presentation/widgets/button_content.dart';
 import 'package:myfarm/features/boarding/presentation/views/widgets/Page_View_OnBoarding.dart';
 
 class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
@@ -30,6 +30,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       controller: controller.previousPage,
                       child: ButtonContent(
                         text: 'Back'.tr,
+                        col: Colors.white,
                         icon: Icons.arrow_back_ios,
                         iconFirst: true,
                       ),
@@ -39,6 +40,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       controller: controller.startApp,
                       child: ButtonContent(
                         text: 'Start'.tr,
+                        col: Colors.white,
                         icon: Icons.arrow_forward_ios,
                       ),
                     ),
@@ -50,6 +52,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                 controller: controller.nextPage,
                 child: ButtonContent(
                   text: controller.nextTitle,
+                  col: Colors.white,
                   icon: Icons.arrow_forward_ios,
                 ),
               );

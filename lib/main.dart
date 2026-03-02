@@ -6,7 +6,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
-import 'package:myfarm/core/routes/app_pages.dart';
+import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
 
 void main() {
@@ -23,13 +23,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Color.fromARGB(255, 56, 147, 59),
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
-      ),
-    );
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -42,7 +35,6 @@ class MyApp extends StatelessWidget {
           ),
           translations: AppTranslations(),
           locale: Get.deviceLocale,
-          fallbackLocale: const Locale('en'),
           initialBinding: InitialBinding(),
           initialRoute: '/splash',
           getPages: AppPages.pages,
