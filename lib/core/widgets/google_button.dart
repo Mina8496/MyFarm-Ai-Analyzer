@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart' as fontawesome;
 import 'package:myfarm/core/widgets/app_Button.dart';
-import 'package:myfarm/features/auth/presentation/widgets/button_content.dart';
+import 'package:myfarm/core/widgets/button_content.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({super.key});
@@ -9,11 +9,11 @@ class GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppButton(
-      controller: () async {
+      onTap: () async {
         // Google SignIn
       },
       backgroundColor: Colors.white,
-      child: ButtonContent(
+      textApp: ButtonContent(
         text: "Continue with Google",
         col: Colors.black,
         icon: fontawesome.FontAwesomeIcons.google,

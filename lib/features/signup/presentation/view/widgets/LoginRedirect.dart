@@ -10,7 +10,7 @@ class LoginRedirect extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButtonLoginAndSignin(
       onPressed: () {
-        Get.toNamed('/login', );
+        Get.toNamed('/login');
       },
       textTitle: 'Do_you_have_account'.tr,
       textbutton: 'Login'.tr,

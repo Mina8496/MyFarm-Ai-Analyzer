@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
+import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/login/presentation/view/login_page.dart';
 import 'package:myfarm/features/signup/presentation/Binding/signup_binding.dart';
@@ -22,7 +23,7 @@ class AppPages {
       name: '/onboarding',
       page: () => const OnboardingPage(),
       binding: OnboardingBinding(),
-      transition: Transition.leftToRight,
+      transition: Transition.rightToLeft,
     ),
 
     GetPage(
@@ -38,13 +39,18 @@ class AppPages {
     GetPage(
       name: '/login',
       page: () => LoginPage(),
-      transition: Transition.leftToRight,
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: '/signup',
       page: () => const SignupPage(),
       binding: SignupBinding(),
       transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/forgetpassword',
+      page: () => const ForgetPassword(),
+      transition: Transition.topLevel,
     ),
     GetPage(
       name: '/plant-analysis',

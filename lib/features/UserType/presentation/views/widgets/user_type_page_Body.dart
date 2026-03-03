@@ -59,13 +59,13 @@ class _UserTypeSelectionPageBodyState extends State<UserTypeSelectionPageBody> {
             SizedBox(height: 60.h),
 
             AppButton(
-              controller: controller.selectedType == null
+              onTap: controller.selectedType == null
                   ? null
                   : controller.onConfirm,
               backgroundColor: controller.selectedType == null
                   ? Colors.white.withOpacity(0.2) // شفاف
                   : ColorPalette.kButtonColor,
-              child: AppText(text: 'Continue'.tr, color: Colors.white),
+              textApp: AppText(text: 'Continue'.tr, color: Colors.white),
             ),
 
             SizedBox(height: 200.h),

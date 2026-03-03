@@ -43,7 +43,7 @@ class AppTranslations extends Translations {
       'Full_Name': 'Full Name',
       'Email_Address': 'Email Address',
       'Phone_required': 'Phone Required',
-      'Email required': 'Email Required',
+      'Email_required': 'Email Required',
       'Enter_valid_email': 'Enter valid email',
       'Password_must': 'Password must be 6+ chars',
       'Phone_Number': 'Phone Number',
@@ -66,6 +66,10 @@ class AppTranslations extends Translations {
           'Please enter the following information.',
       'EnterYourEmail': 'Enter your email',
       'forget_your_password': 'Do you forget your password?',
+
+      // forget Password page
+      'Account_recovery': 'Account recovery',
+      'Sending_requires_confirmation': 'ارسال بريد تاكيد',
 
       // Plant analysis page
       'Capture': 'Capture with Camera',
@@ -157,6 +161,10 @@ class AppTranslations extends Translations {
       'Please_enter_following_information': 'يرجي إدخال البيانات التاليه',
       'EnterYourEmail': 'ادخل بريدك الإلكترونى',
       'forget_your_password': 'هل نسيت كلمة المرور الخاصة بك؟',
+
+      // forget Password page
+      'Account_recovery': 'استعادة الحساب',
+      'Sending_requires_confirmation': 'ارسال بريد تاكيد',
 
       // Plant analysis page
       'Capture': 'التقاط بالكاميرا',

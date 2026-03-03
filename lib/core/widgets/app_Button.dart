@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 
 class AppButton extends StatelessWidget {
-  final GestureTapCallback? controller;
-  final Widget child;
+  final GestureTapCallback? onTap;
+  final Widget textApp;
   final Color? backgroundColor;
 
   const AppButton({
     super.key,
-    required this.controller,
-    required this.child,
+    this.onTap,
+    required this.textApp,
     this.backgroundColor,
   });
 
@@ -19,7 +19,7 @@ class AppButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: controller,
+        onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
           decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class AppButton extends StatelessWidget {
               ),
             ],
           ),
-          child: child,
+          child: textApp,
         ),
       ),
     );

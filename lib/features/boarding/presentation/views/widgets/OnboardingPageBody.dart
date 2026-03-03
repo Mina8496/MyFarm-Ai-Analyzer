@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/features/boarding/presentation/controllers/controller_onboarding.dart';
-import 'package:myfarm/features/auth/presentation/widgets/button_content.dart';
+import 'package:myfarm/core/widgets/button_content.dart';
 import 'package:myfarm/features/boarding/presentation/views/widgets/Page_View_OnBoarding.dart';
 
 class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
@@ -27,8 +27,8 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppButton(
-                      controller: controller.previousPage,
-                      child: ButtonContent(
+                      onTap: controller.previousPage,
+                      textApp: ButtonContent(
                         text: 'Back'.tr,
                         col: Colors.white,
                         icon: Icons.arrow_back_ios,
@@ -37,8 +37,8 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                     ),
                     SizedBox(width: 24.w),
                     AppButton(
-                      controller: controller.startApp,
-                      child: ButtonContent(
+                      onTap: controller.startApp,
+                      textApp: ButtonContent(
                         text: 'Start'.tr,
                         col: Colors.white,
                         icon: Icons.arrow_forward_ios,
@@ -49,8 +49,8 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
               }
 
               return AppButton(
-                controller: controller.nextPage,
-                child: ButtonContent(
+                onTap: controller.nextPage,
+                textApp: ButtonContent(
                   text: controller.nextTitle,
                   col: Colors.white,
                   icon: Icons.arrow_forward_ios,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:myfarm/features/auth/presentation/controller/location_controller.dart';
+import 'package:myfarm/features/signup/presentation/view/widgets/location_controller.dart';
 import 'package:myfarm/core/widgets/Input_field.dart';
 
 class LocationSignupField extends GetView<LocationController> {
