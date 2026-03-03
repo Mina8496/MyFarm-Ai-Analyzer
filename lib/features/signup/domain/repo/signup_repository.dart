@@ -1,5 +1,7 @@
-import 'package:myfarm/features/signup/auth/domain/entities/RegisterRequest.dart';
+import 'package:dartz/dartz.dart';
+import 'package:myfarm/core/errors/failure.dart';
+import 'package:myfarm/features/signup/domain/entities/signup_request.dart';
 
 abstract class SignupRepository {
-  Future<void> register(SignupRequest request);
+  Future<Either<Failure, SignupRequest>> register(SignupRequest request);
 }
