@@ -39,7 +39,11 @@ class LoginPageBody extends GetView<LoginController> {
           /// Login Button
           Center(
             child: AppButton(
-              onTap: controller.isLoading.value ? null : controller.login,
+              onTap: () {
+                Get.toNamed("/homeMain");
+                // controller.loginWithBiometric;
+                // controller.isLoading.value ? null : controller.login;
+              },
               textApp: controller.isLoading.value
                   ? const CircularProgressIndicator()
                   : AppText(text: "Login".tr, color: Colors.white),

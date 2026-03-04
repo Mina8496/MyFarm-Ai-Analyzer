@@ -14,9 +14,21 @@ class SignupActionSection extends GetView<SignupController> {
     return Column(
       children: [
         AppButton(
-          onTap: controller.isLoading.value
-              ? null
-              : controller.onRegisterPressed,
+          onTap: () async {
+            if (controller.isLoading.value) return;
+
+            // bool registerSuccess = await controller.onRegisterPressed();
+
+            // if (registerSuccess) {
+            //   bool biometricEnabled = await controller
+            //       .enableBiometricAfterRegister();
+
+            //   if (biometricEnabled) {
+            //     final prefs = await SharedPreferences.getInstance();
+            //     await prefs.setBool("biometric_enabled", true);
+            //   }
+            // }
+          },
           textApp: controller.isLoading.value
               ? const CircularProgressIndicator()
               : AppText(text: "Register".tr, color: Colors.white),

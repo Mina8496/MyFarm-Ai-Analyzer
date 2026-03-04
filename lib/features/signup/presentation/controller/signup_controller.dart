@@ -11,7 +11,6 @@ class SignupController extends GetxController {
 
   var isPasswordHidden = true.obs;
   var isLoading = false.obs;
-  
 
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
@@ -63,17 +62,24 @@ class SignupController extends GetxController {
     return null;
   }
 
-  Future<void> onRegisterPressed() async {
-    if (!formKey.currentState!.validate()) return;
+  Future<bool> onRegisterPressed() async {
+    if (!formKey.currentState!.validate()) return false;
 
     try {
       isLoading.value = true;
 
-      // await registerUser(); // UseCase حقيقي
+      // await registerUser(); // نفّذ UseCase هنا
+      // await AppStorage.saveToken(token);
+      // await AppStorage.saveBiometricEnabled(true);
+      return true; // لو التسجيل نجح
+    } catch (e) {
+      return false;
     } finally {
       isLoading.value = false;
     }
   }
+
+ 
 
   @override
   void onClose() {

@@ -85,3 +85,36 @@ class _SplashViewBodyState extends State<SplashViewBody>
     });
   }
 }
+
+// ac
+// void goToNextView() {
+//   WidgetsBinding.instance.addPostFrameCallback((_) async {
+//     await Future.delayed(const Duration(seconds: 3));
+
+//     final token = await AppStorage.getToken();
+//     final biometricEnabled =
+//         await AppStorage.getBiometricEnabled() ?? false;
+
+//     if (!mounted) return;
+
+//     /// ❌ لا يوجد تسجيل دخول
+//     if (token == null) {
+//       Get.offAllNamed('/login');
+//       return;
+//     }
+
+//     /// ✅ يوجد تسجيل دخول
+//     if (biometricEnabled) {
+//       final authenticated =
+//           await BiometricService().authenticate();
+
+//       if (!authenticated) {
+//         Get.offAllNamed('/login');
+//         return;
+//       }
+//     }
+
+//     /// ✅ الدخول مباشرة للـ Home
+//     Get.offAllNamed('/homeMain');
+//   });
+// }

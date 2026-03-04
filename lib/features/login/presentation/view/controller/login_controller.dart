@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myfarm/core/services/biometric_service.dart';
 
 class LoginController extends GetxController with SingleGetTickerProviderMixin {
   // -------- Text Controllers --------
@@ -8,6 +9,9 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
 
   // -------- Form Key --------
   final formKey = GlobalKey<FormState>();
+  
+  // -------- Biometric --------
+  final BiometricService _biometricService = BiometricService();
 
   // -------- State --------
   final isPasswordHidden = true.obs;
@@ -84,8 +88,21 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
     isLoading.value = false;
 
     Get.snackbar('نجاح', 'تم تسجيل الدخول بنجاح');
-    // Get.offAllNamed('/home');
+
+    Get.offAllNamed('/home');
   }
+/// loginWithBiometric
+  Future<void> loginWithBiometric() async {
+  final authenticated = await _biometricService.authenticate();
+
+  if (!authenticated) return;
+
+  // هنا تنفذ تسجيل الدخول الحقيقي
+  // await loginUseCase.execute(
+  //   emailController.text,
+  //   passwordController.text,
+  // );
+}
 
   @override
   void onClose() {
