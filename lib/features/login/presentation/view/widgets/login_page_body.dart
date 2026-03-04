@@ -40,7 +40,7 @@ class LoginPageBody extends GetView<LoginController> {
           Center(
             child: AppButton(
               onTap: () {
-                Get.toNamed("/homeMain");
+                Get.toNamed("/home");
                 // controller.loginWithBiometric;
                 // controller.isLoading.value ? null : controller.login;
               },

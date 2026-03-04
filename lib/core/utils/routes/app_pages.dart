@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
 import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
@@ -7,8 +8,7 @@ import 'package:myfarm/features/login/presentation/view/login_page.dart';
 import 'package:myfarm/features/signup/presentation/Binding/signup_binding.dart';
 import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
 import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home_shell.dart';
+import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
 import 'package:myfarm/features/UserType/presentation/views/user_type_page.dart';
 
@@ -29,13 +29,20 @@ class AppPages {
     GetPage(
       name: '/user_type',
       page: () => UserTypeSelectionPage(),
-      transition: Transition.leftToRight,
+      transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: '/home',
+      page: () => HomePage(),
+      transition: Transition.upToDown,
+    ),
+    /*
     GetPage(
       name: '/homeMain',
       page: () => HomeMainShell(),
       transition: Transition.upToDown,
     ),
+    */
     GetPage(
       name: '/login',
       page: () => LoginPage(),

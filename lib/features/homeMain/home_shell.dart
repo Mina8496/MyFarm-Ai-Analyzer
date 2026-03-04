@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/PlantAnalysisPage.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Pages/home/home.dart';
+import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
+import 'package:myfarm/features/homeMain/home.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/image_classification/mango_leaf_disease_detection/tFLite_classifier_page.dart';
 
 class HomeMainShell extends StatefulWidget {
@@ -23,7 +23,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
   }
 
   final List<Widget> pages = const [
-    HomePage(),
+    HomePage2(),
     TFLiteClassifierPage(),
     PlantAnalysisPage(),
   ];
@@ -47,12 +47,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    ListTile(
-                      title: Text(
-                        'Are you sure you want to exit?'.tr,
-                        
-                      ),
-                    ),
+                    ListTile(title: Text('Are you sure you want to exit?'.tr)),
                     SizedBox(height: 10.h),
                     GestureDetector(
                       onTap: () => Navigator.pop(context, false),
@@ -63,12 +58,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                         ),
                         margin: EdgeInsets.symmetric(horizontal: 10.h),
                         height: 40.h,
-                        child: Center(
-                          child: Text(
-                            'NO'.tr,
-                            
-                          ),
-                        ),
+                        child: Center(child: Text('NO'.tr)),
                       ),
                     ),
                     SizedBox(height: 10.h),
@@ -81,12 +71,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
                         ),
                         margin: EdgeInsets.symmetric(horizontal: 10.h),
                         height: 40.h,
-                        child: Center(
-                          child: Text(
-                            'YES'.tr,
-                            
-                          ),
-                        ),
+                        child: Center(child: Text('YES'.tr)),
                       ),
                     ),
                   ],
