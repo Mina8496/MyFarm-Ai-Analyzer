@@ -21,7 +21,7 @@ class LoginPageBody extends GetView<LoginController> {
         children: [
           /// Header
           AppAuthHeader(
-            child: AppHeaderRichText(
+            title: AppHeaderRichText(
               title_1: 'Login'.tr,
               title_2: 'Welcome'.tr,
             ),

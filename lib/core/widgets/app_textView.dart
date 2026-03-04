@@ -7,6 +7,7 @@ class AppText extends StatelessWidget {
   Color? color;
   double? fontSize;
   TextAlign? textAlign;
+  dynamic fontWeight;
 
   AppText({
     super.key,
@@ -14,6 +15,7 @@ class AppText extends StatelessWidget {
     this.color,
     this.fontSize,
     this.textAlign,
+    this.fontWeight,
   });
 
   @override
@@ -26,7 +28,7 @@ class AppText extends StatelessWidget {
         style: TextStyle(
           color: color ?? Colors.black,
           fontSize: fontSize ?? 18.sp,
-          fontWeight: FontWeight.bold,
+          fontWeight: fontWeight ?? FontWeight.bold,
         ),
       ),
     );

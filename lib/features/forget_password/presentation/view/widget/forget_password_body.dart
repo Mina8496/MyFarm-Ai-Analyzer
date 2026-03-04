@@ -16,7 +16,7 @@ class ForgetPasswordBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AppAuthHeader(
-          child: AppHeaderRichText(title_1: "", title_2: "Account_recovery".tr),
+          title: AppHeaderRichText(title_1: "", title_2: "Account_recovery".tr),
         ),
         SizedBox(height: 25.h),
         AppText(text: "Email_required".tr, textAlign: TextAlign.start),

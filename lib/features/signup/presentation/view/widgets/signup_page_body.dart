@@ -21,7 +21,7 @@ class SignupPageBody extends GetView<SignupController> {
             /// Header
             AppAuthHeader(
               backgroundImage: AssetPaths.backGround_1,
-              child: AppHeaderRichText(
+              title: AppHeaderRichText(
                 title_1: 'Create_Account'.tr,
                 title_2: 'Let’s_Create_Account_Together'.tr,
               ),

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
 
 class AppAuthHeader extends StatelessWidget {
-  final Widget child;
+  final Widget title;
   final String? backgroundImage;
-  const AppAuthHeader({required this.child, this.backgroundImage, super.key});
+  const AppAuthHeader({required this.title, this.backgroundImage, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class AppAuthHeader extends StatelessWidget {
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(100.r)),
       ),
       alignment: Alignment.center,
-      child: child,
+      child: title,
     );
   }
 }
