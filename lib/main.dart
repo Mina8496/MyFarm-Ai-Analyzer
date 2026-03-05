@@ -23,14 +23,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(
-            scaffoldBackgroundColor: ColorPalette.kprimaryColor,
+            scaffoldBackgroundColor: AppColors.kPrimaryColor,
             useMaterial3: true,
           ),
           translations: AppTranslations(),

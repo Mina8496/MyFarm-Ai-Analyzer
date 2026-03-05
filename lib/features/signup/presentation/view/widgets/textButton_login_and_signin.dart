@@ -35,7 +35,7 @@ class TextButtonLoginAndSignin extends StatelessWidget {
             child: Text(
               textbutton,
               style: TextStyle(
-                color: ColorPalette.kButtonColor,
+                color: AppColors.kButtonColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 15.sp,
               ),

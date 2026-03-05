@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ColorPalette {
-  ColorPalette._();
+class AppColors {
+  AppColors._();
 
-  static const kprimaryColor = Color(0xFF7ECF74);
+  static const kPrimaryColor = Color(0xFF7ECF74);
   static const kButtonColor = Color(0xFF1F4E20);
+  static const kSecondaryColor = Colors.white;
 }

@@ -21,6 +21,7 @@ class WeatherCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(text: "24.c", fontSize: 24.sp),
                 AppText(

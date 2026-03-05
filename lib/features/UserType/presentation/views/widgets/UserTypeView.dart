@@ -5,11 +5,7 @@ import 'package:myfarm/features/UserType/presentation/viewModel/user_types.dart'
 import 'package:myfarm/features/UserType/presentation/views/widgets/UserTypeViewItem.dart';
 
 class UserTypeView extends StatelessWidget {
-  const UserTypeView({
-    super.key,
-    required this.isSelected,
-    required this.item,
-  });
+  const UserTypeView({super.key, required this.isSelected, required this.item});
 
   final bool isSelected;
   final UserType item;
@@ -19,12 +15,10 @@ class UserTypeView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: isSelected
-            ? ColorPalette.kButtonColor.withOpacity(1.0)
+            ? AppColors.kButtonColor.withOpacity(1.0)
             : Colors.white,
         borderRadius: BorderRadius.circular(15.r),
-        border: isSelected
-            ? Border.all(color: Colors.amber, width: 3)
-            : null,
+        border: isSelected ? Border.all(color: Colors.amber, width: 3) : null,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
