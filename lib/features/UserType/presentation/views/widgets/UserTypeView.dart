@@ -12,18 +12,24 @@ class UserTypeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
+      transform: Matrix4.identity()..scale(isSelected ? 1.05 : 1.0),
       decoration: BoxDecoration(
-        color: isSelected
-            ? AppColors.kButtonColor.withOpacity(1.0)
-            : Colors.white,
+        color: isSelected ? AppColors.kButtonColor : Colors.white,
         borderRadius: BorderRadius.circular(15.r),
-        border: isSelected ? Border.all(color: Colors.amber, width: 3) : null,
+        border: Border.all(
+          color: isSelected ? Colors.amber : Colors.transparent,
+          width: 3,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5.r,
-            offset: const Offset(5, 10),
+            color: isSelected
+                ? AppColors.kButtonColor.withOpacity(0.4)
+                : Colors.black.withOpacity(0.1),
+            blurRadius: isSelected ? 15 : 5,
+            offset: const Offset(0, 8),
           ),
         ],
       ),

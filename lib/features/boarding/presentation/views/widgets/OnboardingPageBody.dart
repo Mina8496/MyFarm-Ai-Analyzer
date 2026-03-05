@@ -37,7 +37,9 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                     ),
                     SizedBox(width: 24.w),
                     AppButton(
-                      onTap: controller.startApp,
+                      onTap: controller.isLoading.value
+                          ? null
+                          : controller.startApp,
                       textApp: ButtonContent(
                         text: 'Start'.tr,
                         col: Colors.white,

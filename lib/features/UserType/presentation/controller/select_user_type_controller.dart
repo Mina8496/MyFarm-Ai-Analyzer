@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/UserType/presentation/viewModel/user_types.dart';
 
 class SelectUserTypeController extends GetxController {
-  String? selectedType;
+  RxnString selectedType = RxnString();
 
   /////////////////////////// userTypes ////////////////////////////
   final List<UserType> userTypes = [
@@ -41,9 +40,14 @@ class SelectUserTypeController extends GetxController {
     ),
   ];
   // Function to handle confirmation of selected user type
+
+  void selectType(String type) {
+    selectedType.value = type;
+  }
+
   void onConfirm() {
     final selected = userTypes.firstWhereOrNull(
-      (element) => element.code == selectedType,
+      (element) => element.code == selectedType.value,
     );
 
     // لو مفيش اختيار

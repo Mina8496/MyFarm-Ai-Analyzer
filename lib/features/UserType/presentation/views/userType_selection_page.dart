@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myfarm/features/UserType/presentation/views/widgets/user_type_page_Body.dart';
+import 'package:myfarm/features/UserType/presentation/views/widgets/userType_selection_page_body.dart';
 
 class UserTypeSelectionPage extends StatefulWidget {
   const UserTypeSelectionPage({super.key});
