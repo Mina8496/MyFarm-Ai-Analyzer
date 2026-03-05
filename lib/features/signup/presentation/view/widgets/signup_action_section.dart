@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
@@ -35,6 +36,7 @@ class SignupActionSection extends GetView<SignupController> {
         ),
         GoogleButton(),
         LoginRedirect(),
+        SizedBox(height: 20.h),
       ],
     );
   }
