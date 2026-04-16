@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:myfarm/features/Home/presentation/view/Binding/Home_Binding.dart';
 import 'package:myfarm/features/Home/presentation/view/Binding/PlantTipsBinding.dart';
 import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/plantTips.dart';
@@ -35,6 +36,7 @@ class AppPages {
     GetPage(
       name: '/home',
       page: () => HomePage(),
+      binding: HomeBinding(),
       transition: Transition.upToDown,
     ),
     /*

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,9 +9,9 @@ import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   AppConfig.lang =
       WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 

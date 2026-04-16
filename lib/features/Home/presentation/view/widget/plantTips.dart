@@ -21,6 +21,8 @@ class PlantTips extends StatelessWidget {
       return RefreshIndicator(
         onRefresh: () async => await controller.fetchTips(),
         child: ListView.builder(
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: controller.tips.length,
           itemBuilder: (context, index) {
             final tip = controller.tips[index];
@@ -31,6 +33,9 @@ class PlantTips extends StatelessWidget {
               },
               child: Card(
                 elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 margin: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,6 +49,19 @@ class PlantTips extends StatelessWidget {
                         height: 180,
                         width: double.infinity,
                         fit: BoxFit.cover,
+                        loadingBuilder: (context, child, progress) {
+                          if (progress == null) return child;
+                          return const SizedBox(
+                            height: 180,
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const SizedBox(
+                            height: 180,
+                            child: Center(child: Icon(Icons.error)),
+                          );
+                        },
                       ),
                     ),
                     Padding(
