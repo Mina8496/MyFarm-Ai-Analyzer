@@ -8,8 +8,10 @@ class PlantTips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      PlantTipsController controller = Get.find();
-
+      final controller = Get.find<PlantTipsController>();
+      if (controller.tips.isEmpty) {
+        return const Center(child: Text("تاكد من الاتصال بالانترنت"));
+      }
       return ListView.builder(
         shrinkWrap: true,
         physics: const AlwaysScrollableScrollPhysics(),

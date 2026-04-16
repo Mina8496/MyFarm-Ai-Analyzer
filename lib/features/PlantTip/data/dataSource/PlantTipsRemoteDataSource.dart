@@ -6,9 +6,6 @@ class PlantTipsRemoteDataSource {
 
   PlantTipsRemoteDataSource(this.firestore);
 
-  Future<void> addPlantTip(PlantTipModel model) async {
-    await firestore.collection('plantTips').add(model.toJson());
-  }
 
   Stream<List<PlantTipModel>> getPlantTips() {
     return firestore.collection('plantTips').snapshots().map((snapshot) {
