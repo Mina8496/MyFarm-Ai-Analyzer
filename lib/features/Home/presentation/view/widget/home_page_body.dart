@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
 import 'package:myfarm/core/widgets/app_header_rich_text.dart';
-import 'package:myfarm/features/Home/presentation/view/widget/plantTips.dart';
+import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/weather_card.dart';
 
 class HomePageBody extends StatelessWidget {
@@ -23,7 +23,7 @@ class HomePageBody extends StatelessWidget {
             ),
 
             SizedBox(height: 50.h),
-            Expanded(child: PlantTips()),
+            Expanded(child: PlantTipsWidget()),
           ],
         ),
         Positioned(top: 200, left: 29, right: 29, child: const WeatherCard()),
