@@ -1,35 +1,32 @@
 import 'dart:async';
-import 'package:get/get.dart';
+
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:myfarm/features/PlantTip/data/service/PlantTips_rotation_service.dart';
 import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
 import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
 
 class PlantTipsController extends GetxController {
   final PlantTipsRepository repository;
-  PlantTipsController(this.repository);
+  final PlantTipsRotationService rotationService;
+
+  PlantTipsController(this.repository, this.rotationService);
 
   var tips = <PlantTip>[].obs;
-
   var visibleTips = <PlantTip>[].obs;
 
-  int _currentIndex = 0;
   Timer? _timer;
-
   late final StreamSubscription sub;
 
   @override
   void onInit() {
     super.onInit();
 
-    sub = repository.getPlantTips().listen(
-      (data) {
-        tips.value = data;
+    sub = repository.getPlantTips().listen((data) {
+      tips.value = data;
 
-        _startRotation();
-      },
-      onError: (e) {
-        print(e);
-      },
-    );
+      _startRotation();
+    });
   }
 
   void _startRotation() {
@@ -40,26 +37,15 @@ class PlantTipsController extends GetxController {
       return;
     }
 
-    _updateVisible();
+    _update();
 
     _timer = Timer.periodic(const Duration(minutes: 1), (_) {
-      _updateVisible();
+      _update();
     });
   }
 
-  void _updateVisible() {
-    if (tips.isEmpty) return;
-
-    final start = _currentIndex;
-    final end = (_currentIndex + 2) % tips.length;
-
-    if (end > start) {
-      visibleTips.value = tips.sublist(start, end);
-    } else {
-      visibleTips.value = [...tips.sublist(start), ...tips.sublist(0, end)];
-    }
-
-    _currentIndex = (_currentIndex + 2) % tips.length;
+  void _update() {
+    visibleTips.value = rotationService.getNext(tips);
   }
 
   @override

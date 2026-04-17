@@ -8,6 +8,8 @@ class AppText extends StatelessWidget {
   double? fontSize;
   TextAlign? textAlign;
   dynamic fontWeight;
+  int? maxLines;
+  TextOverflow? overflow;
 
   AppText({
     super.key,
@@ -16,6 +18,8 @@ class AppText extends StatelessWidget {
     this.fontSize,
     this.textAlign,
     this.fontWeight,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
@@ -25,6 +29,10 @@ class AppText extends StatelessWidget {
       child: Text(
         text!,
         textAlign: textAlign ?? TextAlign.center,
+        maxLines: maxLines,
+        overflow: overflow = maxLines != null
+            ? TextOverflow.ellipsis
+            : TextOverflow.visible,
         style: TextStyle(
           color: color ?? Colors.black,
           fontSize: fontSize ?? 18.sp,

@@ -16,27 +16,29 @@ class PlantTipCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.all(10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ViewImageInPlantTips(tip: tip),
 
           Padding(
             padding: const EdgeInsets.all(8),
-            child: AppText(
-              text: tip.title,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
+            child: Center(
+              child: AppText(
+                text: tip.title,
+                textAlign: TextAlign.center,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              tip.description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
+          AppText(
+            text: tip.description,
+            fontSize: 14.sp,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
+          SizedBox(height: 18.h),
         ],
       ),
     );

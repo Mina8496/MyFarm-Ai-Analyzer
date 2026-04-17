@@ -15,6 +15,6 @@ class PlantTipsBinding extends Bindings {
     Get.lazyPut<PlantTipsRepository>(() => PlantTipsRepositoryImpl(Get.find()));
 
     /// Controller
-    Get.lazyPut(() => PlantTipsController(Get.find()));
+    Get.lazyPut(() => PlantTipsController(Get.find(), Get.find()));
   }
 }
