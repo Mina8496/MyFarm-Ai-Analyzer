@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
 import 'package:myfarm/features/PlantTip/presentation/View/plantTip_Card.dart';
 
 class PlantTipsWidget extends StatelessWidget {
-  final List tips;
+  final List<PlantTip> tips;
 
   const PlantTipsWidget({super.key, this.tips = const []});
 

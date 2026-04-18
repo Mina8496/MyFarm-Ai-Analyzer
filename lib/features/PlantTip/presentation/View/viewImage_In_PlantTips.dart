@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
 
-
 class ViewImageInPlantTips extends StatelessWidget {
-  const ViewImageInPlantTips({
-    super.key,
-    required this.tip,
-  });
+  const ViewImageInPlantTips({super.key, required this.tip});
 
   final PlantTip tip;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       child: Image.network(
         tip.imageUrl,
         height: 180,
         width: double.infinity,
         fit: BoxFit.cover,
-    
+
         // أثناء التحميل
         loadingBuilder: (context, child, progress) {
           if (progress == null) return child;
@@ -32,7 +26,7 @@ class ViewImageInPlantTips extends StatelessWidget {
             child: const Center(child: CircularProgressIndicator()),
           );
         },
-    
+
         // في حالة الخطأ (صورة مش موجودة / رابط غلط)
         errorBuilder: (context, error, stackTrace) {
           return Container(

@@ -14,6 +14,7 @@ class PlantTipsController extends GetxController {
 
   var tips = <PlantTip>[].obs;
   var visibleTips = <PlantTip>[].obs;
+  var isLoading = true.obs;
 
   Timer? _timer;
   late final StreamSubscription sub;
@@ -24,7 +25,7 @@ class PlantTipsController extends GetxController {
 
     sub = repository.getPlantTips().listen((data) {
       tips.value = data;
-
+isLoading.value = false;
       _startRotation();
     });
   }
