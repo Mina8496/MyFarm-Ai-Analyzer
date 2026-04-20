@@ -1,17 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myfarm/core/services/firestore_service.dart';
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
 
 class PlantTipsRemoteDataSource {
-  final FirebaseFirestore firestore;
+  final FirestoreService<PlantTipModel> service;
 
-  PlantTipsRemoteDataSource(this.firestore);
-
+  PlantTipsRemoteDataSource(this.service);
 
   Stream<List<PlantTipModel>> getPlantTips() {
-    return firestore.collection('plantTips').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return PlantTipModel.fromJson(doc.data(), doc.id);
-      }).toList();
-    });
+    return service.getData(
+      collectionName: 'plantTips',
+      fromJson: (json, id) => PlantTipModel.fromJson(json, id),
+    );
   }
 }

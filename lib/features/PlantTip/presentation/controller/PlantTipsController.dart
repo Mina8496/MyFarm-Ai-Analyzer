@@ -25,7 +25,7 @@ class PlantTipsController extends GetxController {
 
     sub = repository.getPlantTips().listen((data) {
       tips.value = data;
-isLoading.value = false;
+      isLoading.value = false;
       _startRotation();
     });
   }
