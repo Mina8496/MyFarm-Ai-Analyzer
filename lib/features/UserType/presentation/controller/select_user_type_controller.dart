@@ -12,31 +12,31 @@ class SelectUserTypeController extends GetxController {
       title: 'Farmer'.tr,
       image: 'assets/usertype/flah.avif',
       code: 'farmer',
-      route: '/signup',
+      route: '/SubPage',
     ),
     UserType(
       title: 'Supervisor'.tr,
       image: 'assets/usertype/moshraf.avif',
       code: 'supervisor',
-      route: '/signup',
+      route: '/SubPage',
     ),
     UserType(
       title: 'Farm Owner'.tr,
       image: 'assets/usertype/owner.avif',
       code: 'owner',
-      route: '/login',
+      route: '/SubPage',
     ),
     UserType(
       title: 'Doctor'.tr,
       image: 'assets/usertype/Doctor.avif',
       code: 'doctor',
-      route: '/signup',
+      route: '/SubPage',
     ),
     UserType(
       title: 'Engineer'.tr,
       image: 'assets/usertype/engner.avif',
       code: 'engineer',
-      route: '/signup',
+      route: '/SubPage',
     ),
   ];
   // Function to handle confirmation of selected user type

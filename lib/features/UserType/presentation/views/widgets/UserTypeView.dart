@@ -17,7 +17,7 @@ class UserTypeView extends StatelessWidget {
       curve: Curves.easeOut,
       transform: Matrix4.identity()..scale(isSelected ? 1.05 : 1.0),
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.kButtonColor : Colors.white,
+        color: isSelected ? ColorPalette.kkPrimaryGreen : Colors.white,
         borderRadius: BorderRadius.circular(15.r),
         border: Border.all(
           color: isSelected ? Colors.amber : Colors.transparent,
@@ -26,7 +26,7 @@ class UserTypeView extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isSelected
-                ? AppColors.kButtonColor.withOpacity(0.4)
+                ? ColorPalette.kkPrimaryGreen.withOpacity(0.4)
                 : Colors.black.withOpacity(0.1),
             blurRadius: isSelected ? 15 : 5,
             offset: const Offset(0, 8),

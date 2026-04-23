@@ -23,13 +23,13 @@ class HomePage extends StatelessWidget {
       return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.kButtonColor,
+          backgroundColor: ColorPalette.kkPrimaryGreen,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           onPressed: () => controller.changePage(2),
           child: Card(
-            color: AppColors.kButtonColor,
+            color: ColorPalette.kkPrimaryGreen,
             child: const Icon(
               Icons.qr_code_scanner,
               color: Colors.white,

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(
-            scaffoldBackgroundColor: AppColors.kPrimaryColor,
+            scaffoldBackgroundColor: ColorPalette.kPrimaryColor,
             useMaterial3: true,
           ),
           translations: AppTranslations(),

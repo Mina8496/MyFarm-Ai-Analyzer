@@ -51,7 +51,7 @@ class ActionSectionUserTypePage extends StatelessWidget {
                       }
                     : null,
                 backgroundColor: isEnabled
-                    ? AppColors.kButtonColor
+                    ? ColorPalette.kkPrimaryGreen
                     : Colors.grey.shade400,
                 textApp: AppText(text: 'Continue'.tr, color: Colors.white),
               ),

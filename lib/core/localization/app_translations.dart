@@ -71,6 +71,26 @@ class AppTranslations extends Translations {
       'Account_recovery': 'Account recovery',
       'Sending_requires_confirmation': 'ارسال بريد تاكيد',
 
+      // Subscription_Paywall
+      'Unlimited_Access': 'Unlimited Access',
+      'Access_AI': 'Access the most advanced AI assistant',
+      'FEATURED_IN': 'free',
+      'COUNTRIES': '30 days',
+      'APP_OF_THE': 'APP OF THE',
+      'month': 'month #1',
+      'Ads_Free': 'Ads Free!',
+      'Unlimited_AI': 'Unlimited AI Generations',
+      'Unlimited_Pro': 'Discover plant diseases without limits',
+      'plant_care': 'A smart step-by-step guide to plant care',
+      'Weekly': 'Weekly',
+      'week': '/ week',
+      'Yearly': 'Yearly',
+      '/ year': '/ year',
+      'Unlock_Access': 'Unlock Access',
+      'free_trial': 'start 30 days free trial',
+      'Terms of use | Privacy Policy | Restore':
+          'Terms of use | Privacy Policy',
+
       // Plant analysis page
       'Capture': 'Capture with Camera',
       'Pick': 'Pick from Gallery',
@@ -165,6 +185,26 @@ class AppTranslations extends Translations {
       // forget Password page
       'Account_recovery': 'استعادة الحساب',
       'Sending_requires_confirmation': 'ارسال بريد تاكيد',
+
+      // Subscription_Paywall
+      'Unlimited_Access': 'وصول غير محدود',
+      'Access_AI': 'الوصول إلى أكثر مساعد الذكاء الاصطناعي تقدمًا',
+      'FEATURED_IN': 'مجانا',
+      'COUNTRIES': '30 يوم',
+      'APP_OF_THE': 'تطبيق',
+      'month': 'الشهر رقم 1',
+      'Ads_Free': 'بدون إعلانات!',
+      'Unlimited_AI': 'توليدات ذكاء اصطناعي غير محدودة',
+      'Unlimited_Pro': 'اكتشف امراض النباتات بلا حدود',
+      'plant_care': 'دليل ذكي خطوة بخطوة للعناية بالنباتات',
+      'Weekly': 'أسبوعي',
+      'week': '/ أسبوع',
+      'Yearly': 'سنوي',
+      '/ year': '/ سنة',
+      'Unlock_Access': 'افتح الوصول',
+      'free_trial': 'ابدأ تجربة مجانية لمدة 30 يومًا',
+      'Terms of use | Privacy Policy | Restore':
+          'شروط الاستخدام | سياسة الخصوصية',
 
       // Plant analysis page
       'Capture': 'التقاط بالكاميرا',
