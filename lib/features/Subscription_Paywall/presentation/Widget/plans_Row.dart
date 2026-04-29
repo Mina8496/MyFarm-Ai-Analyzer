@@ -22,7 +22,7 @@ class PlansRow extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => controller.selectPlan(e.key),
                   child: PlanCard(
-                    isSelected: controller.selectedIndex.value + 1 == e.key,
+                    isSelected: controller.selectedIndex.value == e.key,
                     plan: e.value,
                   ),
                 ),

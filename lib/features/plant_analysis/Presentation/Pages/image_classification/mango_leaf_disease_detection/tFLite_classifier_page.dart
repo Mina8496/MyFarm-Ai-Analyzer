@@ -11,7 +11,6 @@ import 'package:myfarm/features/plant_analysis/Presentation/widgets/custom_appba
 import 'package:myfarm/features/plant_analysis/data/model/classification_result.dart';
 import 'package:myfarm/features/plant_analysis/domain/image_classification/mango_leaf_disease_detection/classifier_service.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TFLiteClassifierPage extends StatefulWidget {
   const TFLiteClassifierPage({super.key});
@@ -626,22 +625,22 @@ class VideoPlayerScreen extends StatelessWidget {
         canPop: true,
         onPopInvoked: (didPop) {},
         child: Center(
-          child: YoutubePlayer(
-            controller: YoutubePlayerController(
-              initialVideoId: videoId,
-              flags: const YoutubePlayerFlags(
-                autoPlay: true,
-                mute: false,
-                enableCaption: true,
-              ),
-            ),
-            showVideoProgressIndicator: true,
-            progressIndicatorColor: Colors.red,
-            progressColors: ProgressBarColors(
-              playedColor: Colors.red.shade700,
-              handleColor: Colors.red.shade900,
-            ),
-          ),
+          // child: YoutubePlayer(
+          //   controller: YoutubePlayerController(
+          //     initialVideoId: videoId,
+          //     flags: const YoutubePlayerFlags(
+          //       autoPlay: true,
+          //       mute: false,
+          //       enableCaption: true,
+          //     ),
+          //   ),
+          //   showVideoProgressIndicator: true,
+          //   progressIndicatorColor: Colors.red,
+          //   progressColors: ProgressBarColors(
+          //     playedColor: Colors.red.shade700,
+          //     handleColor: Colors.red.shade900,
+          //   ),
+          // ),
         ),
       ),
     );

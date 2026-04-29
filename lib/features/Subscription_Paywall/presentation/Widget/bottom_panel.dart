@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_planModel.dart';
@@ -49,6 +50,7 @@ class BottomPanel extends StatelessWidget {
             SizedBox(height: 25.h),
 
             SubscribeButton(
+              onTap: () {},
               text: "Unlock_Access".tr,
               linearGradient: const LinearGradient(
                 colors: [
@@ -58,6 +60,7 @@ class BottomPanel extends StatelessWidget {
               ),
             ),
             SubscribeButton(
+              onTap: () => Get.toNamed('/signup'),
               text: "free_trial".tr,
               color: Colors.grey,
             ),

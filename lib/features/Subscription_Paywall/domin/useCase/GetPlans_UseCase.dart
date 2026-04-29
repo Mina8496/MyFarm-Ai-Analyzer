@@ -4,12 +4,16 @@ import 'package:myfarm/features/Subscription_Paywall/domin/Entity/SubscriptionPl
 class GetPlansUseCase {
   List<SubscriptionPlan> call() {
     return [
-      SubscriptionPlan(title: "Weekly".tr, price: "299.99 ج", duration: "week".tr),
       SubscriptionPlan(
         title: "Yearly".tr,
         price: "1199.99 ج",
         duration: "/ year".tr,
         isBestOffer: true,
+      ),
+      SubscriptionPlan(
+        title: "Weekly".tr,
+        price: "299.99 ج",
+        duration: "week".tr,
       ),
     ];
   }
