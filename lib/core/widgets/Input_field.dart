@@ -20,7 +20,7 @@ class InputField extends StatelessWidget {
     required this.validator,
     this.onTap,
     this.readOnly = false,
-    this.keyboardType,
+    required this.keyboardType,
     this.suffixIcon,
   });
 

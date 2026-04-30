@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
-import 'package:myfarm/features/signup/manger/featured_signup_cubit/signup_cubit.dart';
+import 'package:myfarm/features/signup/manger/signup_cubit/signup_cubit.dart';
 import 'package:myfarm/features/signup/presentation/controller/signup_controller.dart';
 import 'package:myfarm/core/widgets/app_header_rich_text.dart';
 import 'package:myfarm/features/signup/presentation/view/widgets/signup_action_section.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:myfarm/core/widgets/Validators.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/core/widgets/app_text_feild.dart';
 import 'package:myfarm/features/signup/presentation/controller/signup_controller.dart';
@@ -19,7 +19,8 @@ class PasswordField extends GetView<SignupController> {
           () => AppTextField(
             controller: controller.passwordController,
             obscureText: controller.isPasswordHidden.value,
-            validator: controller.validatePassword,
+            validator: Validators.password,
+            keyboardType: TextInputType.visiblePassword,
             suffixIcon: IconButton(
               icon: Icon(
                 controller.isPasswordHidden.value

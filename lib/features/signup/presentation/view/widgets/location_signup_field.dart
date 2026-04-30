@@ -16,6 +16,7 @@ class LocationSignupField extends GetView<LocationController> {
       controller: controller.locationTextController,
       onTap: controller.onLocationTapped,
       readOnly: true,
+      keyboardType: TextInputType.text,
     );
   }
 }
