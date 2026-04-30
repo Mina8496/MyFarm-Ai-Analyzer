@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/function/setup_signup_dependencies.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
@@ -12,6 +13,7 @@ import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBindi
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  setupSignupDependencies();
   AppConfig.lang =
       WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 
