@@ -1,5 +1,4 @@
-
-import 'package:myfarm/features/signup/domain/entities/user.dart';
+import 'package:myfarm/features/signup/domain/entities/signup_user.dart';
 
 class UserModel {
   final String id;
@@ -16,7 +15,7 @@ class UserModel {
     required this.location,
   });
 
-  User toEntity() => User(
+  SignupUser toEntity() => SignupUser(
     id: id,
     email: email,
     name: name,

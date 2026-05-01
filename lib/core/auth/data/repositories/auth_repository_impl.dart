@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:myfarm/core/auth/domain/entities/auth_user.dart';
 import 'package:myfarm/core/auth/domain/repositories/auth_repository.dart';
+import 'package:myfarm/core/errors/firebase_exception_mapper.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final fb.FirebaseAuth auth;
@@ -13,8 +14,13 @@ class AuthRepositoryImpl implements AuthRepository {
       return AuthUser(id: user.uid, email: user.email!);
     });
   }
-  
-@override
-  Future<void> logout() => auth.signOut();
-  
+
+  @override
+  Future<void> logout() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      throw FirebaseExceptionMapper.map(e);
+    }
+  }
 }
