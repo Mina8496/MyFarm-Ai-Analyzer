@@ -1,7 +1,14 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+
+// Auth
+import 'package:myfarm/core/auth/data/repositories/auth_repository_impl.dart';
+import 'package:myfarm/core/auth/domain/repositories/auth_repository.dart';
+import 'package:myfarm/core/auth/domain/usecases/get_auth_state_usecase.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/services/onboarding_service.dart';
+import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 
 // Login
 import 'package:myfarm/features/login/data/datasources/login_remote_data_source.dart';
@@ -17,13 +24,25 @@ import 'package:myfarm/features/signup/domain/repo/signup_repository.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_usecase.dart';
 import 'package:myfarm/features/signup/manger/signup_cubit/signup_cubit.dart';
 
-
 final getIt = GetIt.instance;
 
 void setupDependencies() {
   _setupFirebase();
+  _setupAuth();
   _setupLogin();
   _setupSignup();
+}
+
+// ─── Auth ───────────────────────────────────────────────
+void _setupAuth() {
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => GetAuthStateUseCase(getIt()));
+  getIt.registerFactory(() => AuthCubit(getIt()));
+
+  getIt.registerLazySingleton(() => OnboardingService());
+  getIt.registerFactory(() => OnboardingCubit(getIt()));
 }
 
 // ─── Firebase ───────────────────────────────────────────
@@ -43,14 +62,10 @@ void _setupLogin() {
   );
 
   // Domain
-  getIt.registerLazySingleton(
-    () => LoginUseCase(getIt()),
-  );
+  getIt.registerLazySingleton(() => LoginUseCase(getIt()));
 
   // Presentation — registerFactory عشان كل شاشة تاخد instance جديدة
-  getIt.registerFactory(
-    () => LoginCubit(getIt()),
-  );
+  getIt.registerFactory(() => LoginCubit(getIt()));
 }
 
 // ─── Signup ─────────────────────────────────────────────
@@ -64,12 +79,8 @@ void _setupSignup() {
   );
 
   // Domain
-  getIt.registerLazySingleton(
-    () => SignupUseCase(getIt()),
-  );
+  getIt.registerLazySingleton(() => SignupUseCase(getIt()));
 
   // Presentation
-  getIt.registerFactory(
-    () => SignupCubit(getIt()),
-  );
+  getIt.registerFactory(() => SignupCubit(getIt()));
 }

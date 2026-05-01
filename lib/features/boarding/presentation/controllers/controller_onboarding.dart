@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/app_config.dart';
+import 'package:myfarm/core/function/injection_container.dart';
+import 'package:myfarm/core/services/onboarding_service.dart';
 import 'package:myfarm/features/boarding/presentation/viewModel/onboarding_repository.dart';
 import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ControllerOnboardingPage extends GetxController {
   final OnboardingRepository repository;
@@ -73,10 +74,8 @@ class ControllerOnboardingPage extends GetxController {
 
     isLoading.value = true;
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('seenOnboarding', true);
-
-    Get.offAllNamed('/user_type');
+    await getIt<OnboardingService>().markAsSeen();
+    Get.offAllNamed('/SubPage');
   }
 
   @override

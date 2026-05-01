@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:myfarm/core/storage/app_storage.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
 import 'package:myfarm/features/splah/presentation/views/widgets/sliding_animation.dart';
 
@@ -21,7 +18,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
     initSlidingAnimation();
-    goToNextView();
   }
 
   @override
@@ -67,54 +63,4 @@ class _SplashViewBodyState extends State<SplashViewBody>
     animationController.forward();
   }
 
-  void goToNextView() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(seconds: 3));
-
-      final userType = await AppStorage.getUserType();
-      if (!mounted) return;
-
-      if (userType == null) {
-        Get.offAllNamed('/onboarding'); // المستخدم لم يحدد نوعه بعد
-      } else {
-        Get.offAllNamed(
-          '/onboarding',
-        ); // المستخدم موجود، انتقل إلى صفحة البداية
-        // أو أي صفحة رئيسية أخرى مثل /homeMain حسب منطق التطبيق
-      }
-    });
-  }
 }
-
-// ac
-// void goToNextView() {
-//   WidgetsBinding.instance.addPostFrameCallback((_) async {
-//     await Future.delayed(const Duration(seconds: 3));
-
-//     final token = await AppStorage.getToken();
-//     final biometricEnabled =
-//         await AppStorage.getBiometricEnabled() ?? false;
-
-//     if (!mounted) return;
-
-//     /// ❌ لا يوجد تسجيل دخول
-//     if (token == null) {
-//       Get.offAllNamed('/login');
-//       return;
-//     }
-
-//     /// ✅ يوجد تسجيل دخول
-//     if (biometricEnabled) {
-//       final authenticated =
-//           await BiometricService().authenticate();
-
-//       if (!authenticated) {
-//         Get.offAllNamed('/login');
-//         return;
-//       }
-//     }
-
-//     /// ✅ الدخول مباشرة للـ Home
-//     Get.offAllNamed('/homeMain');
-//   });
-// }
