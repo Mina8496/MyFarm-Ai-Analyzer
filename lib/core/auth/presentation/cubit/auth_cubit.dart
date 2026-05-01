@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/auth/domain/usecases/get_auth_state_usecase.dart';
+import 'package:myfarm/core/auth/domain/usecases/logout_usecase.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final GetAuthStateUseCase getAuthStateUseCase;
+  final LogoutUseCase logoutUseCase;
   StreamSubscription? _subscription;
 
-  AuthCubit(this.getAuthStateUseCase) : super(AuthInitial()) {
+  AuthCubit(this.getAuthStateUseCase, this.logoutUseCase)
+    : super(AuthInitial()) {
     _init();
   }
 
@@ -19,6 +22,11 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthUnauthenticated());
       }
     });
+  }
+
+  Future<void> logout() async {
+    await logoutUseCase();
+    emit(AuthUnauthenticated());
   }
 
   @override

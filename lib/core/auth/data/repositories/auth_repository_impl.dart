@@ -13,4 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return AuthUser(id: user.uid, email: user.email!);
     });
   }
+  
+@override
+  Future<void> logout() => auth.signOut();
+  
 }

@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:myfarm/core/auth/data/repositories/auth_repository_impl.dart';
 import 'package:myfarm/core/auth/domain/repositories/auth_repository.dart';
 import 'package:myfarm/core/auth/domain/usecases/get_auth_state_usecase.dart';
+import 'package:myfarm/core/auth/domain/usecases/logout_usecase.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/services/onboarding_service.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
@@ -39,7 +40,8 @@ void _setupAuth() {
     () => AuthRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton(() => GetAuthStateUseCase(getIt()));
-  getIt.registerFactory(() => AuthCubit(getIt()));
+  getIt.registerLazySingleton(() => LogoutUseCase(getIt()));
+  getIt.registerFactory(() => AuthCubit(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => OnboardingService());
   getIt.registerFactory(() => OnboardingCubit(getIt()));
