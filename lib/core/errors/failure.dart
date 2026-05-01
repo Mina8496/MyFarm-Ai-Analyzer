@@ -2,15 +2,7 @@ import 'package:dio/dio.dart';
 
 abstract class Failure {
   final String message;
-  Failure(this.message);
-}
-
-class CacheFailure extends Failure {
-  CacheFailure(super.message);
-}
-
-class NetworkFailure extends Failure {
-  NetworkFailure(super.message);
+  const Failure(this.message);
 }
 
 class ServerFailure extends Failure {
@@ -52,4 +44,16 @@ class ServerFailure extends Failure {
       return ServerFailure('Received invalid status code: $statusCode');
     }
   }
+}
+
+class NetworkFailure extends Failure {
+  NetworkFailure(super.message);
+}
+
+class CacheFailure extends Failure {
+  CacheFailure(super.message);
+}
+
+class UnknownFailure extends Failure {
+  UnknownFailure(super.message);
 }
