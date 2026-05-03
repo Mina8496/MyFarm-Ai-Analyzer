@@ -1,3 +1,4 @@
+//PlantTips
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -8,7 +9,14 @@ import 'package:myfarm/core/auth/domain/repositories/auth_repository.dart';
 import 'package:myfarm/core/auth/domain/usecases/get_auth_state_usecase.dart';
 import 'package:myfarm/core/auth/domain/usecases/logout_usecase.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/services/firestore_service.dart';
 import 'package:myfarm/core/services/onboarding_service.dart';
+import 'package:myfarm/features/PlantTip/data/dataSource/PlantTipsRemoteDataSource.dart';
+import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
+import 'package:myfarm/features/PlantTip/data/repo/PlantTipsRepositoryImpl.dart';
+import 'package:myfarm/features/PlantTip/data/service/PlantTips_rotation_service.dart';
+import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
+import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 
 // Login
@@ -32,6 +40,27 @@ void setupDependencies() {
   _setupAuth();
   _setupLogin();
   _setupSignup();
+  _setupPlantTips();
+}
+
+// ─── PlantTips ──────────────────────────────────────────
+void _setupPlantTips() {
+  getIt.registerLazySingleton<FirestoreService<PlantTipModel>>(
+    () => FirestoreService<PlantTipModel>(getIt()),
+    instanceName: 'plantTipFirestore',
+  );
+
+  getIt.registerLazySingleton(
+    () => PlantTipsRemoteDataSource(getIt(instanceName: 'plantTipFirestore')),
+  );
+
+  getIt.registerLazySingleton<PlantTipsRepository>(
+    () => PlantTipsRepositoryImpl(getIt()),
+  );
+
+  getIt.registerLazySingleton(() => PlantTipsRotationService());
+
+  getIt.registerFactory(() => PlantTipsCubit(getIt(), getIt()));
 }
 
 // ─── Auth ───────────────────────────────────────────────
