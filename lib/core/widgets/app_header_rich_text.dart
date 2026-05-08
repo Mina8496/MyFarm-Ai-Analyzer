@@ -12,16 +12,20 @@ class AppHeaderRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        text: title_1,
-        style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
-        children: [
-          TextSpan(text: '\n'),
-          TextSpan(text: title_2),
-        ],
-      ),
+    return Stack(
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: title_1,
+            style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            children: [
+              TextSpan(text: '\n'),
+              TextSpan(text: title_2),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

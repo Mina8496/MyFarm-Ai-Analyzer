@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:myfarm/core/widgets/Input_field.dart';
 import 'package:myfarm/core/widgets/Validators.dart';
 import 'package:myfarm/core/widgets/password_field.dart';
 import 'package:myfarm/features/signup/presentation/controller/signup_controller.dart';
-import 'package:myfarm/features/signup/presentation/view/widgets/location_signup_field.dart';
 
 class SignupInputSection extends GetView<SignupController> {
   const SignupInputSection({super.key});
@@ -37,9 +35,6 @@ class SignupInputSection extends GetView<SignupController> {
           validator: controller.validatePhone,
           suffixIcon: const Icon(Icons.phone),
         ),
-
-        // Location Field
-        const LocationSignupField(),
       ],
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myfarm/core/services/location_service.dart';
+import 'package:myfarm/core/services/weather_service.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
-import 'package:myfarm/core/widgets/app_header_rich_text.dart';
+import 'package:myfarm/features/Home/presentation/manger/home_cubit/weather_cubit.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/weather_card.dart';
 import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
@@ -17,12 +19,7 @@ class HomePageBody extends StatelessWidget {
       children: [
         Column(
           children: [
-            AppAuthHeader(
-              title: AppHeaderRichText(
-                title_1: "Your_location",
-                title_2: "title_2",
-              ),
-            ),
+            AppAuthHeader(),
             SizedBox(height: 10.h),
             Expanded(
               child: BlocBuilder<PlantTipsCubit, PlantTipsState>(
@@ -42,7 +39,18 @@ class HomePageBody extends StatelessWidget {
             ),
           ],
         ),
-        const Positioned(top: 200, left: 29, right: 29, child: WeatherCard()),
+        Positioned(
+          top: 200,
+          left: 29,
+          right: 29,
+          child: BlocProvider(
+            create: (context) => WeatherCubit(
+              weatherService: WeatherService(),
+              locationService: LocationService(),
+            )..getWeather(),
+            child: const WeatherCard(),
+          ),
+        ),
       ],
     );
   }

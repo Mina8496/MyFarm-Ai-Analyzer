@@ -5,14 +5,12 @@ class UserModel {
   final String email;
   final String name;
   final String phone;
-  final String location;
 
   const UserModel({
     required this.id,
     required this.email,
     required this.name,
     required this.phone,
-    required this.location,
   });
 
   SignupUser toEntity() => SignupUser(
@@ -20,6 +18,5 @@ class UserModel {
     email: email,
     name: name,
     phone: phone,
-    location: location,
   );
 }

@@ -26,7 +26,6 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSource {
     await firestore.collection('users').doc(uid).set({
       'name': params.name,
       'phone': params.phone,
-      'location': params.location,
       'email': params.email,
     });
 
@@ -35,7 +34,6 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSource {
       email: params.email,
       name: params.name,
       phone: params.phone,
-      location: params.location,
     );
   }
 }

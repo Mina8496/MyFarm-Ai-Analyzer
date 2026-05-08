@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/function/injection_container.dart';
-import 'package:myfarm/features/Home/presentation/manger/cubit/main_nav_cubit.dart';
+import 'package:myfarm/features/Home/presentation/manger/home_cubit/main_nav_cubit.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/custom_bottom_bar.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/home_page_body.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';

@@ -10,21 +10,21 @@ import 'package:myfarm/features/signup/manger/signup_cubit/signup_cubit.dart';
 import 'package:myfarm/features/signup/manger/signup_cubit/signup_state.dart';
 import 'package:myfarm/features/signup/presentation/controller/signup_controller.dart';
 import 'package:myfarm/features/signup/presentation/view/widgets/LoginRedirect.dart';
-import 'package:myfarm/features/signup/presentation/view/widgets/location_controller.dart';
 
 class SignupActionSection extends GetView<SignupController> {
   const SignupActionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     return Column(
       children: [
         BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
-            if (state is SignupSuccess) {          // ✅ كان AuthSuccess
+            if (state is SignupSuccess) {
               Get.offAllNamed('/home');
-            } else if (state is SignupError) {     // ✅ كان AuthError
-              Get.snackbar("Error", state.message); // ✅ كان errormessage
+            } else if (state is SignupError) {
+              Get.snackbar("Error", state.message);
             }
           },
           builder: (context, state) {
@@ -32,17 +32,19 @@ class SignupActionSection extends GetView<SignupController> {
               onTap: () {
                 if (!controller.formKey.currentState!.validate()) return;
 
-                context.read<SignupCubit>().signup( // ✅ كان FeaturedSignupCubit
+                context.read<SignupCubit>().signup(
                   SignupParams(
                     name: controller.nameController.text,
                     email: controller.emailController.text,
                     password: controller.passwordController.text,
                     phone: controller.phoneController.text,
-                    location: Get.find<LocationController>().locationText.value,
+                   
                   ),
                 );
               },
-              textApp: state is SignupLoading      // ✅ كان AuthLoading
+              textApp:
+                  state
+                      is SignupLoading // AuthLoading
                   ? const CircularProgressIndicator()
                   : AppText(text: "Register".tr, color: Colors.white),
             );

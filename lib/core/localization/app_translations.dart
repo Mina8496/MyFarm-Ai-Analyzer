@@ -120,6 +120,10 @@ class AppTranslations extends Translations {
       'Recognizing leaf disease...': 'Recognizing leaf disease...',
       'Change': 'Change',
       'Classification Result': 'Classification Result',
+
+
+      // Home page
+      'Your_location': 'Your Location',
     },
     'ar': {
       // Onboarding Titles
@@ -233,6 +237,10 @@ class AppTranslations extends Translations {
       'Recognizing leaf disease...': 'جارٍ التعرف على مرض الأوراق...',
       'Change': 'تغيير',
       'Classification Result': 'نتيجة التصنيف',
+
+            // Home page
+      'Your_location': 'موقعك',
+
     },
   };
 }
