@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
+
   Future<Map<String, dynamic>> getWeather({
     required double lat,
     required double lon,
@@ -22,29 +23,5 @@ class WeatherService {
     }
 
     return jsonDecode(res.body);
-  }
-
-  // تحويل weather_code لنص عربي
-  String getWeatherDescription(int code) {
-    if (code == 0) return "صحو تام";
-    if (code <= 3) return "غائم جزئياً";
-    if (code <= 48) return "ضباب";
-    if (code <= 67) return "أمطار";
-    if (code <= 77) return "ثلج";
-    if (code <= 82) return "زخات مطر";
-    if (code <= 99) return "عواصف رعدية";
-    return "غير معروف";
-  }
-
-  // تحويل weather_code لأيقونة
-  String getWeatherIcon(int code) {
-    if (code == 0) return "☀️";
-    if (code <= 3) return "⛅";
-    if (code <= 48) return "🌫️";
-    if (code <= 67) return "🌧️";
-    if (code <= 77) return "❄️";
-    if (code <= 82) return "🌦️";
-    if (code <= 99) return "⛈️";
-    return "🌤️";
   }
 }
