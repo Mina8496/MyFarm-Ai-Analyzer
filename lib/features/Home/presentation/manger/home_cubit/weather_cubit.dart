@@ -22,7 +22,28 @@ class WeatherCubit extends Cubit<WeatherState> {
     );
     emit(WeatherSuccess(data));
   } catch (e) {
-    emit(WeatherError(e.toString()));
+    emit(WeatherError(_mapError(e)));
   }
+}
+
+String _mapError(dynamic e) {
+  final msg = e.toString();
+  if (msg.contains('SocketException') ||
+      msg.contains('Failed host lookup') ||
+      msg.contains('connectionError')) {
+    return 'لا يوجد اتصال بالإنترنت';
+  }
+  if (msg.contains('TimeoutException') ||
+      msg.contains('connectionTimeout')) {
+    return 'انتهت مهلة الاتصال، حاول مرة أخرى';
+  }
+  if (msg.contains('locationServicesDisabled') ||
+      msg.contains('LocationServiceDisabledException')) {
+    return 'يرجى تفعيل خدمة الموقع';
+  }
+  if (msg.contains('permissionDenied')) {
+    return 'لم يتم منح إذن الموقع';
+  }
+  return 'تعذر تحميل بيانات الطقس';
 }
 }
