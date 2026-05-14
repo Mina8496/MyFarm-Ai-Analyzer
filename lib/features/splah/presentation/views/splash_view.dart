@@ -13,10 +13,14 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-   @override
+  @override
   void initState() {
     super.initState();
-    context.read<OnboardingCubit>().checkOnboarding();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        context.read<OnboardingCubit>().checkOnboarding();
+      }
+    });
   }
 
   @override
