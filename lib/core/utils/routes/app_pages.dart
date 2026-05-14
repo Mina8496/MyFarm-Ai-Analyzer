@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
-import 'package:myfarm/features/PlantTip/presentation/Binding/PlantTipsBinding.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/subscription_page.dart';
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
 import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
@@ -41,7 +40,6 @@ class AppPages {
     GetPage(
       name: '/home',
       page: () => HomePage(),
-      binding: PlantTipsBinding(),
       transition: Transition.upToDown,
     ),
     /*

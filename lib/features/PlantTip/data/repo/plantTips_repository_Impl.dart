@@ -12,12 +12,10 @@ class PlantTipsRepositoryImpl implements PlantTipsRepository {
 
   @override
   Stream<List<PlantTip>> getPlantTips() async* {
-    // 1️⃣ ابعت الـ Cache فوراً لو موجود
     if (!local.isEmpty) {
       yield local.getCachedPlantTips().map((m) => m.toEntity()).toList();
     }
 
-    // 2️⃣ استمع على Firestore وحدّث الـ cache
     await for (final tips in remote.getPlantTips()) {
       final models = tips
           .map(
@@ -32,7 +30,6 @@ class PlantTipsRepositoryImpl implements PlantTipsRepository {
 
       await local.cachePlantTips(models);
 
-      // ✅ حوّل لـ Entity قبل الـ yield
       yield models.map((m) => m.toEntity()).toList();
     }
   }
