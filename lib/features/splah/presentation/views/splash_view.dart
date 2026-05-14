@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
         if (state is OnboardingNotSeen) {
           Get.offAllNamed('/onboarding');
         } else if (state is OnboardingSeen) {
-          Get.offAllNamed('/home');
+          Get.offAllNamed('/SubPage');
         }
       },
       child: Scaffold(body: SplashViewBody()),

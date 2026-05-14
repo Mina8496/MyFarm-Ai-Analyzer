@@ -50,7 +50,7 @@ class BottomPanel extends StatelessWidget {
             SizedBox(height: 25.h),
 
             SubscribeButton(
-              onTap: () {},
+              onTap: () => Get.toNamed('/signup'),
               text: "Unlock_Access".tr,
               linearGradient: const LinearGradient(
                 colors: [
@@ -60,7 +60,7 @@ class BottomPanel extends StatelessWidget {
               ),
             ),
             SubscribeButton(
-              onTap: () => Get.toNamed('/signup'),
+              onTap: () => Get.toNamed('/home'),
               text: "free_trial".tr,
               color: Colors.grey,
             ),
