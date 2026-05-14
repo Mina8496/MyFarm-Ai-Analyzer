@@ -4,17 +4,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
+import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_source.dart';
+import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // ─── Hive init ────────────────────────────────────────────────
+  await Hive.initFlutter();
+  Hive.registerAdapter(PlantTipModelAdapter()); // Generated تلقائياً
+  await PlantTipsLocalDataSource.openBox();
   await Firebase.initializeApp();
   setupDependencies();
   AppConfig.lang =

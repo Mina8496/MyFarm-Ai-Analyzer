@@ -12,8 +12,9 @@ import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/services/firestore_service.dart';
 import 'package:myfarm/core/services/onboarding_service.dart';
 import 'package:myfarm/features/PlantTip/data/dataSource/PlantTipsRemoteDataSource.dart';
+import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_source.dart';
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
-import 'package:myfarm/features/PlantTip/data/repo/PlantTipsRepositoryImpl.dart';
+import 'package:myfarm/features/PlantTip/data/repo/plantTips_repository_Impl.dart';
 import 'package:myfarm/features/PlantTip/data/service/PlantTips_rotation_service.dart';
 import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
@@ -45,24 +46,41 @@ void setupDependencies() {
 
 // ─── PlantTips ──────────────────────────────────────────
 void _setupPlantTips() {
+
   getIt.registerLazySingleton<FirestoreService<PlantTipModel>>(
     () => FirestoreService<PlantTipModel>(getIt()),
     instanceName: 'plantTipFirestore',
   );
 
-  getIt.registerLazySingleton(
-    () => PlantTipsRemoteDataSource(getIt(instanceName: 'plantTipFirestore')),
+  /// Remote
+  getIt.registerLazySingleton<PlantTipsRemoteDataSource>(
+    () => PlantTipsRemoteDataSource(
+      getIt(instanceName: 'plantTipFirestore'),
+    ),
   );
 
+  /// Local
+    getIt.registerLazySingleton(() => PlantTipsLocalDataSource());
+
+
+  /// Repository
   getIt.registerLazySingleton<PlantTipsRepository>(
-    () => PlantTipsRepositoryImpl(getIt()),
+    () => PlantTipsRepositoryImpl(
+      remote: getIt(),
+      local: getIt(),
+    ),
   );
 
-  getIt.registerLazySingleton(() => PlantTipsRotationService());
+  /// Service
+  getIt.registerLazySingleton(
+    () => PlantTipsRotationService(),
+  );
 
-  getIt.registerFactory(() => PlantTipsCubit(getIt(), getIt()));
+  /// Cubit
+  getIt.registerFactory(
+    () => PlantTipsCubit(getIt(), getIt()),
+  );
 }
-
 // ─── Auth ───────────────────────────────────────────────
 void _setupAuth() {
   getIt.registerLazySingleton<AuthRepository>(
