@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myfarm/core/services/location_service.dart';
-import 'package:myfarm/core/services/weather_service.dart';
+import 'package:myfarm/common/constants/home_page_constants.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
-import 'package:myfarm/features/Home/presentation/manger/home_cubit/weather_cubit.dart';
-import 'package:myfarm/features/Home/presentation/view/widget/weather_card.dart';
-import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
-import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
-import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_state.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/PlantTipsSection.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/WeatherCardOverlay.dart';
+
 
 class HomePageBody extends StatelessWidget {
   const HomePageBody({super.key});
@@ -19,38 +14,12 @@ class HomePageBody extends StatelessWidget {
       children: [
         Column(
           children: [
-            AppAuthHeader(),
-            SizedBox(height: 10.h),
-            Expanded(
-              child: BlocBuilder<PlantTipsCubit, PlantTipsState>(
-                builder: (context, state) {
-                  if (state is PlantTipsLoading || state is PlantTipsInitial) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (state is PlantTipsError) {
-                    return Center(child: Text(state.message));
-                  }
-                  if (state is PlantTipsLoaded) {
-                    return PlantTipsWidget(tips: state.visibleTips);
-                  }
-                  return const SizedBox();
-                },
-              ),
-            ),
+            const AppAuthHeader(),
+            SizedBox(height: kWeatherCardOffset),
+            const Expanded(child: PlantTipsSection()),
           ],
         ),
-        Positioned(
-          top: 200,
-          left: 29,
-          right: 29,
-          child: BlocProvider(
-            create: (context) => WeatherCubit(
-              weatherService: WeatherService(),
-              locationService: LocationService(),
-            )..getWeather(),
-            child: const WeatherCard(),
-          ),
-        ),
+        const WeatherCardOverlay(),
       ],
     );
   }
