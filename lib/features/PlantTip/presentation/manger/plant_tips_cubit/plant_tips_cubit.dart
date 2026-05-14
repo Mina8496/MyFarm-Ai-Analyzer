@@ -14,7 +14,7 @@ class PlantTipsCubit extends Cubit<PlantTipsState> {
   StreamSubscription? _sub;
 
   PlantTipsCubit(this.repository, this.rotationService)
-      : super(PlantTipsInitial());
+    : super(PlantTipsInitial());
 
   void init() {
     emit(PlantTipsLoading());
@@ -24,28 +24,41 @@ class PlantTipsCubit extends Cubit<PlantTipsState> {
         _allTips = data;
         _startRotation();
       },
-      onError: (e) => emit(PlantTipsError(e.toString())),
+      onError: (e) {
+        emit(PlantTipsError(message:  _mapErrorToMessage(e)));
+      },
     );
   }
 
   void _startRotation() {
     _timer?.cancel();
 
-    if (_allTips.length <= 2) {
-      emit(PlantTipsLoaded(_allTips));
+    if (_allTips.length <= 1) {
+      emit(PlantTipsLoaded(visibleTips:  _allTips));
       return;
     }
 
     _update();
 
-    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
+    _timer = Timer.periodic(const Duration(minutes: 2), (_) {
       _update();
     });
   }
 
+  String _mapErrorToMessage(dynamic error) {
+    final errorString = error.toString();
+
+    if (errorString.contains('SocketException') ||
+        errorString.contains('Failed host lookup')) {
+      return 'لا يوجد اتصال بالإنترنت';
+    }
+
+    return 'تعذر تحميل النصائح حالياً';
+  }
+
   void _update() {
     final visible = rotationService.getNext(_allTips);
-    emit(PlantTipsLoaded(visible));
+    emit(PlantTipsLoaded(visibleTips: visible));
   }
 
   @override

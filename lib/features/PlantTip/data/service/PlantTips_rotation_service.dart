@@ -4,23 +4,20 @@ class PlantTipsRotationService {
   int index = 0;
 
   List<PlantTip> getNext(List<PlantTip> tips) {
-    if (tips.length <= 2) return tips;
+    if (tips.length <= 1) return tips;
 
     final start = index;
-    final end = (index + 2) % tips.length;
+    final end = (index + 1) % tips.length;
 
     List<PlantTip> result;
 
     if (end > start) {
       result = tips.sublist(start, end);
     } else {
-      result = [
-        ...tips.sublist(start),
-        ...tips.sublist(0, end),
-      ];
+      result = [...tips.sublist(start), ...tips.sublist(0, end)];
     }
 
-    index = (index + 2) % tips.length;
+    index = (index + 1) % tips.length;
     return result;
   }
 }
