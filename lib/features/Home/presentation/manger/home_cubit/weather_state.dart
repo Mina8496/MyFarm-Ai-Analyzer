@@ -10,8 +10,10 @@ class WeatherSuccess extends WeatherState {
   final String description;
 
   WeatherSuccess(this.data)
-      : icon = _resolveIcon(data['current']['weather_code'] as int),
-        description = _resolveDescription(data['current']['weather_code'] as int);
+    : icon = _resolveIcon((data['current']['weather_code'] as num).toInt()),
+      description = _resolveDescription(
+        (data['current']['weather_code'] as num).toInt(),
+      );
 
   static String _resolveIcon(int code) {
     if (code == 0) return "☀️";

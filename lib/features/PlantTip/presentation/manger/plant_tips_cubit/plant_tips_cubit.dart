@@ -25,7 +25,7 @@ class PlantTipsCubit extends Cubit<PlantTipsState> {
         _startRotation();
       },
       onError: (e) {
-        emit(PlantTipsError(message:  _mapErrorToMessage(e)));
+        emit(PlantTipsError(message: _mapErrorToMessage(e)));
       },
     );
   }
@@ -34,13 +34,13 @@ class PlantTipsCubit extends Cubit<PlantTipsState> {
     _timer?.cancel();
 
     if (_allTips.length <= 1) {
-      emit(PlantTipsLoaded(visibleTips:  _allTips));
+      emit(PlantTipsLoaded(visibleTips: _allTips));
       return;
     }
 
     _update();
 
-    _timer = Timer.periodic(const Duration(minutes: 2), (_) {
+    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
       _update();
     });
   }

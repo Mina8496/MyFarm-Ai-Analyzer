@@ -6,28 +6,28 @@ import 'package:myfarm/features/Home/presentation/manger/home_cubit/main_nav_cub
 import 'package:myfarm/features/Home/presentation/view/widget/custom_bottom_bar.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/home_page_body.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
+import 'package:myfarm/features/Profile_page/presentation/view/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final pages = [
-    const HomePageBody(),
-    // const CommunityPage(),
-    // const ScanPage(),
-    // const PlantsPage(),
-    // const ProfilePage(),
-  ];
+  const HomePageBody(),  // 0
+  const SizedBox(), 
 
+  const SizedBox(), 
+  const ProfilePage(),   // 3
+];
+// const MarketPage(),    // 1
+
+  // const FeedPage(),      // 2
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => MainNavCubit(),
-        ),
-        BlocProvider(
-          create: (_) => getIt<PlantTipsCubit>()..init(),
-        ),
+        BlocProvider(create: (_) => MainNavCubit()),
+        BlocProvider(create: (_) => getIt<PlantTipsCubit>()..init()),
+        // BlocProvider(create: (_) => getIt<ProfilePage>()..init()),
       ],
       child: BlocBuilder<MainNavCubit, int>(
         builder: (context, currentIndex) {
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              onPressed: () => context.read<MainNavCubit>().changePage(2),
+              onPressed: () => context.read<MainNavCubit>().changePage(0),
               child: Card(
                 color: ColorPalette.kkPrimaryGreen,
                 child: const Icon(
