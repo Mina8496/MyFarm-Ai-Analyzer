@@ -11,6 +11,7 @@ class InputField extends StatelessWidget {
   final Widget? suffixIcon;
   final VoidCallback? onTap;
   final bool readOnly;
+  final bool obscureText;
 
   const InputField({
     super.key,
@@ -22,6 +23,7 @@ class InputField extends StatelessWidget {
     this.readOnly = false,
     required this.keyboardType,
     this.suffixIcon,
+    this.obscureText = false,
   });
 
   @override
@@ -37,6 +39,7 @@ class InputField extends StatelessWidget {
           controller: controller,
           validator: validator,
           keyboardType: keyboardType ?? TextInputType.text,
+          obscureText: obscureText ,
         ),
       ],
     );

@@ -1,4 +1,3 @@
-
 import 'package:myfarm/features/signup/domain/entities/signup_user.dart';
 
 abstract class SignupState {}
@@ -15,4 +14,9 @@ class SignupSuccess extends SignupState {
 class SignupError extends SignupState {
   final String message;
   SignupError(this.message);
+}
+
+class SignupPasswordToggled extends SignupState {
+  final bool isHidden;
+  SignupPasswordToggled(this.isHidden);
 }

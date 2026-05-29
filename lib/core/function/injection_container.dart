@@ -32,7 +32,7 @@ import 'package:myfarm/features/signup/data/dataSource/signup_remote_data_source
 import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
 import 'package:myfarm/features/signup/domain/repo/signup_repository.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_usecase.dart';
-import 'package:myfarm/features/signup/manger/signup_cubit/signup_cubit.dart';
+import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -46,7 +46,6 @@ void setupDependencies() {
 
 // ─── PlantTips ──────────────────────────────────────────
 void _setupPlantTips() {
-
   getIt.registerLazySingleton<FirestoreService<PlantTipModel>>(
     () => FirestoreService<PlantTipModel>(getIt()),
     instanceName: 'plantTipFirestore',
@@ -54,33 +53,24 @@ void _setupPlantTips() {
 
   /// Remote
   getIt.registerLazySingleton<PlantTipsRemoteDataSource>(
-    () => PlantTipsRemoteDataSource(
-      getIt(instanceName: 'plantTipFirestore'),
-    ),
+    () => PlantTipsRemoteDataSource(getIt(instanceName: 'plantTipFirestore')),
   );
 
   /// Local
-    getIt.registerLazySingleton(() => PlantTipsLocalDataSource());
-
+  getIt.registerLazySingleton(() => PlantTipsLocalDataSource());
 
   /// Repository
   getIt.registerLazySingleton<PlantTipsRepository>(
-    () => PlantTipsRepositoryImpl(
-      remote: getIt(),
-      local: getIt(),
-    ),
+    () => PlantTipsRepositoryImpl(remote: getIt(), local: getIt()),
   );
 
   /// Service
-  getIt.registerLazySingleton(
-    () => PlantTipsRotationService(),
-  );
+  getIt.registerLazySingleton(() => PlantTipsRotationService());
 
   /// Cubit
-  getIt.registerFactory(
-    () => PlantTipsCubit(getIt(), getIt()),
-  );
+  getIt.registerFactory(() => PlantTipsCubit(getIt(), getIt()));
 }
+
 // ─── Auth ───────────────────────────────────────────────
 void _setupAuth() {
   getIt.registerLazySingleton<AuthRepository>(
@@ -127,9 +117,9 @@ void _setupSignup() {
     () => SignupRepositoryImpl(getIt()),
   );
 
-  // Domain
+  // Domain (UseCase)
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
 
-  // Presentation
+  // Presentation (Cubit - Factory لأنه يتعمل كل مرة) عشان كل شاشة تاخد instance جديدة
   getIt.registerFactory(() => SignupCubit(getIt()));
 }

@@ -7,7 +7,6 @@ import 'package:myfarm/features/forget_password/presentation/view/forget_passwor
 import 'package:myfarm/features/payment/presentation/screens/payment_screen.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/login/presentation/view/login_page.dart';
-import 'package:myfarm/features/signup/presentation/Binding/signup_binding.dart';
 import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
 import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
 import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
@@ -67,7 +66,6 @@ class AppPages {
     GetPage(
       name: '/signup',
       page: () => const SignupPage(),
-      binding: SignupBinding(),
       transition: Transition.rightToLeft,
     ),
     GetPage(

@@ -58,6 +58,7 @@ class AppTranslations extends Translations {
       'Enter_valid_name': 'Enter a valid name',
       'Name_too_short': 'Name is too short',
       'Name_required': 'Name is required',
+      'Password_min_chars': 'Password must be 6+ chars',
       'Do_you_have_account': 'Do you have an account?',
       'Login': 'Login',
       'Welcome': 'Welcome You\'ve Been !',
@@ -121,7 +122,6 @@ class AppTranslations extends Translations {
       'Change': 'Change',
       'Classification Result': 'Classification Result',
 
-
       // Home page
       'Your_location': 'Your Location',
     },
@@ -178,6 +178,7 @@ class AppTranslations extends Translations {
       'Enter_valid_name': 'أدخل اسمًا صالحًا',
       'Name_too_short': 'الاسم قصير جداً',
       'Name_required': 'الاسم مطلوب',
+      'Password_min_chars': 'كلمة المرور يجب أن تكون 6 أحرف أو أكثر',
       'Do_you_have_account': 'هل لديك حساب؟',
       'Login': 'تسجيل الدخول',
       'Register': 'تسجيل حساب جديد',
@@ -238,9 +239,8 @@ class AppTranslations extends Translations {
       'Change': 'تغيير',
       'Classification Result': 'نتيجة التصنيف',
 
-            // Home page
+      // Home page
       'Your_location': 'موقعك',
-
     },
   };
 }

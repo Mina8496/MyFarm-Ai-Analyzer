@@ -1,59 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/core/widgets/google_button.dart';
-import 'package:myfarm/features/signup/domain/usecase/signup_params.dart';
-import 'package:myfarm/features/signup/manger/signup_cubit/signup_cubit.dart';
-import 'package:myfarm/features/signup/manger/signup_cubit/signup_state.dart';
-import 'package:myfarm/features/signup/presentation/controller/signup_controller.dart';
+import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
+import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_state.dart';
 import 'package:myfarm/features/signup/presentation/view/widgets/LoginRedirect.dart';
 
-class SignupActionSection extends GetView<SignupController> {
+class SignupActionSection extends StatelessWidget {
   const SignupActionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-    return Column(
-      children: [
-        BlocConsumer<SignupCubit, SignupState>(
-          listener: (context, state) {
-            if (state is SignupSuccess) {
-              Get.offAllNamed('/home');
-            } else if (state is SignupError) {
-              Get.snackbar("Error", state.message);
-            }
-          },
-          builder: (context, state) {
-            return AppButton(
-              onTap: () {
-                if (!controller.formKey.currentState!.validate()) return;
+    return BlocConsumer<SignupCubit, SignupState>(
+      listener: (context, state) {
+        if (state is SignupSuccess) {
+          // Navigation بعد النجاح
+          Get.offAllNamed('/SubPage');
+        } else if (state is SignupError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is SignupLoading;
 
-                context.read<SignupCubit>().signup(
-                  SignupParams(
-                    name: controller.nameController.text,
-                    email: controller.emailController.text,
-                    password: controller.passwordController.text,
-                    phone: controller.phoneController.text,
-                   
-                  ),
-                );
-              },
-              textApp:
-                  state
-                      is SignupLoading // AuthLoading
+        return Column(
+          children: [
+            AppButton(
+              onTap: isLoading
+                  ? null
+                  : () =>
+                        context.read<SignupCubit>().signup(), 
+              textApp: isLoading
                   ? const CircularProgressIndicator()
-                  : AppText(text: "Register".tr, color: Colors.white),
-            );
-          },
-        ),
-        GoogleButton(),
-        LoginRedirect(),
-        SizedBox(height: 20.h),
-      ],
+                  :  AppText(text: "Register", color: Colors.white),
+            ),
+            const GoogleButton(),
+            const LoginRedirect(),
+            SizedBox(height: 20.h),
+          ],
+        );
+      },
     );
   }
 }
