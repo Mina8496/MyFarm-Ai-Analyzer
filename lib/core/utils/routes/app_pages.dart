@@ -4,6 +4,7 @@ import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dar
 import 'package:myfarm/features/Subscription_Paywall/presentation/subscription_page.dart';
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
 import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
+import 'package:myfarm/features/payment/presentation/screens/payment_screen.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/login/presentation/view/login_page.dart';
 import 'package:myfarm/features/signup/presentation/Binding/signup_binding.dart';
@@ -38,6 +39,13 @@ class AppPages {
       transition: Transition.rightToLeft,
     ),
     GetPage(
+      name: '/PaymentScreen',
+      page: () => PaymentScreen(
+        amountCents: 29900, // المبلغ بالجنيه
+      ),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
       name: '/home',
       page: () => HomePage(),
       transition: Transition.upToDown,
@@ -55,6 +63,7 @@ class AppPages {
       page: () => LoginPage(),
       transition: Transition.rightToLeft,
     ),
+
     GetPage(
       name: '/signup',
       page: () => const SignupPage(),
