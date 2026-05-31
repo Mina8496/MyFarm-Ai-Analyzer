@@ -6,19 +6,19 @@ import 'package:myfarm/features/Home/presentation/manger/home_cubit/main_nav_cub
 import 'package:myfarm/features/Home/presentation/view/widget/custom_bottom_bar.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/home_page_body.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
-import 'package:myfarm/features/Profile_page/presentation/view/profile_page.dart';
+import 'package:myfarm/features/Profile_page/presentation/view/account_menu_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final pages = [
-  const HomePageBody(),  // 0
-  const SizedBox(), 
+    const HomePageBody(), // 0
+    const SizedBox(),
 
-  const SizedBox(), 
-  const ProfilePage(),   // 3
-];
-// const MarketPage(),    // 1
+    const SizedBox(),
+    const AccountMenuPage(), // 3
+  ];
+  // const MarketPage(),    // 1
 
   // const FeedPage(),      // 2
   @override

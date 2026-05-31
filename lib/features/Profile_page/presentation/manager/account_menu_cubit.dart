@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'profile_page_state.dart';
+part 'account_menu_state.dart';
 
-class ProfilePageCubit extends Cubit<ProfilePageState> {
-  ProfilePageCubit() : super(FeatureInitial());
+class AccountMenuCubit extends Cubit<AccountMenuPageState> {
+  AccountMenuCubit() : super(FeatureInitial());
 
   Future<void> init() async {
     emit(FeatureLoading());
