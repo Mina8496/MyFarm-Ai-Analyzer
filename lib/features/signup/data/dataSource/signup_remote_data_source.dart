@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:myfarm/features/signup/data/model/user_model.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_params.dart';
 
-
 abstract class SignupRemoteDataSource {
   Future<UserModel> signup(SignupParams params);
 }
@@ -23,17 +22,15 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSource {
 
     final uid = result.user!.uid;
 
-    await firestore.collection('users').doc(uid).set({
-      'name': params.name,
-      'phone': params.phone,
-      'email': params.email,
-    });
-
-    return UserModel(
+    final user = UserModel(
       id: uid,
       email: params.email,
       name: params.name,
       phone: params.phone,
     );
+
+    await firestore.collection('users').doc(uid).set(user.toJson());
+
+    return user;
   }
 }

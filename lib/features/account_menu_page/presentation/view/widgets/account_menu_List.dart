@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myfarm/features/Profile_page/presentation/view/widgets/account_menu_tile.dart';
+import 'package:myfarm/features/account_menu_page/presentation/view/widgets/account_menu_tile.dart';
 
 class AccountMenuList extends StatelessWidget {
   const AccountMenuList({super.key});

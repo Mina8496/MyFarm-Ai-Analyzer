@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
-import 'package:myfarm/features/Profile_page/presentation/view/widgets/authentication_card.dart';
-import 'package:myfarm/features/Profile_page/presentation/view/widgets/account_menu_List.dart';
+import 'package:myfarm/features/account_menu_page/presentation/view/widgets/authentication_card.dart';
+import 'package:myfarm/features/account_menu_page/presentation/view/widgets/account_menu_List.dart';
 
 import '../manager/account_menu_cubit.dart';
 
