@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/core/utils/user_role.dart';
+import 'package:myfarm/features/role_selection_page/presentation/view/widgets/role_card.dart';
+
+class RoleSelectionBody extends StatelessWidget {
+  const RoleSelectionBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(height: 16),
+        // Header
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: ColorPalette.kPrimaryColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.agriculture, size: 80),
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('مزرعتي', style: Styles.style26),
+                Text('إدارة المهام الزراعية', style: Styles.style25),
+              ],
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 48),
+
+        Text('اختر دورك', style: Styles.style26),
+        const SizedBox(height: 8),
+        Text('كل دور له صلاحيات مختلفة في إدارة المهام', style: Styles.style18),
+
+        const SizedBox(height: 32),
+
+        // Role Cards
+        Expanded(
+          child: ListView(
+            children: UserRole.values
+                .map((role) => RoleCard(role: role))
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}

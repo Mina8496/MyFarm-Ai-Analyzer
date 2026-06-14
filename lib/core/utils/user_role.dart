@@ -1,7 +1,10 @@
-enum UserRole { farmer, engineer, supervisor, owner }
+enum UserRole {
+  farmer,
+  engineer,
+  supervisor,
+  owner;
 
-extension UserRoleExtension on UserRole {
-  String get arabicName {
+  String get displayName {
     switch (this) {
       case UserRole.farmer:
         return 'مزارع';
@@ -14,26 +17,42 @@ extension UserRoleExtension on UserRole {
     }
   }
 
-  String get hint {
+  String get emoji {
     switch (this) {
       case UserRole.farmer:
-        return 'ريّ، حصاد، تسميد';
+        return '🌾';
       case UserRole.engineer:
-        return 'تحليل التربة، جدولة';
+        return '🔬';
       case UserRole.supervisor:
-        return 'متابعة الفريق';
+        return '📋';
       case UserRole.owner:
-        return 'إدارة كاملة';
+        return '🏡';
     }
   }
 
-  /// هل يملك صلاحية الحذف؟
+  /// ما يقدر يعمله كل دور
+  bool get canCreate => true; // الكل يقدر يضيف مهمة
+
+  bool get canEdit {
+    return this == UserRole.engineer ||
+        this == UserRole.supervisor ||
+        this == UserRole.owner;
+  }
+
   bool get canDelete {
     return this == UserRole.supervisor || this == UserRole.owner;
   }
 
-  /// هل يملك صلاحية التعديل؟
-  bool get canEdit {
-    return this != UserRole.farmer;
+  String get roleDescription {
+    switch (this) {
+      case UserRole.farmer:
+        return 'يُضيف ويُكمل المهام اليومية';
+      case UserRole.engineer:
+        return 'يُضيف ويُعدّل المهام التقنية';
+      case UserRole.supervisor:
+        return 'يُشرف على جميع المهام ويحذف';
+      case UserRole.owner:
+        return 'صلاحيات كاملة على المزرعة';
+    }
   }
 }

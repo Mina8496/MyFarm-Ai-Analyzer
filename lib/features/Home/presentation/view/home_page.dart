@@ -7,6 +7,7 @@ import 'package:myfarm/features/Home/presentation/view/widget/custom_bottom_bar.
 import 'package:myfarm/features/Home/presentation/view/widget/home_page_body.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
 import 'package:myfarm/features/account_menu_page/presentation/view/account_menu_page.dart';
+import 'package:myfarm/features/role_selection_page/presentation/view/role_selection_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -15,12 +16,12 @@ class HomePage extends StatelessWidget {
     const HomePageBody(), // 0
     const SizedBox(),
 
-    const SizedBox(),
+    const RoleSelectionPage(), // 2
     const AccountMenuPage(), // 3
   ];
   // const MarketPage(),    // 1
 
-  // const FeedPage(),      // 2
+  // 2
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

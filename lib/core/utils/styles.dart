@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
 abstract class Styles {
-  static TextStyle style25 = TextStyle(
+  static TextStyle style12 = const TextStyle(
     color: Colors.black,
-    fontSize: 25,
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.w500,
-    height: 0,
+    fontSize: 12,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle style14 = const TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+    fontFamily: 'Cairo',
+  );
+
+  static TextStyle style16 = TextStyle(
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Cairo',
   );
 
   static TextStyle style18 = TextStyle(
@@ -20,14 +31,6 @@ abstract class Styles {
   static TextStyle styleBold18 = TextStyle(
     color: Colors.black,
     fontSize: 18,
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.w600,
-    height: 0,
-  );
-
-  static TextStyle style24 = TextStyle(
-    color: Colors.black,
-    fontSize: 24,
     fontFamily: 'Inter',
     fontWeight: FontWeight.w600,
     height: 0,
@@ -47,5 +50,27 @@ abstract class Styles {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w600,
     height: 0,
+  );
+  static TextStyle style24 = TextStyle(
+    color: Colors.black,
+    fontSize: 24,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+    height: 0,
+  );
+
+  static TextStyle style25 = TextStyle(
+    color: Colors.black,
+    fontSize: 25,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
+    height: 0,
+  );
+
+  static TextStyle style26 = TextStyle(
+    color: Colors.black,
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Cairo',
   );
 }
