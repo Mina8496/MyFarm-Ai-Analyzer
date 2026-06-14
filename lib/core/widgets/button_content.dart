@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class ButtonContent extends StatelessWidget {
   const ButtonContent({
@@ -12,7 +14,7 @@ class ButtonContent extends StatelessWidget {
   });
 
   final String text;
-  final IconData? icon;
+  final FaIconData? icon;
   final bool iconFirst;
   final Color? col;
 
@@ -24,13 +26,13 @@ class ButtonContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (icon != null && iconFirst) ...[
-          Icon(icon, size: 18.sp, color: Colors.white),
+          FaIcon(icon, size: 18.sp, color: Colors.white),
           SizedBox(width: 10.w),
         ],
         textWidget,
         if (icon != null && !iconFirst) ...[
           SizedBox(width: 10.w),
-          Icon(icon, size: 18.sp, color: col ?? Colors.white),
+          FaIcon(icon, size: 18.sp, color: col ?? Colors.white),
         ],
       ],
     );

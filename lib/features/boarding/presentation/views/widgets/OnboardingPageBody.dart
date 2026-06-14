@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/features/boarding/presentation/controllers/controller_onboarding.dart';
@@ -31,7 +32,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       textApp: ButtonContent(
                         text: 'Back'.tr,
                         col: Colors.white,
-                        icon: Icons.arrow_back_ios,
+                        icon: FontAwesomeIcons.arrowLeft,
                         iconFirst: true,
                       ),
                     ),
@@ -43,7 +44,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       textApp: ButtonContent(
                         text: 'Start'.tr,
                         col: Colors.white,
-                        icon: Icons.arrow_forward_ios,
+                        icon: FontAwesomeIcons.arrowRight,
                       ),
                     ),
                   ],
@@ -55,7 +56,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                 textApp: ButtonContent(
                   text: controller.nextTitle,
                   col: Colors.white,
-                  icon: Icons.arrow_forward_ios,
+                  icon: FontAwesomeIcons.arrowRight,
                 ),
               );
             }),

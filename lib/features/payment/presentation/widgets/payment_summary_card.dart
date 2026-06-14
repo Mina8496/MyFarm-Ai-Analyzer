@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/models/payment_model.dart';
+import 'package:myfarm/features/payment/domain/entities/order_Item.dart';
 
 class PaymentSummaryCard extends StatelessWidget {
   final int amountCents;

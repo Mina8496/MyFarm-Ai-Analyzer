@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myfarm/features/payment/presentation/manger/Bloc/payment_cubit.dart';
+import 'package:myfarm/features/payment/presentation/manger/Bloc/paymente_event.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../bloc/payment_bloc.dart';
 import 'package:get/get.dart';
 
 class PaymobWebViewScreen extends StatefulWidget {

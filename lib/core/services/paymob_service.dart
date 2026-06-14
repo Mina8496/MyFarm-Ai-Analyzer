@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../features/payment/data/models/payment_model.dart';
+import 'package:myfarm/features/payment/domain/entities/billing_data.dart';
 import '../network/paymob_client.dart';
 
 // ─── Paymob Service ───────────────────────────────────────────────

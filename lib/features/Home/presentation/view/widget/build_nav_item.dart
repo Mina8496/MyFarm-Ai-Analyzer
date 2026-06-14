@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myfarm/features/Home/presentation/manger/home_cubit/main_nav_cubit.dart';
 
 class BuildNavItem extends StatelessWidget {
-  final IconData icon;
+  final FaIconData?  icon;
   final int index;
 
   const BuildNavItem({
@@ -22,7 +23,7 @@ class BuildNavItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          FaIcon(
             icon,
             size: 28,
             color: isActive ? const Color(0xFF0B5D1E) : Colors.grey,

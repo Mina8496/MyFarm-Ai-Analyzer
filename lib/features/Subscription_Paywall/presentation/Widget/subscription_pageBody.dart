@@ -15,7 +15,7 @@ class SubscriptionPageBody extends StatelessWidget {
       child: Stack(
         children: [
           ///  Background Video
-          const VideoHeader(),
+          // const VideoHeader(),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

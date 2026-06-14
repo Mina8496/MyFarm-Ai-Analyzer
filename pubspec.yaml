@@ -27,7 +27,7 @@ dependencies:
   flutter_inappwebview: ^6.0.0
   flutter_screenutil: ^5.9.3
   flutter_tts: ^3.8.5
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   geocoding: ^4.0.0
   geolocator: ^10.0.0
   get: ^4.6.6
@@ -44,6 +44,8 @@ dependencies:
   url_launcher: null
   video_player: ^2.11.1
   webview_flutter: ^4.13.1
+  # UUID
+  uuid: ^4.2.1
 
 dev_dependencies:
   analyzer: ^6.4.1
