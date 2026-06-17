@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
@@ -16,12 +15,14 @@ import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_so
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
+import 'package:myfarm/features/tasks/data/model/task_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // ─── Hive init ────────────────────────────────────────────────
+  // Hive init
   await Hive.initFlutter();
-  Hive.registerAdapter(PlantTipModelAdapter()); // Generated تلقائياً
+  Hive.registerAdapter(PlantTipModelAdapter());
+  Hive.registerAdapter(TaskModelAdapter());
   await PlantTipsLocalDataSource.openBox();
   await Firebase.initializeApp();
   setupDependencies();
@@ -42,9 +43,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => getIt<AuthCubit>()),
-            BlocProvider(
-              create: (_) => getIt<OnboardingCubit>(),
-            ),
+            BlocProvider(create: (_) => getIt<OnboardingCubit>()),
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,

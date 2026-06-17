@@ -33,10 +33,21 @@ import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
 import 'package:myfarm/features/signup/domain/repo/signup_repository.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_usecase.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
+import 'package:myfarm/features/tasks/data/datasource/task_local_datasource.dart';
+import 'package:myfarm/features/tasks/data/datasource/task_local_datasource_impl.dart';
+
+import 'package:myfarm/features/tasks/domin/repositories/task_repository.dart';
+import 'package:myfarm/features/tasks/data/repository/task_repo_impl.dart';
+import 'package:myfarm/features/tasks/domin/usecases/add_task_usecase.dart';
+import 'package:myfarm/features/tasks/domin/usecases/delete_task_usecase.dart';
+import 'package:myfarm/features/tasks/domin/usecases/edit_task_usecase.dart';
+import 'package:myfarm/features/tasks/domin/usecases/get_tasks_usecase.dart';
+import 'package:myfarm/features/tasks/domin/usecases/toggle_complete_usecase.dart';
 
 final getIt = GetIt.instance;
 
 void setupDependencies() {
+  _setupTasks();
   _setupFirebase();
   _setupAuth();
   _setupLogin();
@@ -122,4 +133,23 @@ void _setupSignup() {
 
   // Presentation (Cubit - Factory لأنه يتعمل كل مرة) عشان كل شاشة تاخد instance جديدة
   getIt.registerFactory(() => SignupCubit(getIt()));
+}
+
+void _setupTasks() {
+  // ✅ 1. DataSource أولاً
+  getIt.registerLazySingleton<TaskLocalDataSource>(
+    () => TaskLocalDataSourceImpl(),
+  );
+
+  // ✅ 2. Repository يأخذ DataSource كـ dependency
+  getIt.registerLazySingleton<TaskRepo>(
+    () => TaskRepoImpl(getIt<TaskLocalDataSource>()),
+  );
+
+  // ✅ 3. Use Cases
+  getIt.registerLazySingleton(() => GetTasksUseCase(getIt<TaskRepo>()));
+  getIt.registerLazySingleton(() => AddTaskUseCase(getIt<TaskRepo>()));
+  getIt.registerLazySingleton(() => DeleteTaskUsecase(getIt<TaskRepo>()));
+  getIt.registerLazySingleton(() => EditTaskUseCase(getIt<TaskRepo>()));
+  getIt.registerLazySingleton(() => ToggleCompleteUseCase(getIt<TaskRepo>()));
 }

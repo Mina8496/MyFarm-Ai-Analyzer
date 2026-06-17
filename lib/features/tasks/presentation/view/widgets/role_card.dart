@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/core/utils/user_role.dart';
+import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
+import 'package:myfarm/features/tasks/presentation/view/tasks_page.dart';
 
 class RoleCard extends StatelessWidget {
   final UserRole role;
@@ -31,7 +34,9 @@ class RoleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.off(() => TasksPage(role: role));
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(20),

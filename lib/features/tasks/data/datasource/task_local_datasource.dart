@@ -1,0 +1,11 @@
+import 'package:myfarm/features/tasks/data/model/task_model.dart';
+
+abstract class TaskLocalDataSource {
+  Future<List<TaskModel>> getTasks();
+
+  Future<void> addTask(TaskModel task);
+
+  Future<void> updateTask(TaskModel task);
+
+  Future<void> deleteTask(String id);
+}

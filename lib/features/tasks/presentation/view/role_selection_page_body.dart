@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/core/utils/user_role.dart';
-import 'package:myfarm/features/role_selection_page/presentation/view/widgets/role_card.dart';
+import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
+import 'package:myfarm/features/tasks/presentation/view/widgets/role_card.dart';
 
 class RoleSelectionBody extends StatelessWidget {
   const RoleSelectionBody({super.key});
