@@ -3,7 +3,7 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subs
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/plan_Card.dart';
 
 class PlansRow extends StatelessWidget {
-  final List<PlanViewModel> plans;
+  final List<SubscriptionPlanViewModel> plans;
   final int selectedIndex;
   final void Function(int) onPlanSelected;
 
@@ -20,15 +20,17 @@ class PlansRow extends StatelessWidget {
       children: plans
           .asMap()
           .entries
-          .map((e) => Expanded(
-                child: GestureDetector(
-                  onTap: () => onPlanSelected(e.key),
-                  child: PlanCard(
-                    isSelected: selectedIndex == e.key,
-                    plan: e.value,
-                  ),
+          .map(
+            (e) => Expanded(
+              child: GestureDetector(
+                onTap: () => onPlanSelected(e.key),
+                child: PlanCard(
+                  isSelected: selectedIndex == e.key,
+                  plan: e.value,
                 ),
-              ))
+              ),
+            ),
+          )
           .toList(),
     );
   }

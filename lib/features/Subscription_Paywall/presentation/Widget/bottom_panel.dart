@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +12,8 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/showDia
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/subscribe_Button.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_cubit.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_state.dart';
+import 'package:myfarm/features/payment/domain/usecase/get_billing_data.dart';
+import 'package:myfarm/features/payment/presentation/screens/payment_screen.dart';
 
 class BottomPanel extends StatelessWidget {
   const BottomPanel({super.key});
@@ -17,9 +21,29 @@ class BottomPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SubscriptionCubit, SubscriptionState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is SubscriptionNavigateToPayment) {
-          Get.toNamed('/PaymentScreen'); 
+          final billingData = await GetBillingDataUseCase(
+            FirebaseAuth.instance,
+            FirebaseFirestore.instance,
+          ).call();
+
+          final selectedPlan = state.selectedPlan;
+
+          // حوّل السعر من نص لـ cents (شيل أي حروف زيادة زي "ج" والمسافات)
+          final priceText = selectedPlan.price.replaceAll(
+            RegExp(r'[^\d.]'),
+            '',
+          ); // يسيب الأرقام والنقطة بس
+          final amountCents = (double.parse(priceText) * 100).round();
+
+          Get.to(
+            () => PaymentScreen(
+              amountCents: amountCents,
+              billingData: billingData,
+              currency: 'EGP',
+            ),
+          );
         }
         if (state is SubscriptionNavigateToLogin) {
           showDialogMethod(context);
@@ -72,7 +96,7 @@ class BottomPanel extends StatelessWidget {
                   ),
                 ),
                 SubscribeButton(
-                  onTap: () => Navigator.pushNamed(context, '/home'),
+                  onTap: () => Navigator.pushReplacementNamed(context, '/home'),
                   text: "free_trial".tr,
                   color: Colors.grey,
                 ),
@@ -85,5 +109,5 @@ class BottomPanel extends StatelessWidget {
         );
       },
     );
-  }  
+  }
 }

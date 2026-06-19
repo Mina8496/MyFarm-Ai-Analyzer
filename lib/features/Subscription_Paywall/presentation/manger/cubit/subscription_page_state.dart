@@ -3,11 +3,14 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subs
 abstract class SubscriptionState {}
 
 class SubscriptionInitial extends SubscriptionState {
-  final List<PlanViewModel> plans;
+  final List<SubscriptionPlanViewModel> plans;
   final int selectedIndex;
   SubscriptionInitial({required this.plans, this.selectedIndex = 0});
 }
 
-class SubscriptionNavigateToPayment extends SubscriptionState {}
+class SubscriptionNavigateToPayment extends SubscriptionState {
+  final SubscriptionPlanViewModel selectedPlan;
+  SubscriptionNavigateToPayment(this.selectedPlan);
+}
 
 class SubscriptionNavigateToLogin extends SubscriptionState {}

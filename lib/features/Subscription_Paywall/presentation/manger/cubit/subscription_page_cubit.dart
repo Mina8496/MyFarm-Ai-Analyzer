@@ -27,9 +27,10 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
 
   void onSubscribeTapped() {
     final user = FirebaseAuth.instance.currentUser;
+    final selectedPlan = _lastState.plans[_lastState.selectedIndex];
  
     if (user != null) {
-      emit(SubscriptionNavigateToPayment());
+      emit(SubscriptionNavigateToPayment(selectedPlan));
     } else {
       emit(SubscriptionNavigateToLogin());
     }

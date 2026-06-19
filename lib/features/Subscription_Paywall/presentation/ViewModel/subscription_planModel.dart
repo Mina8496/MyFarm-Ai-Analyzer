@@ -1,20 +1,18 @@
-import 'package:myfarm/features/Subscription_Paywall/domin/Entity/SubscriptionPlan_Entity.dart';
-
-class PlanViewModel {
+class SubscriptionPlanViewModel {
   final String title;
   final String price;
   final String duration;
 
-  PlanViewModel({
+  SubscriptionPlanViewModel({
     required this.title,
     required this.price,
     required this.duration,
   });
 }
 
-extension PlanMapper on SubscriptionPlan {
-  PlanViewModel toViewModel() {
-    return PlanViewModel(
+extension PlanMapper on SubscriptionPlanViewModel {
+  SubscriptionPlanViewModel toViewModel() {
+    return SubscriptionPlanViewModel(
       title: title,
       price: price,
       duration: duration,

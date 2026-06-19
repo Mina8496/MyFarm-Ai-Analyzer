@@ -5,7 +5,7 @@ import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_planModel.dart';
 
 class PlanCard extends StatelessWidget {
-  final PlanViewModel plan;
+  final SubscriptionPlanViewModel plan;
   final bool isSelected;
 
   const PlanCard({super.key, required this.plan, this.isSelected = false});
@@ -64,7 +64,7 @@ class _CheckIcon extends StatelessWidget {
 }
 
 class _PlanContent extends StatelessWidget {
-  final PlanViewModel plan;
+  final SubscriptionPlanViewModel plan;
 
   const _PlanContent({required this.plan});
 

@@ -9,23 +9,23 @@ class VideoHeader extends StatefulWidget {
 }
 
 class _VideoHeaderState extends State<VideoHeader> {
-  late VideoPlayerController _controller;
+  late VideoPlayerController controller;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.asset("assets/video/plant.mp4");
+    controller = VideoPlayerController.asset("assets/video/plant.mp4");
 
     _initializeVideo();
   }
 
   Future<void> _initializeVideo() async {
-    await _controller.initialize();
+    await controller.initialize();
 
-    _controller.setLooping(true);
-    _controller.setVolume(0);
-    await _controller.play();
+    await controller.setLooping(true);
+    await controller.setVolume(0);
+    await controller.play();
 
     if (mounted) {
       setState(() {});
@@ -34,13 +34,15 @@ class _VideoHeaderState extends State<VideoHeader> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    debugPrint('VideoHeader disposed');
+    controller.pause();
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_controller.value.isInitialized) {
+    if (!controller.value.isInitialized) {
       return const SizedBox.expand();
     }
 
@@ -48,9 +50,9 @@ class _VideoHeaderState extends State<VideoHeader> {
       child: FittedBox(
         fit: BoxFit.cover,
         child: SizedBox(
-          width: _controller.value.size.width,
-          height: _controller.value.size.height,
-          child: VideoPlayer(_controller),
+          width: controller.value.size.width,
+          height: controller.value.size.height,
+          child: VideoPlayer(controller),
         ),
       ),
     );
