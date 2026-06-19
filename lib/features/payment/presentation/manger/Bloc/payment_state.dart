@@ -18,9 +18,19 @@ class PaymentLoading extends PaymentState {}
 
 class PaymentUrlReady extends PaymentState {
   final String iframeUrl;
-  const PaymentUrlReady({required this.iframeUrl});
+  final int amountCents;
+  final String currency;
+  final PaymentMethod method;
+
+  const PaymentUrlReady({
+    required this.iframeUrl,
+    required this.amountCents,
+    required this.currency,
+    required this.method,
+  });
+
   @override
-  List<Object?> get props => [iframeUrl];
+  List<Object?> get props => [iframeUrl, amountCents, currency, method];
 }
 
 class PaymentSuccess extends PaymentState {

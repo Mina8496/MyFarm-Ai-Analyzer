@@ -30,16 +30,36 @@ class InitiatePaymentEvent extends PaymentEvent {
 
 class PaymentSucceededEvent extends PaymentEvent {
   final String transactionId;
-  const PaymentSucceededEvent({required this.transactionId});
+  final int amountCents;
+  final String currency;
+  final PaymentMethod method;
+
+  const PaymentSucceededEvent({
+    required this.transactionId,
+    required this.amountCents,
+    required this.currency,
+    required this.method,
+  });
+
   @override
-  List<Object?> get props => [transactionId];
+  List<Object?> get props => [transactionId, amountCents, currency, method];
 }
 
 class PaymentFailedEvent extends PaymentEvent {
   final String reason;
-  const PaymentFailedEvent({required this.reason});
+  final int amountCents;
+  final String currency;
+  final PaymentMethod method;
+
+  const PaymentFailedEvent({
+    required this.reason,
+    required this.amountCents,
+    required this.currency,
+    required this.method,
+  });
+
   @override
-  List<Object?> get props => [reason];
+  List<Object?> get props => [reason, amountCents, currency, method];
 }
 
 class SelectPaymentMethodEvent extends PaymentEvent {

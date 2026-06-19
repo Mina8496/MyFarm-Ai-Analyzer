@@ -19,7 +19,7 @@ class BottomPanel extends StatelessWidget {
     return BlocConsumer<SubscriptionCubit, SubscriptionState>(
       listener: (context, state) {
         if (state is SubscriptionNavigateToPayment) {
-          Get.toNamed('/PaymentScreen'); // GetX
+          Get.toNamed('/PaymentScreen'); 
         }
         if (state is SubscriptionNavigateToLogin) {
           showDialogMethod(context);

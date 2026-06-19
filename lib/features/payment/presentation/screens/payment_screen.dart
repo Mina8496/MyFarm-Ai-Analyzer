@@ -1,16 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:myfarm/features/payment/data/dataSource/payment_remote_data_source.dart';
+import 'package:myfarm/features/payment/data/models/payment_model.dart';
+import 'package:myfarm/features/payment/data/repositoryImp/payment_repository_impl.dart';
 import 'package:myfarm/features/payment/domain/entities/billing_data.dart';
 import 'package:myfarm/features/payment/domain/entities/order_Item.dart';
 import 'package:myfarm/features/payment/presentation/manger/Bloc/payment_cubit.dart';
 import 'package:myfarm/features/payment/presentation/manger/Bloc/payment_state.dart';
 import 'package:myfarm/features/payment/presentation/manger/Bloc/paymente_event.dart';
-import '../../data/models/payment_model.dart';
-import '../widgets/payment_method_card.dart';
-import '../widgets/payment_summary_card.dart';
-import 'paymob_webview_screen.dart';
-import 'payment_result_screen.dart';
-import 'package:get/get.dart';
+import 'package:myfarm/features/payment/presentation/screens/payment_result_screen.dart';
+import 'package:myfarm/features/payment/presentation/screens/paymob_webview_screen.dart';
+import 'package:myfarm/features/payment/presentation/widgets/payment_method_card.dart';
+import 'package:myfarm/features/payment/presentation/widgets/payment_summary_card.dart';
 // ─── Payment Screen ───────────────────────────────────────────────
 // الشاشة الرئيسية للدفع — يُمرر إليها amount و billingData و items
 // ─────────────────────────────────────────────────────────────────
@@ -22,24 +26,31 @@ class PaymentScreen extends StatelessWidget {
   final String currency;
 
   const PaymentScreen({
-  super.key,
-  required this.amountCents,
-  this.billingData = const BillingData(
-    firstName: 'عميل',
-    lastName: 'تجريبي',
-    email: 'cliente@example.com',
-    city: "القاهرة",
-    country: "EG",
-    phone: '01000000000',
+    super.key,
+    required this.amountCents,
+    this.billingData = const BillingData(
+      firstName: 'عميل',
+      lastName: 'تجريبي',
+      email: 'cliente@example.com',
+      city: "القاهرة",
+      country: "EG",
+      phone: '01000000000',
     ),
-  this.items = const [],
-  this.currency = 'EGP',
-});
+    this.items = const [],
+    this.currency = 'EGP',
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => PaymentBloc(),
+      create: (_) => PaymentBloc(
+        paymentRepository: PaymentRepositoryImpl(
+          PaymentRemoteDataSourceImpl(
+            FirebaseAuth.instance,
+            FirebaseFirestore.instance,
+          ),
+        ),
+      ),
       child: _PaymentScreenContent(
         amountCents: amountCents,
         billingData: billingData,
@@ -67,33 +78,38 @@ class _PaymentScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<PaymentBloc, PaymentState>(
       listener: (context, state) {
-  if (state is PaymentUrlReady) {
-    Get.to(
-      () => BlocProvider.value(
-        value: context.read<PaymentBloc>(),
-        child: PaymobWebViewScreen(iframeUrl: state.iframeUrl),
-      ),
-    );
-  } else if (state is PaymentSuccess) {
-    Get.off(
-      () => PaymentResultScreen(
-        success: true,
-        transactionId: state.transactionId,
-        amount: amountCents / 100,
-        currency: currency,
-      ),
-    );
-  } else if (state is PaymentFailure) {
-    Get.off(
-      () => PaymentResultScreen(
-        success: false,
-        message: state.message,
-        amount: amountCents / 100,
-        currency: currency,
-      ),
-    );
-  }
-},
+        if (state is PaymentUrlReady) {
+          Get.to(
+            () => BlocProvider.value(
+              value: context.read<PaymentBloc>(),
+              child: PaymobWebViewScreen(
+                iframeUrl: state.iframeUrl,
+                amountCents: state.amountCents,
+                currency: state.currency,
+                method: state.method,
+              ),
+            ),
+          );
+        } else if (state is PaymentSuccess) {
+          Get.off(
+            () => PaymentResultScreen(
+              success: true,
+              transactionId: state.transactionId,
+              amount: amountCents / 100,
+              currency: currency,
+            ),
+          );
+        } else if (state is PaymentFailure) {
+          Get.off(
+            () => PaymentResultScreen(
+              success: false,
+              message: state.message,
+              amount: amountCents / 100,
+              currency: currency,
+            ),
+          );
+        }
+      },
       child: Scaffold(
         backgroundColor: const Color(0xFFF8F9FA),
         appBar: AppBar(
@@ -109,8 +125,11 @@ class _PaymentScreenContent extends StatelessWidget {
             ),
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                size: 20, color: Color(0xFF1A1A2E)),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 20,
+              color: Color(0xFF1A1A2E),
+            ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           bottom: PreferredSize(
@@ -228,7 +247,9 @@ class _PayButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1D9E75),
           disabledBackgroundColor: const Color(0xFF1D9E75).withOpacity(0.6),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
           elevation: 0,
         ),
         child: isLoading
