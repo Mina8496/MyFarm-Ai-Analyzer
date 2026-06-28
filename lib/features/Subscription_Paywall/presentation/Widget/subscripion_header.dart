@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/achievements_section.dart';
 
@@ -15,10 +15,10 @@ class SubscripionHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           /// Top Bar
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [_circleButton(Icons.close)],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [_circleButton(context)],
+          ),
           SizedBox(height: 60.h),
 
           Center(
@@ -57,14 +57,16 @@ class SubscripionHeader extends StatelessWidget {
     );
   }
 
-  // Widget _circleButton(IconData icon) {
-  //   return Container(
-  //     decoration: const BoxDecoration(
-  //       shape: BoxShape.circle,
-  //       color: Colors.black45,
-  //     ),
-  //     padding: const EdgeInsets.all(8),
-  //     child: Icon(icon, color: Colors.white),
-  //   );
-  // }
+  Widget _circleButton(context) {
+    return Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.black45,
+      ),
+      child: IconButton(
+        onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
+        icon: const Icon(Icons.close, color: Colors.white),
+      ),
+    );
+  }
 }
