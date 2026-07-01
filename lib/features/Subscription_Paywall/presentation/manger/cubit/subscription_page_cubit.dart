@@ -37,5 +37,4 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
     emit(_lastState);
   }
 
-  void onFreeTrialTapped() {}
 }

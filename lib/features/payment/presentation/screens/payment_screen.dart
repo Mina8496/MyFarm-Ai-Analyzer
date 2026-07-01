@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/payment/data/dataSource/payment_remote_data_source.dart';
 import 'package:myfarm/features/payment/data/models/payment_model.dart';
-import 'package:myfarm/features/payment/data/repositoryImp/payment_repository_impl.dart';
 import 'package:myfarm/features/payment/domain/entities/billing_data.dart';
 import 'package:myfarm/features/payment/domain/entities/order_Item.dart';
 import 'package:myfarm/features/payment/presentation/manger/Bloc/payment_cubit.dart';
@@ -15,59 +11,14 @@ import 'package:myfarm/features/payment/presentation/screens/payment_result_scre
 import 'package:myfarm/features/payment/presentation/screens/paymob_webview_screen.dart';
 import 'package:myfarm/features/payment/presentation/widgets/payment_method_card.dart';
 import 'package:myfarm/features/payment/presentation/widgets/payment_summary_card.dart';
-// ─── Payment Screen ───────────────────────────────────────────────
-// الشاشة الرئيسية للدفع — يُمرر إليها amount و billingData و items
-// ─────────────────────────────────────────────────────────────────
 
-class PaymentScreen extends StatelessWidget {
+class PaymentBottomSheet extends StatelessWidget {
   final int amountCents;
   final BillingData billingData;
   final List<OrderItem> items;
   final String currency;
 
-  const PaymentScreen({
-    super.key,
-    required this.amountCents,
-    this.billingData = const BillingData(
-      firstName: 'عميل',
-      lastName: 'تجريبي',
-      email: 'cliente@example.com',
-      city: "القاهرة",
-      country: "EG",
-      phone: '01000000000',
-    ),
-    this.items = const [],
-    this.currency = 'EGP',
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PaymentBloc(
-        paymentRepository: PaymentRepositoryImpl(
-          PaymentRemoteDataSourceImpl(
-            FirebaseAuth.instance,
-            FirebaseFirestore.instance,
-          ),
-        ),
-      ),
-      child: _PaymentScreenContent(
-        amountCents: amountCents,
-        billingData: billingData,
-        items: items,
-        currency: currency,
-      ),
-    );
-  }
-}
-
-class _PaymentScreenContent extends StatelessWidget {
-  final int amountCents;
-  final BillingData billingData;
-  final List<OrderItem> items;
-  final String currency;
-
-  const _PaymentScreenContent({
+  const PaymentBottomSheet({
     required this.amountCents,
     required this.billingData,
     required this.items,
@@ -91,6 +42,8 @@ class _PaymentScreenContent extends StatelessWidget {
             ),
           );
         } else if (state is PaymentSuccess) {
+          Navigator.pop(context);
+
           Get.off(
             () => PaymentResultScreen(
               success: true,
@@ -100,6 +53,8 @@ class _PaymentScreenContent extends StatelessWidget {
             ),
           );
         } else if (state is PaymentFailure) {
+          Navigator.pop(context);
+
           Get.off(
             () => PaymentResultScreen(
               success: false,
@@ -110,114 +65,129 @@ class _PaymentScreenContent extends StatelessWidget {
           );
         }
       },
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            'الدفع',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF1A1A2E),
-            ),
-          ),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 20,
-              color: Color(0xFF1A1A2E),
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Container(height: 1, color: const Color(0xFFEEEEEE)),
-          ),
+      child: Container(
+        height: MediaQuery.of(context).size.height * .88,
+        decoration: const BoxDecoration(
+          color: Color(0xFFF8F9FA),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 24),
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
 
-                // ملخص الطلب
-                PaymentSummaryCard(
-                  amountCents: amountCents,
-                  currency: currency,
-                  items: items,
-                ),
-                const SizedBox(height: 28),
+            Container(
+              width: 45,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
 
-                const Text(
-                  'طريقة الدفع',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF1A1A2E),
+            Expanded(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  centerTitle: true,
+                  automaticallyImplyLeading: false,
+                  title: const Text(
+                    "الدفع",
+                    style: TextStyle(
+                      color: Color(0xFF1A1A2E),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.close, color: Colors.black),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 12),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 24),
 
-                // اختيار طريقة الدفع
-                BlocBuilder<PaymentBloc, PaymentState>(
-                  builder: (context, state) {
-                    final selected = state is PaymentInitial
-                        ? state.selectedMethod
-                        : PaymentMethod.card;
+                      // ملخص الطلب
+                      PaymentSummaryCard(
+                        amountCents: amountCents,
+                        currency: currency,
+                        items: items,
+                      ),
+                      const SizedBox(height: 28),
 
-                    return Column(
-                      children: PaymentMethod.values.map((method) {
-                        return PaymentMethodCard(
-                          method: method,
-                          isSelected: selected == method,
-                          onTap: () => context.read<PaymentBloc>().add(
-                            SelectPaymentMethodEvent(method),
-                          ),
-                        );
-                      }).toList(),
-                    );
-                  },
-                ),
+                      const Text(
+                        'طريقة الدفع',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF1A1A2E),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
 
-                const Spacer(),
+                      // اختيار طريقة الدفع
+                      BlocBuilder<PaymentBloc, PaymentState>(
+                        builder: (context, state) {
+                          final selected = state is PaymentInitial
+                              ? state.selectedMethod
+                              : PaymentMethod.card;
 
-                // زرار الدفع
-                BlocBuilder<PaymentBloc, PaymentState>(
-                  builder: (context, state) {
-                    final isLoading = state is PaymentLoading;
-                    final selectedMethod = state is PaymentInitial
-                        ? state.selectedMethod
-                        : PaymentMethod.card;
-
-                    return _PayButton(
-                      amountCents: amountCents,
-                      currency: currency,
-                      isLoading: isLoading,
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                              context.read<PaymentBloc>().add(
-                                InitiatePaymentEvent(
-                                  amountCents: amountCents,
-                                  billingData: billingData,
-                                  items: items,
-                                  method: selectedMethod,
-                                  currency: currency,
+                          return Column(
+                            children: const [PaymentMethod.card].map((method) {
+                              return PaymentMethodCard(
+                                method: method,
+                                isSelected: selected == method,
+                                onTap: () => context.read<PaymentBloc>().add(
+                                  SelectPaymentMethodEvent(method),
                                 ),
                               );
-                            },
-                    );
-                  },
+                            }).toList(),
+                          );
+                        },
+                      ),
+
+                      const Spacer(),
+
+                      // زرار الدفع
+                      BlocBuilder<PaymentBloc, PaymentState>(
+                        builder: (context, state) {
+                          final isLoading = state is PaymentLoading;
+                          final selectedMethod = state is PaymentInitial
+                              ? state.selectedMethod
+                              : PaymentMethod.card;
+
+                          return _PayButton(
+                            amountCents: amountCents,
+                            currency: currency,
+                            isLoading: isLoading,
+                            onPressed: isLoading
+                                ? null
+                                : () {
+                                    context.read<PaymentBloc>().add(
+                                      InitiatePaymentEvent(
+                                        amountCents: amountCents,
+                                        billingData: billingData,
+                                        items: items,
+                                        method: selectedMethod,
+                                        currency: currency,
+                                      ),
+                                    );
+                                  },
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 24),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

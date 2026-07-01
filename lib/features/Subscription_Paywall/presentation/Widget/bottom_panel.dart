@@ -13,7 +13,7 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/subscri
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_cubit.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_state.dart';
 import 'package:myfarm/features/payment/domain/usecase/get_billing_data.dart';
-import 'package:myfarm/features/payment/presentation/screens/payment_screen.dart';
+import 'package:myfarm/features/payment/presentation/widgets/payment_bottom_sheet.dart';
 
 class BottomPanel extends StatelessWidget {
   const BottomPanel({super.key});
@@ -37,12 +37,10 @@ class BottomPanel extends StatelessWidget {
           ); // يسيب الأرقام والنقطة بس
           final amountCents = (double.parse(priceText) * 100).round();
 
-          Get.to(
-            () => PaymentScreen(
-              amountCents: amountCents,
-              billingData: billingData,
-              currency: 'EGP',
-            ),
+          await showPaymentBottomSheet(
+            context: context,
+            amountCents: amountCents,
+            billingData: billingData,
           );
         }
         if (state is SubscriptionNavigateToLogin) {
