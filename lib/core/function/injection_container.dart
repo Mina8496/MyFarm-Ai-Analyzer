@@ -79,7 +79,7 @@ void _setupPlantTips() {
   getIt.registerLazySingleton(() => PlantTipsRotationService());
 
   /// Cubit
-  getIt.registerFactory(() => PlantTipsCubit(getIt(), getIt()));
+  getIt.registerLazySingleton(() => PlantTipsCubit(getIt(), getIt()));
 }
 
 // ─── Auth ───────────────────────────────────────────────

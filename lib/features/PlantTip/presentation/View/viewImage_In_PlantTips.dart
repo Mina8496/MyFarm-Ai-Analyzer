@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
 
@@ -10,25 +11,22 @@ class ViewImageInPlantTips extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-      child: Image.network(
-        tip.imageUrl,
+      child: CachedNetworkImage(
+        imageUrl: tip.imageUrl,
         height: 180,
         width: double.infinity,
         fit: BoxFit.cover,
 
         // أثناء التحميل
-        loadingBuilder: (context, child, progress) {
-          if (progress == null) return child;
-          return Container(
-            height: 180,
-            width: double.infinity,
-            color: Colors.grey.shade200,
-            child: const Center(child: CircularProgressIndicator()),
-          );
-        },
+        placeholder: (context, url) => Container(
+          height: 180,
+          width: double.infinity,
+          color: Colors.grey.shade200,
+          child: const Center(child: CircularProgressIndicator()),
+        ),
 
         // في حالة الخطأ (صورة مش موجودة / رابط غلط)
-        errorBuilder: (context, error, stackTrace) {
+        errorWidget: (context, error, url) {
           return Container(
             height: 180,
             width: double.infinity,

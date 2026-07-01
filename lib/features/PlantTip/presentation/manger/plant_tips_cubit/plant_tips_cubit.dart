@@ -17,6 +17,7 @@ class PlantTipsCubit extends Cubit<PlantTipsState> {
     : super(PlantTipsInitial());
 
   void init() {
+    if (_sub != null) return;
     emit(PlantTipsLoading());
 
     _sub = repository.getPlantTips().listen(

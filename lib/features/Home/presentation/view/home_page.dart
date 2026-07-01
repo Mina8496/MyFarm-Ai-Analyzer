@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => MainNavCubit()),
-        BlocProvider(create: (_) => getIt<PlantTipsCubit>()..init()),
+        BlocProvider.value(value: getIt<PlantTipsCubit>()..init()),
         // BlocProvider(create: (_) => getIt<ProfilePage>()..init()),
       ],
       child: BlocBuilder<MainNavCubit, int>(
