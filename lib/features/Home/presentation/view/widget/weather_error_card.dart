@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myfarm/features/Home/presentation/manger/home_cubit/weather_cubit.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_cubit.dart';
 
 class WeatherErrorCard extends StatelessWidget {
   const WeatherErrorCard({super.key, required this.message});

@@ -1,8 +1,8 @@
 // weather_card.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myfarm/features/Home/presentation/manger/home_cubit/weather_cubit.dart';
-import 'package:myfarm/features/Home/presentation/manger/home_cubit/weather_state.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_cubit.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_state.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/weather_error_card.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/weather_success_card.dart';
 
