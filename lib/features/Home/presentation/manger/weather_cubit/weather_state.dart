@@ -8,8 +8,9 @@ class WeatherSuccess extends WeatherState {
   final Map<String, dynamic> data;
   final String icon;
   final String description;
+  final bool fromCache;
 
-  WeatherSuccess(this.data)
+  WeatherSuccess(this.data, { this.fromCache = false })
     : icon = _resolveIcon((data['current']['weather_code'] as num).toInt()),
       description = _resolveDescription(
         (data['current']['weather_code'] as num).toInt(),

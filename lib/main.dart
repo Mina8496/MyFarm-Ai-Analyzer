@@ -11,6 +11,7 @@ import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
+import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
 import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_source.dart';
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
@@ -24,6 +25,7 @@ void main() async {
   Hive.registerAdapter(PlantTipModelAdapter());
   Hive.registerAdapter(TaskModelAdapter());
   await PlantTipsLocalDataSource.openBox();
+  await WeatherLocalDataSource.openBox();
   await Firebase.initializeApp();
   setupDependencies();
   AppConfig.lang =

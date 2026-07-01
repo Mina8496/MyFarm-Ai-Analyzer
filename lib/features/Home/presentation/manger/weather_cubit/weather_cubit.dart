@@ -1,31 +1,45 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/services/location_service.dart';
 import 'package:myfarm/core/services/weather_service.dart';
+import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
 import 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   final WeatherService weatherService;
   final LocationService locationService;
+  final WeatherLocalDataSource localDataSource;
 
-  WeatherCubit({required this.weatherService, required this.locationService})
-    : super(WeatherInitial());
+  WeatherCubit({
+    required this.weatherService,
+    required this.locationService,
+    required this.localDataSource,
+  }) : super(WeatherInitial());
 
   Future<void> getWeather() async {
-    emit(WeatherLoading());
+    final cached = localDataSource.getCachedWeather();
+    if (cached != null) {
+      emit(WeatherSuccess(cached, fromCache: true));
+    } else {
+      emit(WeatherLoading());
+    }
     try {
       final pos = await locationService.getCurrentPositionOnly();
-      print("✅ Location: ${pos.latitude}, ${pos.longitude}"); // ← أضف
-
       final data = await weatherService.getWeather(
         lat: pos.latitude,
         lon: pos.longitude,
       );
-      print("✅ Weather data: $data"); // ← أضف
+      await localDataSource.cacheWeather(data);
 
-      emit(WeatherSuccess(data));
+      print("✅ Location: ${pos.latitude}, ${pos.longitude}"); // ← أضف
+
+      emit(WeatherSuccess(data, fromCache: false));
+
+      print("✅ Weather data: $data"); // ← أضف
     } catch (e) {
-      print("❌ Error: $e"); // ← أضف
-      emit(WeatherError(_mapError(e)));
+      if (cached == null) {
+        emit(WeatherError(_mapError(e)));
+      }
+      print("⚠️ تعذر تحديث الطقس، هيفضل الكاش ظاهر: $e");
     }
   }
 
@@ -42,9 +56,6 @@ class WeatherCubit extends Cubit<WeatherState> {
     if (msg.contains('locationServicesDisabled') ||
         msg.contains('LocationServiceDisabledException')) {
       return 'يرجى تفعيل خدمة الموقع';
-    }
-    if (msg.contains('permissionDenied')) {
-      return 'لم يتم منح إذن الموقع';
     }
     if (msg.contains('permissionDenied') || msg.contains('denied')) {
       return 'يرجى السماح بالوصول للموقع من إعدادات التطبيق';
