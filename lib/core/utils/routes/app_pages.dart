@@ -10,7 +10,6 @@ import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
 import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
 import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
-import 'package:myfarm/features/UserType/presentation/views/userType_selection_page.dart';
 
 class AppPages {
   static final pages = [
@@ -26,11 +25,6 @@ class AppPages {
       transition: Transition.rightToLeft,
     ),
 
-    GetPage(
-      name: '/user_type',
-      page: () => UserTypeSelectionPage(),
-      transition: Transition.rightToLeft,
-    ),
     GetPage(
       name: '/SubPage',
       page: () => const SubscriptionPage(),

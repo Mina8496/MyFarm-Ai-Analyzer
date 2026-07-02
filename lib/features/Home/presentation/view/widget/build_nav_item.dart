@@ -4,14 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myfarm/features/Home/presentation/manger/home_cubit/main_nav_cubit.dart';
 
 class BuildNavItem extends StatelessWidget {
-  final FaIconData?  icon;
+  final FaIconData? icon;
   final int index;
 
-  const BuildNavItem({
-    super.key,
-    required this.icon,
-    required this.index,
-  });
+  const BuildNavItem({super.key, required this.icon, required this.index});
 
   @override
   Widget build(BuildContext context) {

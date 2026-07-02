@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/core/widgets/auth_required_dialog.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/view/tasks_page.dart';
 
@@ -35,6 +37,14 @@ class RoleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if (FirebaseAuth.instance.currentUser == null) {
+          AuthRequiredDialog.show(
+            context,
+            message: 'يجب تسجيل الدخول أولاً قبل اختيار الدور.',
+          );
+          return;
+        }
+
         Get.off(() => TasksPage(role: role));
       },
       child: Container(

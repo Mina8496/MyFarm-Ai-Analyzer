@@ -75,7 +75,7 @@ class ControllerOnboardingPage extends GetxController {
     isLoading.value = true;
 
     await getIt<OnboardingService>().markAsSeen();
-    Get.offAllNamed('/user_type');
+    Get.offAllNamed('/SubPage');
   }
 
   @override
