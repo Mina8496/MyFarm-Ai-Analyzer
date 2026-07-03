@@ -16,6 +16,12 @@ class LoginError extends LoginState {
   LoginError(this.message);
 }
 
+class LoginGoogleSignInSuccess extends LoginState {
+  final UserEntity user;
+
+  LoginGoogleSignInSuccess(this.user);
+}
+
 class LoginPasswordToggled extends LoginState {
   final bool isHidden;
 
