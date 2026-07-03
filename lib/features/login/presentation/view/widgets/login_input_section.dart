@@ -6,6 +6,7 @@ import 'package:myfarm/core/widgets/Input_field.dart';
 import 'package:myfarm/core/widgets/Validators.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
+import 'package:myfarm/features/login/presentation/view/widgets/password_field.dart';
 
 class LoginInputSection extends StatelessWidget {
   const LoginInputSection({super.key});
@@ -30,27 +31,7 @@ class LoginInputSection extends StatelessWidget {
         SizedBox(height: 18.h),
 
         /// Password
-        // const PasswordField(),
-        // BlocBuilder<, >(
-        //   buildWhen: (prev, curr) => curr is SignupPasswordToggled,
-        //   builder: (context, state) {
-        //     return InputField(
-        //       textTitke: 'Password'.tr,
-        //       controller: cubit.passwordController,
-        //       keyboardType: TextInputType.visiblePassword,
-        //       validator: cubit.validatePassword,
-        //       obscureText: cubit.isPasswordHidden,
-        //       suffixIcon: IconButton(
-        //         icon: Icon(
-        //           cubit.isPasswordHidden
-        //               ? Icons.visibility_off
-        //               : Icons.visibility,
-        //         ),
-        //         onPressed: cubit.togglePasswordVisibility,
-        //       ),
-        //     );
-        //   },
-        // ),
+        const PasswordField(),
       ],
     );
   }
