@@ -4,22 +4,21 @@ import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/Validators.dart';
 import 'package:myfarm/core/widgets/app_textView.dart';
 import 'package:myfarm/core/widgets/app_text_feild.dart';
-import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
-import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_state.dart';
+import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
+import 'package:myfarm/features/login/manger/cubit/login_state.dart';
 
 class PasswordField extends StatelessWidget {
   const PasswordField({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SignupCubit>();
+    final cubit = context.read<LoginCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(text: "Password".tr, color: Colors.black),
-
-        BlocBuilder<SignupCubit, SignupState>(
-          buildWhen: (previous, current) => current is SignupPasswordToggled,
+        BlocBuilder<LoginCubit, LoginState>(
+          buildWhen: (previous, current) => current is LoginPasswordToggled,
           builder: (context, state) {
             return AppTextField(
               controller: cubit.passwordController,

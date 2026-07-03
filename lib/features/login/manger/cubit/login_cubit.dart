@@ -8,7 +8,14 @@ class LoginCubit extends Cubit<LoginState> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool isPasswordHidden = true;
+
   LoginCubit(this.loginUseCase) : super(LoginInitial());
+
+  void togglePasswordVisibility() {
+    isPasswordHidden = !isPasswordHidden;
+    emit(LoginPasswordToggled(isPasswordHidden));
+  }
 
   Future<void> login() async {
     emit(LoginLoading());
