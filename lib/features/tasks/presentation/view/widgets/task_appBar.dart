@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
-import 'package:myfarm/features/tasks/presentation/view/role_selection_page.dart';
 
 class TasksAppBar extends StatelessWidget implements PreferredSizeWidget {
   final UserRole role;
@@ -33,9 +33,10 @@ class TasksAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _navigateBack(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (_) => const RoleSelectionPage()),
+      MaterialPageRoute(builder: (_) => HomePage()),
+      (route) => false,
     );
   }
 }

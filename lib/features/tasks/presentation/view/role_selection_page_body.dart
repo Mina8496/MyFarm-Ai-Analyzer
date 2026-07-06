@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
@@ -27,7 +28,7 @@ class RoleSelectionBody extends StatelessWidget {
               ),
               child: const Icon(Icons.agriculture, size: 80),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 10.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -38,13 +39,13 @@ class RoleSelectionBody extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 48),
+        SizedBox(height: 8.h),
 
         Text('اختر دورك', style: Styles.style26),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         Text('كل دور له صلاحيات مختلفة في إدارة المهام', style: Styles.style18),
 
-        const SizedBox(height: 32),
+        SizedBox(height: 10.h),
 
         // Role Cards
         Expanded(

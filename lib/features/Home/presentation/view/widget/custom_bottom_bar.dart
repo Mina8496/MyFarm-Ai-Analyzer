@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/bottom_bar_painter.dart';
 import 'package:myfarm/features/Home/presentation/view/widget/build_nav_item.dart';
 
+/// Custom bottom navigation bar used in the home screen.
+/// It draws the custom painted background and hosts the main navigation items.
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
 

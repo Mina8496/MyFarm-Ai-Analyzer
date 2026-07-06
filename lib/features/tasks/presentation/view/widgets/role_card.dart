@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:myfarm/core/storage/app_storage.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/core/widgets/auth_required_dialog.dart';
+import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/view/tasks_page.dart';
 
@@ -36,7 +36,7 @@ class RoleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (FirebaseAuth.instance.currentUser == null) {
           AuthRequiredDialog.show(
             context,
@@ -45,7 +45,17 @@ class RoleCard extends StatelessWidget {
           return;
         }
 
-        Get.off(() => TasksPage(role: role));
+        await AppStorage.saveUserType(role.name);
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => HomePage()),
+          (route) => false,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => TasksPage(role: role)),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),

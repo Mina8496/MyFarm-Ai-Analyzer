@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/function/injection_container.dart';
+import 'package:myfarm/core/storage/app_storage.dart';
 import 'package:myfarm/core/widgets/auth_required_dialog.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/domin/usecases/add_task_usecase.dart';
@@ -67,6 +68,18 @@ class TasksPage extends StatelessWidget {
   }
 
   Future<UserRole> _resolveRole() async {
+    if (role != null) {
+      await AppStorage.saveUserType(role!.name);
+      return role!;
+    }
+
+    final savedRoleCode = await AppStorage.getUserType();
+    if (savedRoleCode != null && savedRoleCode.isNotEmpty) {
+      final savedRole = userRoleFromFirebaseValue(savedRoleCode);
+      await AppStorage.saveUserType(savedRole.name);
+      return savedRole;
+    }
+
     final user = fb.FirebaseAuth.instance.currentUser;
     final fallbackRole = role ?? UserRole.farmer;
 
