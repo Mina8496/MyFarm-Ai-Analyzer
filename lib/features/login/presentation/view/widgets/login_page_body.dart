@@ -59,7 +59,13 @@ class LoginPageBody extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 18.h),
-              const Center(child: GoogleButton()),
+              Center(
+                child: GoogleButton(
+                  onTap: () {
+                    context.read<LoginCubit>().signInWithGoogle();
+                  },
+                ),
+              ),
               const Spacer(),
             ],
           ),

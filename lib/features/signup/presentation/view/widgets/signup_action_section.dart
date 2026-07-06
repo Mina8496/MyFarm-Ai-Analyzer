@@ -17,8 +17,7 @@ class SignupActionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
-        if (state is SignupSuccess) {
-          // Navigation بعد النجاح
+        if (state is SignupSuccess || state is SignupGoogleSignInSuccess) {
           Get.offAllNamed('/SubPage');
         } else if (state is SignupError) {
           ScaffoldMessenger.of(
@@ -34,13 +33,18 @@ class SignupActionSection extends StatelessWidget {
             AppButton(
               onTap: isLoading
                   ? null
-                  : () =>
-                        context.read<SignupCubit>().signup(), 
+                  : () => context.read<SignupCubit>().signup(),
               textApp: isLoading
                   ? const CircularProgressIndicator()
-                  :  AppText(text: "Register", color: Colors.white),
+                  : AppText(text: "Register", color: Colors.white),
             ),
-            const GoogleButton(),
+            Center(
+              child: GoogleButton(
+                onTap: () {
+                  context.read<SignupCubit>().signInWithGoogle();
+                },
+              ),
+            ),
             const LoginRedirect(),
             SizedBox(height: 20.h),
           ],

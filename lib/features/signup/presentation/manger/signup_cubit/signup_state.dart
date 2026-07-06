@@ -16,6 +16,12 @@ class SignupError extends SignupState {
   SignupError(this.message);
 }
 
+class SignupGoogleSignInSuccess extends SignupState {
+  final SignupUser signupUser;
+
+  SignupGoogleSignInSuccess(this.signupUser);
+}
+
 class SignupPasswordToggled extends SignupState {
   final bool isHidden;
   SignupPasswordToggled(this.isHidden);

@@ -52,7 +52,7 @@ class AuthRequiredDialog extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
-                Navigator.of(context).pushNamed('/login');
+                Navigator.of(context).pushNamed('/signup');
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
