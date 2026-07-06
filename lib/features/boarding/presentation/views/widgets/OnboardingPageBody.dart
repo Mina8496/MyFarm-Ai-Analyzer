@@ -32,7 +32,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       textApp: ButtonContent(
                         text: 'Back'.tr,
                         col: Colors.white,
-                        icon: FontAwesomeIcons.arrowLeft,
+                        icon: FontAwesomeIcons.arrowRight,
                         iconFirst: true,
                       ),
                     ),
@@ -44,7 +44,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                       textApp: ButtonContent(
                         text: 'Start'.tr,
                         col: Colors.white,
-                        icon: FontAwesomeIcons.arrowRight,
+                        icon: FontAwesomeIcons.arrowLeft,
                       ),
                     ),
                   ],
@@ -56,7 +56,7 @@ class OnboardingPageBody extends GetView<ControllerOnboardingPage> {
                 textApp: ButtonContent(
                   text: controller.nextTitle,
                   col: Colors.white,
-                  icon: FontAwesomeIcons.arrowRight,
+                  icon: FontAwesomeIcons.arrowLeft,
                 ),
               );
             }),
