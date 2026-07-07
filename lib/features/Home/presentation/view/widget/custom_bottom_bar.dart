@@ -28,7 +28,7 @@ class CustomBottomBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const [
                 BuildNavItem(icon: FontAwesomeIcons.house, index: 0),
-                BuildNavItem(icon: FontAwesomeIcons.dollarSign, index: 1),
+                BuildNavItem(icon: FontAwesomeIcons.toolbox, index: 1),
                 SizedBox(width: 60),
                 BuildNavItem(icon: FontAwesomeIcons.tree, index: 2),
                 BuildNavItem(icon: FontAwesomeIcons.barsStaggered, index: 3),

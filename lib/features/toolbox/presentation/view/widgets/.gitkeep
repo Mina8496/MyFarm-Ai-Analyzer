@@ -1,0 +1,6 @@
+feat(feature-name): add FeatureName screen with Cubit state management
+
+- Add FeaturePage as entry point with BlocProvider
+- Add FeatureBody with Dart 3 switch state handling
+- Add FeatureCubit with Loading/Loaded/Error states
+- Add feature_constants.dart for shared values
