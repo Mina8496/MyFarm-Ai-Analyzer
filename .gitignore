@@ -68,3 +68,7 @@ ios/.symlinks/
 # Generated
 *.apk
 *.aab
+
+# Gradle generated files
+android/build/
+android/.gradle/

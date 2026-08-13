@@ -18,20 +18,35 @@ import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dar
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
 import 'package:myfarm/features/tasks/data/model/task_model.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Hive init
-  await Hive.initFlutter();
-  Hive.registerAdapter(PlantTipModelAdapter());
-  Hive.registerAdapter(TaskModelAdapter());
-  await PlantTipsLocalDataSource.openBox();
-  await WeatherLocalDataSource.openBox();
-  await Firebase.initializeApp();
-  setupDependencies();
-  AppConfig.lang =
-      WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+
+  await _initializeApp();
 
   runApp(const MyApp());
+}
+
+Future<void> _initializeApp() async {
+  // Hive
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(PlantTipModelAdapter());
+  Hive.registerAdapter(TaskModelAdapter());
+
+  await Future.wait([
+    PlantTipsLocalDataSource.openBox(),
+    WeatherLocalDataSource.openBox(),
+  ]);
+
+  // Firebase
+  await Firebase.initializeApp();
+
+  // Dependency Injection
+  setupDependencies();
+
+  // Language
+  AppConfig.lang =
+      WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 }
 
 class MyApp extends StatelessWidget {
