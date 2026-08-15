@@ -48,8 +48,8 @@ dependencies:
   file_picker: ^11.0.3
   just_audio: ^0.9.35
   flutter_compass: ^0.8.1
-  flutter_local_notifications: 18.0.1
-  timezone: ^0.9.1
+  flutter_local_notifications: 18.0.0
+  timezone: ^0.9.4
   flutter_timezone: ^5.1.0
   webview_flutter: ^4.13.1
 

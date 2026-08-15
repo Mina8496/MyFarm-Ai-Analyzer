@@ -30,6 +30,9 @@ class ServerFailure extends Failure {
         return ServerFailure('Unexpected error: ${e.message}');
       case DioExceptionType.badCertificate:
         return ServerFailure('bad certificate with Api Server');
+      case DioExceptionType.transformTimeout:
+        return ServerFailure('check your Internet connection');
+        
     }
   }
 
