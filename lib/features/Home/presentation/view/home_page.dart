@@ -10,19 +10,18 @@ import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/pl
 import 'package:myfarm/features/account_menu_page/presentation/view/account_menu_page.dart';
 import 'package:myfarm/features/tasks/presentation/view/role_selection_page.dart';
 import 'package:myfarm/features/tasks/presentation/view/tasks_page.dart';
+import 'package:myfarm/features/toolbox/presentation/view/toolbox_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final pages = [
     const HomePageBody(), // 0
-    const SizedBox(),
+    const ToolboxPage(),
     const HomeTasksEntryPage(), // 2
     const AccountMenuPage(), // 3
   ];
-  // const MarketPage(),    // 1
 
-  // 2
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

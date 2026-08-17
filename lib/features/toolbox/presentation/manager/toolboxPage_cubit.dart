@@ -2,16 +2,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'toolbox_state.dart';
 
-class FeatureCubit extends Cubit<FeatureState> {
-  FeatureCubit() : super(FeatureInitial());
+class ToolboxPageCubit extends Cubit<ToolboxPageState> {
+  ToolboxPageCubit() : super(ToolboxPageInitial());
 
   Future<void> init() async {
-    emit(FeatureLoading());
+    emit(ToolboxPageLoading());
     try {
       // TODO: استدعي الـ use case أو الـ repository هنا
-      emit(FeatureLoaded(data: null));
+      emit(ToolboxPageLoaded(data: null));
     } catch (e) {
-      emit(FeatureError(message: e.toString()));
+      emit(ToolboxPageError(message: e.toString()));
     }
   }
 }

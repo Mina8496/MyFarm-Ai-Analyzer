@@ -1,17 +1,17 @@
 part of 'toolboxPage_cubit.dart';
 
-abstract class FeatureState {}
+abstract class ToolboxPageState {}
 
-class FeatureInitial extends FeatureState {}
+class ToolboxPageInitial extends ToolboxPageState {}
 
-class FeatureLoading extends FeatureState {}
+class ToolboxPageLoading extends ToolboxPageState {}
 
-class FeatureLoaded extends FeatureState {
+class ToolboxPageLoaded extends ToolboxPageState {
   final dynamic data; // غير النوع حسب الـ feature
-  FeatureLoaded({required this.data});
+  ToolboxPageLoaded({required this.data});
 }
 
-class FeatureError extends FeatureState {
+class ToolboxPageError extends ToolboxPageState {
   final String message;
-  FeatureError({required this.message});
+  ToolboxPageError({required this.message});
 }
