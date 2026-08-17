@@ -18,20 +18,20 @@ class AccountMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14.0),
+      child: Material(
         color: Colors.white.withOpacity(.18),
         borderRadius: BorderRadius.circular(18),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon, color: iconColor),
-        title: Text(title, style: Styles.style18),
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          color: ColorPalette.kkPrimaryGreen,
-          size: 18,
+        child: ListTile(
+          onTap: onTap,
+          leading: Icon(icon, color: iconColor),
+          title: Text(title, style: Styles.style18),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+            color: ColorPalette.kkPrimaryGreen,
+            size: 18,
+          ),
         ),
       ),
     );

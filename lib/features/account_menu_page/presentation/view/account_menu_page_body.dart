@@ -15,25 +15,33 @@ class AccountMenuPageBody extends StatelessWidget {
     return BlocBuilder<AccountMenuCubit, AccountMenuPageState>(
       builder: (context, state) {
         if (state is FeatureLoading || state is FeatureInitial) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (state is FeatureError) {
-          return Center(child: Text(state.message));
+          return Center(
+            child: Text(state.message),
+          );
         }
 
         return Container(
-          decoration: BoxDecoration(color: ColorPalette.kPrimaryColor),
+          decoration: BoxDecoration(
+            color: ColorPalette.kPrimaryColor,
+          ),
           child: SafeArea(
             child: Column(
               children: [
                 SizedBox(height: 30.h),
 
-                AuthenticationCard(),
+                const AuthenticationCard(),
 
                 SizedBox(height: 42.h),
 
-                AccountMenuList(),
+                Expanded(
+                  child: AccountMenuList(),
+                ),
               ],
             ),
           ),

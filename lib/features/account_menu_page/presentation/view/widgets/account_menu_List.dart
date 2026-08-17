@@ -6,43 +6,36 @@ class AccountMenuList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        children: [
-          AccountMenuTile(
-            icon: Icons.history,
-            title: "سجل الكشف",
-            onTap: () {},
-          ),
-          AccountMenuTile(
-            icon: Icons.emoji_events_outlined,
-            title: "الارشادات",
-            onTap: () {},
-          ),
-          AccountMenuTile(
-            icon: Icons.favorite_outline,
-            title: "العناصر المفضلة",
-            onTap: () {},
-          ),
-          AccountMenuTile(
-            icon: Icons.settings_outlined,
-            title: "الإعدادات",
-            onTap: () {},
-          ),
-          AccountMenuTile(
-            icon: Icons.help_outline,
-            title: "المساعدة",
-            onTap: () {},
-          ),
-          AccountMenuTile(
-            icon: Icons.logout,
-            title: "تسجيل الخروج",
-            iconColor: Colors.red,
-            onTap: () {},
-          ),
-        ],
-      ),
+    return ListView(
+      children: [
+        AccountMenuTile(icon: Icons.history, title: "سجل الكشف", onTap: () {}),
+        AccountMenuTile(
+          icon: Icons.emoji_events_outlined,
+          title: "الارشادات",
+          onTap: () {},
+        ),
+        AccountMenuTile(
+          icon: Icons.favorite_outline,
+          title: "العناصر المفضلة",
+          onTap: () {},
+        ),
+        AccountMenuTile(
+          icon: Icons.settings_outlined,
+          title: "الإعدادات",
+          onTap: () {},
+        ),
+        AccountMenuTile(
+          icon: Icons.help_outline,
+          title: "المساعدة",
+          onTap: () {},
+        ),
+        AccountMenuTile(
+          icon: Icons.logout,
+          title: "تسجيل الخروج",
+          iconColor: Colors.red,
+          onTap: () {},
+        ),
+      ],
     );
   }
 }
