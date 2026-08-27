@@ -193,7 +193,9 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                         : null,
                     icon: const Icon(Icons.photo_library_outlined, size: 18),
                     label: Text(
-                      _classifier.isModelLoaded ? 'Pick_Image'.tr : 'Loading...'.tr,
+                      _classifier.isModelLoaded
+                          ? 'Pick_Image'.tr
+                          : 'Loading...'.tr,
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -372,9 +374,10 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
       header = '';
     }
 
-    return Text(header,
-    //  style: GoogleFonts.poppins(color: Colors.black,),
-     );
+    return Text(
+      header,
+      //  style: GoogleFonts.poppins(color: Colors.black,),
+    );
   }
 
   Widget getImages(String label) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myfarm/features/account_menu_page/presentation/view/widgets/account_menu_tile.dart';
+import 'package:myfarm/features/ambient_screen/presentation/view/ambient_settings_page.dart';
 
 class AccountMenuList extends StatelessWidget {
   const AccountMenuList({super.key});
@@ -23,6 +25,13 @@ class AccountMenuList extends StatelessWidget {
           icon: Icons.settings_outlined,
           title: "الإعدادات",
           onTap: () {},
+        ),
+        AccountMenuTile(
+          icon: Icons.dark_mode_outlined,
+          title: 'Ambient Screen',
+          onTap: () {
+            Get.to(() => const AmbientSettingsPage());
+          },
         ),
         AccountMenuTile(
           icon: Icons.help_outline,

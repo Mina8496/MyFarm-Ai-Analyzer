@@ -6,26 +6,26 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import java.util.Calendar
 
 class BootAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-
         if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
 
-        val prefs = context.getSharedPreferences(
-            "myfarm_alarms",
-            Context.MODE_PRIVATE
-        )
+        Log.d("BootAlarmReceiver", "Device boot completed")
 
+        rescheduleAlarms(context)
+        startAmbientServiceIfEnabled(context)
+    }
+
+    private fun rescheduleAlarms(context: Context) {
+        val prefs = context.getSharedPreferences("myfarm_alarms", Context.MODE_PRIVATE)
         val savedAlarms = prefs.getStringSet("alarms", emptySet()) ?: emptySet()
-
-        val alarmManager =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         for (entry in savedAlarms) {
-            // الصيغة المخزنة: "id|hour|minute"
             val parts = entry.split("|")
             if (parts.size != 3) continue
 
@@ -46,22 +46,30 @@ class BootAlarmReceiver : BroadcastReceiver() {
             }
 
             val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id,
-                alarmIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or
-                    PendingIntent.FLAG_IMMUTABLE
+                context, id, alarmIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                !alarmManager.canScheduleExactAlarms()
-            ) continue
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) continue
 
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                next.timeInMillis,
-                pendingIntent
-            )
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, next.timeInMillis, pendingIntent)
+        }
+    }
+
+    private fun startAmbientServiceIfEnabled(context: Context) {
+        val prefs = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE)
+        val enabled = prefs.getBoolean("flutter.ambient_enabled", false)
+        if (!enabled) return
+
+        try {
+            val serviceIntent = Intent(context, AmbientForegroundService::class.java)  // ← بدّل AlarmService بـ AmbientForegroundService
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(serviceIntent)
+            } else {
+                context.startService(serviceIntent)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

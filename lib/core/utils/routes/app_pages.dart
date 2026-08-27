@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+
 import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/subscription_page.dart';
+import 'package:myfarm/features/ambient_screen/presentation/view/ambient_screen_page.dart';
+
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
 import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
@@ -18,6 +21,7 @@ class AppPages {
       page: () => const SplashView(),
       transition: Transition.leftToRight,
     ),
+
     GetPage(
       name: '/onboarding',
       page: () => const OnboardingPage(),
@@ -30,19 +34,18 @@ class AppPages {
       page: () => const SubscriptionPage(),
       transition: Transition.rightToLeft,
     ),
+
     GetPage(
       name: '/home',
       page: () => HomePage(),
       transition: Transition.upToDown,
     ),
-    /*
+
     GetPage(
-      name: '/homeMain',
-      page: () => HomeMainShell(),
-      transition: Transition.upToDown,
+      name: '/tips',
+      page: () => PlantTipsWidget(),
     ),
-    */
-    GetPage(name: '/tips', page: () => PlantTipsWidget()),
+
     GetPage(
       name: '/login',
       page: () => LoginPage(),
@@ -54,15 +57,27 @@ class AppPages {
       page: () => const SignupPage(),
       transition: Transition.rightToLeft,
     ),
+
     GetPage(
       name: '/forgetpassword',
       page: () => const ForgetPassword(),
       transition: Transition.topLevel,
     ),
+
     GetPage(
       name: '/plant-analysis',
       page: () => const PlantAnalysisPage(),
       binding: PlantAnalysisBinding(),
+    ),
+
+    // =========================
+    // Ambient Screen
+    // =========================
+
+    GetPage(
+      name: '/ambient',
+      page: () => const AmbientScreenPage(),
+      transition: Transition.fadeIn,
     ),
   ];
 }
