@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../data/ambient_screen_service.dart';
-import '../../data/ambient_settings_service.dart';
+import '../../domain/repositories/ambient_screen_service.dart';
+import '../../data/datasources/ambient_settings_service.dart';
 import 'package:flutter/services.dart';
 
 class AmbientSettingsPage extends StatefulWidget {

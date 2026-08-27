@@ -13,6 +13,7 @@ import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
 import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_source.dart';
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
+import 'package:myfarm/features/ambient_screen/presentation/bindings/ambient_binding.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_screen_page.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
@@ -21,12 +22,7 @@ import 'package:myfarm/features/tasks/data/model/task_model.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final defaultRoute =
-      WidgetsBinding.instance.platformDispatcher.defaultRouteName;
-
-  if (defaultRoute != '/ambient') {
-    await _initializeApp();
-  }
+  await _initializeApp();
 
   runApp(const MyApp());
 }
@@ -34,9 +30,11 @@ Future<void> main() async {
 @pragma('vm:entry-point')
 Future<void> ambientMain() async {
   WidgetsFlutterBinding.ensureInitialized();
-  debugPrint('🟢 ambientMain() started'); 
+
+  debugPrint('🟢 ambientMain() started');
 
   await Hive.initFlutter();
+
   await WeatherLocalDataSource.openBox();
 
   runApp(const AmbientOnlyApp());
@@ -50,9 +48,10 @@ class AmbientOnlyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (_, child) {
-        return const MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          home: AmbientScreenPage(),
+          initialBinding: AmbientBinding(),
+          home: const AmbientScreenPage(),
         );
       },
     );
@@ -60,10 +59,6 @@ class AmbientOnlyApp extends StatelessWidget {
 }
 
 Future<void> _initializeApp() async {
-  // =========================
-  // Hive
-  // =========================
-
   await Hive.initFlutter();
 
   Hive.registerAdapter(PlantTipModelAdapter());
@@ -74,21 +69,9 @@ Future<void> _initializeApp() async {
     WeatherLocalDataSource.openBox(),
   ]);
 
-  // =========================
-  // Firebase
-  // =========================
-
   await Firebase.initializeApp();
 
-  // =========================
-  // Dependency Injection
-  // =========================
-
   setupDependencies();
-
-  // =========================
-  // Language
-  // =========================
 
   AppConfig.lang =
       WidgetsBinding.instance.platformDispatcher.locale.languageCode;
@@ -97,18 +80,6 @@ Future<void> _initializeApp() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  String get initialRoute {
-    final platformRoute =
-        WidgetsBinding.instance.platformDispatcher.defaultRouteName;
-
-    // LockScreenActivity sends /ambient
-    if (platformRoute == '/ambient') {
-      return '/ambient';
-    }
-
-    return '/splash';
-  }
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -116,28 +87,24 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => getIt<AuthCubit>()),
-            BlocProvider(create: (_) => getIt<OnboardingCubit>()),
+            BlocProvider(
+              create: (_) => getIt<AuthCubit>(),
+            ),
+            BlocProvider(
+              create: (_) => getIt<OnboardingCubit>(),
+            ),
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
-
             theme: ThemeData.light().copyWith(
-              scaffoldBackgroundColor: ColorPalette.kPrimaryColor,
+              scaffoldBackgroundColor:
+                  ColorPalette.kPrimaryColor,
               useMaterial3: true,
             ),
-
             translations: AppTranslations(),
-
             locale: Get.deviceLocale,
-
             initialBinding: InitialBinding(),
-
-            // Important:
-            // Normal app -> /splash
-            // LockScreenActivity -> /ambient
-            initialRoute: initialRoute,
-
+            initialRoute: '/splash',
             getPages: AppPages.pages,
           ),
         );

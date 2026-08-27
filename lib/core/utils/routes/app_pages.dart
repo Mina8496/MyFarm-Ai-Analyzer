@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/subscription_page.dart';
+import 'package:myfarm/features/ambient_screen/presentation/bindings/ambient_binding.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_screen_page.dart';
 
 import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
@@ -41,10 +42,7 @@ class AppPages {
       transition: Transition.upToDown,
     ),
 
-    GetPage(
-      name: '/tips',
-      page: () => PlantTipsWidget(),
-    ),
+    GetPage(name: '/tips', page: () => PlantTipsWidget()),
 
     GetPage(
       name: '/login',
@@ -73,10 +71,10 @@ class AppPages {
     // =========================
     // Ambient Screen
     // =========================
-
     GetPage(
       name: '/ambient',
       page: () => const AmbientScreenPage(),
+      binding: AmbientBinding(),
       transition: Transition.fadeIn,
     ),
   ];
