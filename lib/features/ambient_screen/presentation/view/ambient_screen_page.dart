@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myfarm/core/services/location_service.dart';
+import 'package:myfarm/core/services/weather_service.dart';
+import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_cubit.dart';
 
 import '../controllers/ambient_controller.dart';
 import '../widgets/ambient_background.dart';
@@ -49,7 +54,14 @@ class AmbientScreenPage extends GetView<AmbientController> {
 
                       if (settings.showWeather) ...[
                         const SizedBox(height: AmbientTheme.spaceXL),
-                        const AmbientWeatherCard(),
+                        BlocProvider(
+                          create: (context) => WeatherCubit(
+                            weatherService: WeatherService(),
+                            locationService: LocationService(),
+                            localDataSource: WeatherLocalDataSource(),
+                          )..getWeather(),
+                          child: const AmbientWeatherCard(),
+                        ),
                       ],
 
                       if (settings.showMyFarm) ...[

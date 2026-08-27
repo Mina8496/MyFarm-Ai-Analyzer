@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
-import 'ambient_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_cubit.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_state.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/weather_error_card.dart';
+import 'package:myfarm/features/ambient_screen/presentation/widgets/ambient_theme.dart';
 
 class AmbientWeatherCard extends StatelessWidget {
-  final String temperature;
-  final String condition;
-  final IconData icon;
-
-  const AmbientWeatherCard({
-    super.key,
-    this.temperature = '32°C',
-    this.condition = 'Sunny',
-    this.icon = Icons.wb_sunny_rounded,
-  });
+  const AmbientWeatherCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<WeatherCubit, WeatherState>(
+      builder: (context, state) => switch (state) {
+        WeatherInitial() => const SizedBox.shrink(),
+
+        WeatherLoading() => const Center(child: CircularProgressIndicator()),
+
+        WeatherError(:final message) => WeatherErrorCard(message: message),
+
+        WeatherSuccess(
+          :final data,
+          :final icon,
+          :final description,
+          :final fromCache,
+        ) =>
+          _buildWeatherCard(
+            data: data,
+            icon: icon,
+            description: description,
+            fromCache: fromCache,
+          ),
+      },
+    );
+  }
+
+  Widget _buildWeatherCard({
+    required Map<String, dynamic> data,
+    required String icon,
+    required String description,
+    required bool fromCache,
+  }) {
+    final current = data['current'] as Map<String, dynamic>;
+
+    final temperature = current['temperature_2m'];
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AmbientTheme.spaceM,
@@ -29,12 +59,14 @@ class AmbientWeatherCard extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AmbientTheme.accentGold, size: 30),
+          Text(icon, style: Styles.style26),
+
           const SizedBox(width: 14),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'FIELD CONDITIONS',
                 style: TextStyle(
                   color: AmbientTheme.textTertiary,
@@ -43,15 +75,30 @@ class AmbientWeatherCard extends StatelessWidget {
                   letterSpacing: 1.6,
                 ),
               ),
+
               const SizedBox(height: 2),
+
               Text(
-                '$temperature · $condition',
+                '${temperature.toStringAsFixed(1)}°C · $description',
                 style: const TextStyle(
                   color: AmbientTheme.textPrimary,
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
               ),
+
+              if (fromCache)
+                const Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Text(
+                    'CACHED DATA',
+                    style: TextStyle(
+                      color: AmbientTheme.textTertiary,
+                      fontSize: 8,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ),
             ],
           ),
         ],
