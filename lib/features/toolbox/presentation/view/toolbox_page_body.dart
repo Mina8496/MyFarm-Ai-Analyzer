@@ -5,7 +5,7 @@ import 'package:myfarm/core/utils/styles.dart';
 import '../manager/toolboxPage_cubit.dart';
 import 'widgets/toolbox_tool_card.dart';
 import 'pages/alarm_page.dart';
-import 'pages/music_page.dart';
+import 'pages/radio_page.dart';
 import 'pages/compass_page.dart';
 
 class ToolboxPageBody extends StatelessWidget {
@@ -60,7 +60,7 @@ class ToolboxPageBody extends StatelessWidget {
                             onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const MusicPage(),
+                                builder: (_) => const RadioPage(),
                               ),
                             ),
                           ),

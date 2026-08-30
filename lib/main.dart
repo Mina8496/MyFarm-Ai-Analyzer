@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:myfarm/app_config.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
@@ -36,6 +37,12 @@ Future<void> ambientMain() async {
   await Hive.initFlutter();
 
   await WeatherLocalDataSource.openBox();
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.example.app.channel.audio',
+    androidNotificationChannelName: 'تشغيل الراديو',
+    androidNotificationOngoing: true,
+    androidStopForegroundOnPause: true,
+  );
 
   runApp(const AmbientOnlyApp());
 }
