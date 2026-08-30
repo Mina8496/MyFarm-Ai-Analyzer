@@ -51,15 +51,23 @@ class AmbientForegroundService : Service() {
 
     private fun ensureAmbientEngineExists() {
         val cache = FlutterEngineCache.getInstance()
+
         if (cache.get(AMBIENT_ENGINE_ID) == null) {
             val engine = FlutterEngine(applicationContext)
+
             engine.dartExecutor.executeDartEntrypoint(
                 DartExecutor.DartEntrypoint(
                     FlutterInjector.instance().flutterLoader().findAppBundlePath(),
                     "ambientMain"
                 )
             )
+
+            // سجّل القناة فورًا هنا — من غير ما تستنى أي Activity تتصل بالـ engine
+            AmbientChannelHandler.register(applicationContext, engine)
+
             cache.put(AMBIENT_ENGINE_ID, engine)
+
+            android.util.Log.d("AmbientService", "engine created and channel registered")
         }
     }
 

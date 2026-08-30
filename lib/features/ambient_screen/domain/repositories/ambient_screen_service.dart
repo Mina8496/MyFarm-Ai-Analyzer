@@ -16,6 +16,10 @@ class AmbientScreenService {
   static Future<void> close() async {
     try {
       await _channel.invokeMethod('closeAmbient');
+    } on MissingPluginException {
+      // احتياط أخير لو القناة مش جاهزة لأي سبب —
+      // يقفل الـ Activity مباشرة من غير المرور بالقناة
+      await SystemNavigator.pop();
     } on PlatformException catch (e) {
       throw Exception('Failed to close Ambient Screen: ${e.message}');
     }
