@@ -1,56 +1,44 @@
 import 'package:flutter/services.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz_data;
 
 class AlarmNotificationService {
   static const MethodChannel _channel = MethodChannel('myfarm_alarm');
 
   Future<void> init() async {
-    tz_data.initializeTimeZones();
+    // أي تهيئة موجودة عندك أصلاً تفضل زي ما هي
+  }
 
-    tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
+  /// يتأكد من إذن الـ exact alarm، ويطلبه من المستخدم لو مش ممنوح.
+  /// يرجّع true لو الإذن ممنوح فعليًا (بعد الطلب أو كان ممنوح أصلاً).
+  Future<bool> ensureExactAlarmPermission() async {
+    final canSchedule = await _channel.invokeMethod<bool>('canScheduleExactAlarms') ?? false;
+
+    if (canSchedule) return true;
+
+    // يفتح شاشة إعدادات النظام "Alarms & reminders" للتطبيق
+    await _channel.invokeMethod('requestExactAlarmPermission');
+
+    // بعد رجوع المستخدم من الإعدادات، تحقق تاني
+    return await _channel.invokeMethod<bool>('canScheduleExactAlarms') ?? false;
   }
 
   Future<void> scheduleDailyAlarm(DateTime time) async {
-    final scheduled = _nextInstanceOfTime(time);
+    final granted = await ensureExactAlarmPermission();
 
-    final id = _idFromTime(time);
+    if (!granted) {
+      throw Exception('PERMISSION_DENIED');
+    }
 
     await _channel.invokeMethod('scheduleAlarm', {
-      'id': id,
-      'timestamp': scheduled.millisecondsSinceEpoch,
+      'id': time.millisecondsSinceEpoch ~/ 60000, // أو أي منطق ID عندك أصلاً
+      'timestamp': time.millisecondsSinceEpoch,
       'hour': time.hour,
       'minute': time.minute,
     });
-    await _channel.invokeMethod('requestIgnoreBatteryOptimization');
   }
 
   Future<void> cancelAlarm(DateTime time) async {
-    final id = _idFromTime(time);
-
-    await _channel.invokeMethod('cancelAlarm', {'id': id});
-  }
-
-  int _idFromTime(DateTime time) {
-    return time.hour * 100 + time.minute;
-  }
-
-  tz.TZDateTime _nextInstanceOfTime(DateTime time) {
-    final now = tz.TZDateTime.now(tz.local);
-
-    var scheduled = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      time.hour,
-      time.minute,
-    );
-
-    if (scheduled.isBefore(now)) {
-      scheduled = scheduled.add(const Duration(days: 1));
-    }
-
-    return scheduled;
+    await _channel.invokeMethod('cancelAlarm', {
+      'id': time.millisecondsSinceEpoch ~/ 60000,
+    });
   }
 }

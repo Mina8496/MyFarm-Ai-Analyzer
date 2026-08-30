@@ -215,10 +215,24 @@ class MainActivity : FlutterActivity() {
                     }
                     result.success(true)
                 }
+                                "requestExactAlarmPermission" -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        try {
+                            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                                data = Uri.parse("package:$packageName")
+                            }
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    result.success(true)
+                }
 
                 else -> {
                     result.notImplemented()
                 }
+
             }
         }
     }

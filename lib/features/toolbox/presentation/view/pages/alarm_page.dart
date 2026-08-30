@@ -3,7 +3,6 @@ import 'package:myfarm/features/toolbox/domain/repositories/toolbox_repository.d
 import 'package:myfarm/features/toolbox/presentation/view/widgets/alarm_notification_service.dart';
 import 'package:myfarm/features/toolbox/toolbox_injector.dart';
 
-
 class AlarmPage extends StatefulWidget {
   const AlarmPage({super.key});
 
@@ -42,21 +41,37 @@ class _AlarmPageState extends State<AlarmPage> {
       initialTime: TimeOfDay.now(),
     );
 
-    if (picked != null) {
-      final now = DateTime.now();
-      final dt = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        picked.hour,
-        picked.minute,
-      );
+    if (picked == null) return;
+
+    final now = DateTime.now();
+    final dt = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      picked.hour,
+      picked.minute,
+    );
+
+    try {
       await _repo.addAlarm(dt);
       await _notifications.scheduleDailyAlarm(dt);
       await _loadAlarms();
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('تمت إضافة المنبه')));
+    } catch (e) {
+      // لو الجدولة فشلت (إذن مرفوض)، امسح المنبه من الـ repo عشان مايفضلش "شبح"
+      await _repo.removeAlarm(dt);
+
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تمت إضافة المنبه')),
+        const SnackBar(
+          content: Text(
+            'محتاج تسمح بإذن "المنبهات والتذكيرات" من إعدادات الجهاز عشان المنبه يشتغل',
+          ),
+        ),
       );
     }
   }
