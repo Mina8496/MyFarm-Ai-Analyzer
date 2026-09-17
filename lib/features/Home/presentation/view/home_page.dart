@@ -35,22 +35,24 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton(
-              heroTag: 'home_page_fab',
-              backgroundColor: ColorPalette.kkPrimaryGreen,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              onPressed: () => context.read<MainNavCubit>().changePage(0),
-              child: Card(
-                color: ColorPalette.kkPrimaryGreen,
-                child: const Icon(
-                  Icons.qr_code_scanner,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            ),
+            floatingActionButton: MediaQuery.of(context).viewInsets.bottom > 0
+                ? null
+                : FloatingActionButton(
+                    heroTag: 'home_heroTag_fab',
+                    backgroundColor: ColorPalette.kkPrimaryGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    onPressed: () => context.read<MainNavCubit>().changePage(0),
+                    child: Card(
+                      color: ColorPalette.kkPrimaryGreen,
+                      child: const Icon(
+                        Icons.qr_code_scanner,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ),
             body: pages[currentIndex],
             bottomNavigationBar: const CustomBottomBar(),
           );
