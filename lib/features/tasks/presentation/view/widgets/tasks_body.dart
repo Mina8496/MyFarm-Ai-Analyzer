@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/features/shared_notes/presentation/page/shared_notes_tab.dart';
 import 'package:myfarm/features/tasks/data/model/task_model.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
@@ -94,6 +95,7 @@ class _TabContent extends StatelessWidget {
           emptyMessage: TasksBody._emptyMessage,
           onEdit: onEditTask,
         ),
+        const SharedNotesTab(),
       ],
     );
   }

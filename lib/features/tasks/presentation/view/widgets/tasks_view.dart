@@ -24,11 +24,20 @@ class _TasksViewState extends State<TasksView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_handleTabChange);
+  }
+
+  void _handleTabChange() {
+    // نعمل rebuild بس لما التاب يتغير فعليًا (مش أثناء السحب المتوسط)
+    if (!_tabController.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_handleTabChange);
     _tabController.dispose();
     super.dispose();
   }
@@ -43,12 +52,15 @@ class _TasksViewState extends State<TasksView>
         role: widget.role,
         onEditTask: (task) => _openBottomSheet(context, task: task),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _openBottomSheet(context),
-        backgroundColor: ColorPalette.kLightGreen,
-        icon: const Icon(Icons.add),
-        label: Text('مهمة جديدة', style: Styles.style14),
-      ),
+      floatingActionButton: _tabController.index == 2
+          ? null
+          : FloatingActionButton.extended(
+              heroTag: 'tasks_view_fab',
+              onPressed: () => _openBottomSheet(context),
+              backgroundColor: ColorPalette.kLightGreen,
+              icon: const Icon(Icons.add),
+              label: Text('مهمة جديدة', style: Styles.style14),
+            ),
     );
   }
 

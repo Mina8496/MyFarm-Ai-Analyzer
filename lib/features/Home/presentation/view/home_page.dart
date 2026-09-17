@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton(
+              heroTag: 'home_page_fab',
               backgroundColor: ColorPalette.kkPrimaryGreen,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),

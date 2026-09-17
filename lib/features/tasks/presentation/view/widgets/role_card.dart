@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:myfarm/core/storage/app_storage.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/core/widgets/auth_required_dialog.dart';
-import 'package:myfarm/features/Home/presentation/view/home_page.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/view/tasks_page.dart';
 
@@ -47,14 +46,14 @@ class RoleCard extends StatelessWidget {
 
         await AppStorage.saveUserType(role.name);
 
+        // نداء واحد فقط: بيفتح TasksPage ويشيل كل الستاك اللي فوقها.
+        // (النداء المزدوج القديم كان بيفتح HomePage ثم TasksPage على طول،
+        // وده كان بيخلي الاتنين يتبنوا في نفس اللحظة فيحصل تصادم
+        // Hero tag على الـ FloatingActionButton ويفضل عالق على الشاشة).
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => HomePage()),
-          (route) => false,
-        );
-        Navigator.push(
-          context,
           MaterialPageRoute(builder: (_) => TasksPage(role: role)),
+          (route) => false,
         );
       },
       child: Container(

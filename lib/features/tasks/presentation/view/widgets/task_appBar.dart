@@ -36,7 +36,7 @@ class TasksAppBar extends StatelessWidget implements PreferredSizeWidget {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (_) => HomePage()),
-      (route) => false,
+      (route) => route.isFirst,
     );
   }
 }
@@ -78,9 +78,11 @@ class _TasksTabBar extends StatelessWidget implements PreferredSizeWidget {
       labelColor: ColorPalette.kkPrimaryGreen,
       unselectedLabelColor: ColorPalette.kBlackColor,
       labelStyle: Styles.style16,
+      isScrollable: true,
       tabs: const [
         Tab(text: '⭐ أهم 5 مهام'),
         Tab(text: '📋 كل المهام'),
+        Tab(text: '📝 ملاحظات مشتركة'),
       ],
     );
   }

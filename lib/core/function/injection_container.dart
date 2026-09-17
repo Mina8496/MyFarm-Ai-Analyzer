@@ -27,6 +27,20 @@ import 'package:myfarm/features/login/domain/repo/login_repo.dart';
 import 'package:myfarm/features/login/domain/use_cases/login_usecase.dart';
 import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
 
+// shared_notes
+import 'package:myfarm/features/shared_notes/data/datasource/notes_group_remote_datasource.dart';
+import 'package:myfarm/features/shared_notes/data/local/joined_groups_storage.dart';
+import 'package:myfarm/features/shared_notes/data/repositories/notes_group_repository_impl.dart';
+import 'package:myfarm/features/shared_notes/data/repositories/joined_groups_repository_impl.dart';
+import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
+import 'package:myfarm/features/shared_notes/domain/repositories/joined_groups_repository.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/join_group_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/watch_group_notes_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/get_joined_groups_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/save_joined_group_usecase.dart';
+
 // Signup
 import 'package:myfarm/features/signup/data/dataSource/signup_remote_data_source.dart';
 import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
@@ -47,12 +61,13 @@ import 'package:myfarm/features/tasks/domin/usecases/toggle_complete_usecase.dar
 final getIt = GetIt.instance;
 
 void setupDependencies() {
-  _setupTasks();
   _setupFirebase();
+  _setupTasks();
   _setupAuth();
   _setupLogin();
   _setupSignup();
   _setupPlantTips();
+  _setupSharedNotes();
 }
 
 // ─── PlantTips ──────────────────────────────────────────
@@ -62,23 +77,18 @@ void _setupPlantTips() {
     instanceName: 'plantTipFirestore',
   );
 
-  /// Remote
   getIt.registerLazySingleton<PlantTipsRemoteDataSource>(
     () => PlantTipsRemoteDataSource(getIt(instanceName: 'plantTipFirestore')),
   );
 
-  /// Local
   getIt.registerLazySingleton(() => PlantTipsLocalDataSource());
 
-  /// Repository
   getIt.registerLazySingleton<PlantTipsRepository>(
     () => PlantTipsRepositoryImpl(remote: getIt(), local: getIt()),
   );
 
-  /// Service
   getIt.registerLazySingleton(() => PlantTipsRotationService());
 
-  /// Cubit
   getIt.registerLazySingleton(() => PlantTipsCubit(getIt(), getIt()));
 }
 
@@ -103,53 +113,64 @@ void _setupFirebase() {
 
 // ─── Login ──────────────────────────────────────────────
 void _setupLogin() {
-  // Data
   getIt.registerLazySingleton<LoginRemoteDataSource>(
     () => LoginRemoteDataSourceImpl(getIt()),
   );
   getIt.registerLazySingleton<LoginRepository>(
     () => LoginRepositoryImpl(getIt()),
   );
-
-  // Domain
   getIt.registerLazySingleton(() => LoginUseCase(getIt()));
-
-  // Presentation — registerFactory عشان كل شاشة تاخد instance جديدة
   getIt.registerFactory(() => LoginCubit(getIt()));
 }
 
 // ─── Signup ─────────────────────────────────────────────
 void _setupSignup() {
-  // Data
   getIt.registerLazySingleton<SignupRemoteDataSource>(
     () => SignupRemoteDataSourceImpl(getIt(), getIt()),
   );
   getIt.registerLazySingleton<SignupRepository>(
     () => SignupRepositoryImpl(getIt()),
   );
-
-  // Domain (UseCase)
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
-
-  // Presentation (Cubit - Factory لأنه يتعمل كل مرة) عشان كل شاشة تاخد instance جديدة
   getIt.registerFactory(() => SignupCubit(getIt()));
 }
 
+// ─── Tasks ──────────────────────────────────────────────
 void _setupTasks() {
-  // ✅ 1. DataSource أولاً
   getIt.registerLazySingleton<TaskLocalDataSource>(
     () => TaskLocalDataSourceImpl(),
   );
 
-  // ✅ 2. Repository يأخذ DataSource كـ dependency
   getIt.registerLazySingleton<TaskRepo>(
     () => TaskRepoImpl(getIt<TaskLocalDataSource>()),
   );
 
-  // ✅ 3. Use Cases
   getIt.registerLazySingleton(() => GetTasksUseCase(getIt<TaskRepo>()));
   getIt.registerLazySingleton(() => AddTaskUseCase(getIt<TaskRepo>()));
   getIt.registerLazySingleton(() => DeleteTaskUsecase(getIt<TaskRepo>()));
   getIt.registerLazySingleton(() => EditTaskUseCase(getIt<TaskRepo>()));
   getIt.registerLazySingleton(() => ToggleCompleteUseCase(getIt<TaskRepo>()));
+}
+
+// ─── SharedNotes ────────────────────────────────────────
+void _setupSharedNotes() {
+  // Notes (Firestore)
+  getIt.registerLazySingleton<NotesGroupRemoteDataSource>(
+    () => NotesGroupRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerLazySingleton<NotesGroupRepo>(
+    () => NotesGroupRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => CreateGroupUseCase(getIt()));
+  getIt.registerLazySingleton(() => JoinGroupUseCase(getIt()));
+  getIt.registerLazySingleton(() => WatchGroupNotesUseCase(getIt()));
+  getIt.registerLazySingleton(() => AddGroupNoteUseCase(getIt()));
+
+  // Joined groups (local storage)
+  getIt.registerLazySingleton(() => JoinedGroupsLocalDataSource());
+  getIt.registerLazySingleton<JoinedGroupsRepository>(
+    () => JoinedGroupsRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton(() => GetJoinedGroupsUseCase(getIt()));
+  getIt.registerLazySingleton(() => SaveJoinedGroupUseCase(getIt()));
 }
