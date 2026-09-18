@@ -16,6 +16,9 @@ import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_so
 import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
 import 'package:myfarm/features/ambient_screen/presentation/bindings/ambient_binding.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_screen_page.dart';
+import 'package:myfarm/features/app_update/presentation/manger/app_update_cubit.dart';
+import 'package:myfarm/features/app_update/presentation/manger/app_update_state.dart';
+import 'package:myfarm/features/app_update/presentation/page/widgets/update_dialog.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
 import 'package:myfarm/features/tasks/data/model/task_model.dart';
@@ -89,30 +92,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigatorKey = GlobalKey<NavigatorState>();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (_, child) {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (_) => getIt<AuthCubit>(),
+              create: (_) => getIt<AppUpdateCubit>()..checkForUpdate(),
             ),
-            BlocProvider(
-              create: (_) => getIt<OnboardingCubit>(),
-            ),
+            BlocProvider(create: (_) => getIt<AuthCubit>()),
+            BlocProvider(create: (_) => getIt<OnboardingCubit>()),
           ],
-          child: GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData.light().copyWith(
-              scaffoldBackgroundColor:
-                  ColorPalette.kPrimaryColor,
-              useMaterial3: true,
-            ),
-            translations: AppTranslations(),
-            locale: Get.deviceLocale,
-            initialBinding: InitialBinding(),
-            initialRoute: '/splash',
-            getPages: AppPages.pages,
+          child: Builder(
+            builder: (context) {
+              return BlocListener<AppUpdateCubit, AppUpdateState>(
+                listener: (context, state) {
+                  if (state.status == AppUpdateStatus.forceUpdate) {
+                    UpdateDialog.show(
+                      navigatorKey.currentContext!,
+                      isForced: true,
+                      message: state.message,
+                    );
+                  } else if (state.status == AppUpdateStatus.optionalUpdate) {
+                    UpdateDialog.show(
+                      navigatorKey.currentContext!,
+                      isForced: false,
+                      message: state.message,
+                    );
+                  }
+                },
+                child: GetMaterialApp(
+                  navigatorKey:
+                      navigatorKey, // مفتاح Navigator ثابت على مستوى التطبيق
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData.light().copyWith(
+                    scaffoldBackgroundColor: ColorPalette.kPrimaryColor,
+                    useMaterial3: true,
+                  ),
+                  translations: AppTranslations(),
+                  locale: Get.deviceLocale,
+                  initialBinding: InitialBinding(),
+                  initialRoute: '/splash',
+                  getPages: AppPages.pages,
+                ),
+              );
+            },
           ),
         );
       },

@@ -18,6 +18,10 @@ import 'package:myfarm/features/PlantTip/data/repo/plantTips_repository_Impl.dar
 import 'package:myfarm/features/PlantTip/data/service/PlantTips_rotation_service.dart';
 import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
+import 'package:myfarm/features/app_update/data/repositories/firestore_app_update_repository.dart';
+import 'package:myfarm/features/app_update/domain/repositories/app_update_repository.dart';
+import 'package:myfarm/features/app_update/domain/usecases/check_for_update_usecase.dart';
+import 'package:myfarm/features/app_update/presentation/manger/app_update_cubit.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
 
 // Login
@@ -66,6 +70,7 @@ void setupDependencies() {
   _setupAuth();
   _setupLogin();
   _setupSignup();
+  _setupAppUpdate();
   _setupPlantTips();
   _setupSharedNotes();
 }
@@ -109,6 +114,11 @@ void _setupAuth() {
 void _setupFirebase() {
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
+  getIt.registerLazySingleton<AppUpdateRepository>(
+    () => FirestoreAppUpdateRepository(),
+  );
+  getIt.registerFactory(() => CheckForUpdateUseCase(getIt()));
+  getIt.registerFactory(() => AppUpdateCubit(getIt()));
 }
 
 // ─── Login ──────────────────────────────────────────────
@@ -133,6 +143,15 @@ void _setupSignup() {
   );
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
   getIt.registerFactory(() => SignupCubit(getIt()));
+}
+
+// ─── app_update ──────────────────────────────────────────────
+void _setupAppUpdate() {
+  getIt.registerLazySingleton<AppUpdateRepository>(
+    () => FirestoreAppUpdateRepository(),
+  );
+  getIt.registerFactory(() => CheckForUpdateUseCase(getIt()));
+  getIt.registerFactory(() => AppUpdateCubit(getIt()));
 }
 
 // ─── Tasks ──────────────────────────────────────────────
