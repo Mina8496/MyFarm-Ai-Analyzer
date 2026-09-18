@@ -3,12 +3,13 @@ import 'package:myfarm/features/app_update/domain/entities/app_version_settings.
 import 'package:myfarm/features/app_update/domain/repositories/app_update_repository.dart';
 
 class FirestoreAppUpdateRepository implements AppUpdateRepository {
+  final FirebaseFirestore firestore;
+
+  FirestoreAppUpdateRepository({FirebaseFirestore? firestore})
+    : firestore = firestore ?? FirebaseFirestore.instance;
   @override
   Future<AppVersionSettings?> fetchVersionSettings() async {
-    final doc = await FirebaseFirestore.instance
-        .collection('AppSettings')
-        .doc('version')
-        .get();
+    final doc = await firestore.collection('AppSettings').doc('version').get();
 
     if (!doc.exists) return null;
 

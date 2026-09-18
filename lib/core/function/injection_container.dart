@@ -114,11 +114,6 @@ void _setupAuth() {
 void _setupFirebase() {
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
-  getIt.registerLazySingleton<AppUpdateRepository>(
-    () => FirestoreAppUpdateRepository(),
-  );
-  getIt.registerFactory(() => CheckForUpdateUseCase(getIt()));
-  getIt.registerFactory(() => AppUpdateCubit(getIt()));
 }
 
 // ─── Login ──────────────────────────────────────────────
@@ -147,11 +142,15 @@ void _setupSignup() {
 
 // ─── app_update ──────────────────────────────────────────────
 void _setupAppUpdate() {
+  if (getIt.isRegistered<AppUpdateRepository>()) return;
+
   getIt.registerLazySingleton<AppUpdateRepository>(
-    () => FirestoreAppUpdateRepository(),
+    () => FirestoreAppUpdateRepository(firestore: getIt()),
   );
-  getIt.registerFactory(() => CheckForUpdateUseCase(getIt()));
-  getIt.registerFactory(() => AppUpdateCubit(getIt()));
+  getIt.registerLazySingleton<CheckForUpdateUseCase>(
+    () => CheckForUpdateUseCase(getIt()),
+  );
+  getIt.registerFactory<AppUpdateCubit>(() => AppUpdateCubit(getIt()));
 }
 
 // ─── Tasks ──────────────────────────────────────────────
