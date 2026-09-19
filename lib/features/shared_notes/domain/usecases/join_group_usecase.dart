@@ -4,6 +4,10 @@ class JoinGroupUseCase {
   final NotesGroupRepo repo;
   JoinGroupUseCase(this.repo);
 
-  /// يرجّع اسم المجموعة لو الرقم صحيح، أو null لو مش موجودة.
-  Future<String?> call(String groupId) => repo.getGroupName(groupId);
+  Future<String?> call(String groupId, String userId) async {
+    final name = await repo.getGroupName(groupId);
+    if (name == null) return null;
+    await repo.addMember(groupId: groupId, userId: userId);
+    return name;
+  }
 }

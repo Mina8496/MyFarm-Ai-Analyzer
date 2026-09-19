@@ -1,6 +1,7 @@
 import 'package:myfarm/features/shared_notes/data/datasource/notes_group_remote_datasource.dart';
 import 'package:myfarm/features/shared_notes/data/model/group_note_model.dart';
 import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
 import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
 
 class NotesGroupRepositoryImpl implements NotesGroupRepo {
@@ -8,11 +9,27 @@ class NotesGroupRepositoryImpl implements NotesGroupRepo {
   NotesGroupRepositoryImpl(this.dataSource);
 
   @override
-  Future<String> createGroup({required String creatorName, required String groupName}) =>
-      dataSource.createGroup(creatorName: creatorName, groupName: groupName);
+  Future<String> createGroup({
+    required String creatorId,
+    required String creatorName,
+    required String groupName,
+  }) =>
+      dataSource.createGroup(
+        creatorId: creatorId,
+        creatorName: creatorName,
+        groupName: groupName,
+      );
 
   @override
   Future<String?> getGroupName(String groupId) => dataSource.getGroupName(groupId);
+
+  @override
+  Future<void> addMember({required String groupId, required String userId}) =>
+      dataSource.addMember(groupId: groupId, userId: userId);
+
+  @override
+  Future<List<JoinedGroupEntity>> getMyGroups(String userId) =>
+      dataSource.getMyGroups(userId);
 
   @override
   Stream<List<GroupNoteEntity>> watchNotes(String groupId) =>
