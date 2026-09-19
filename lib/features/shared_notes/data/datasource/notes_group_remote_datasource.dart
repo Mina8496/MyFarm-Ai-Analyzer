@@ -1,15 +1,20 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myfarm/features/shared_notes/data/model/group_note_model.dart';
+import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
 
 abstract class NotesGroupRemoteDataSource {
   Future<String> createGroup({
+    required String creatorId,
     required String creatorName,
     required String groupName,
   });
 
-  /// يرجّع اسم المجموعة لو موجودة، أو null لو الرقم غير صحيح.
   Future<String?> getGroupName(String groupId);
+
+  Future<void> addMember({required String groupId, required String userId});
+
+  Future<List<JoinedGroupEntity>> getMyGroups(String userId);
 
   Stream<List<GroupNoteModel>> watchNotes(String groupId);
   Future<void> addNote(GroupNoteModel note);
@@ -24,6 +29,7 @@ class NotesGroupRemoteDataSourceImpl implements NotesGroupRemoteDataSource {
 
   @override
   Future<String> createGroup({
+    required String creatorId,
     required String creatorName,
     required String groupName,
   }) async {
@@ -36,6 +42,7 @@ class NotesGroupRemoteDataSourceImpl implements NotesGroupRemoteDataSource {
           'name': groupName,
           'createdAt': FieldValue.serverTimestamp(),
           'createdBy': creatorName,
+          'memberIds': [creatorId], // ⬅️ جديد: المنشئ عضو تلقائيًا
         });
         return id;
       }
@@ -57,15 +64,42 @@ class NotesGroupRemoteDataSourceImpl implements NotesGroupRemoteDataSource {
   }
 
   @override
+  Future<void> addMember({
+    required String groupId,
+    required String userId,
+  }) async {
+    await _groups.doc(groupId).update({
+      'memberIds': FieldValue.arrayUnion([userId]),
+    });
+  }
+
+  @override
+  Future<List<JoinedGroupEntity>> getMyGroups(String userId) async {
+    if (userId.isEmpty) return [];
+    final snap = await _groups.where('memberIds', arrayContains: userId).get();
+    return snap.docs.map((d) {
+      final name = d.data()['name'] as String?;
+      return JoinedGroupEntity(
+        id: d.id,
+        name: (name != null && name.trim().isNotEmpty)
+            ? name
+            : 'مجموعة بدون اسم',
+      );
+    }).toList();
+  }
+
+  @override
   Stream<List<GroupNoteModel>> watchNotes(String groupId) {
     return _groups
         .doc(groupId)
         .collection('notes')
         .orderBy('createdAt', descending: true)
         .snapshots()
-        .map((snap) => snap.docs
-            .map((d) => GroupNoteModel.fromMap(d.id, groupId, d.data()))
-            .toList());
+        .map(
+          (snap) => snap.docs
+              .map((d) => GroupNoteModel.fromMap(d.id, groupId, d.data()))
+              .toList(),
+        );
   }
 
   @override

@@ -4,9 +4,8 @@ import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.d
 import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/get_joined_groups_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/get_my_groups_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/join_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/save_joined_group_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/watch_group_notes_usecase.dart';
 import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_state.dart';
 
@@ -15,8 +14,8 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   final JoinGroupUseCase joinGroupUseCase;
   final WatchGroupNotesUseCase watchGroupNotesUseCase;
   final AddGroupNoteUseCase addGroupNoteUseCase;
-  final GetJoinedGroupsUseCase getJoinedGroupsUseCase;
-  final SaveJoinedGroupUseCase saveJoinedGroupUseCase;
+  final GetMyGroupsUseCase getMyGroupsUseCase;
+  final String currentUserId;   // ⬅️ جديد
   final String currentUserName;
 
   StreamSubscription<List<GroupNoteEntity>>? _sub;
@@ -27,19 +26,23 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     required this.joinGroupUseCase,
     required this.watchGroupNotesUseCase,
     required this.addGroupNoteUseCase,
-    required this.getJoinedGroupsUseCase,
-    required this.saveJoinedGroupUseCase,
+    required this.getMyGroupsUseCase,
+    required this.currentUserId,
     required this.currentUserName,
   }) : super(NotesGroupInitial());
 
-  Future<List<JoinedGroupEntity>> loadJoinedGroups() => getJoinedGroupsUseCase();
+  Future<List<JoinedGroupEntity>> loadJoinedGroups() =>
+      getMyGroupsUseCase(currentUserId);
 
   Future<void> createGroup(String groupName) async {
     emit(NotesGroupBusy());
     final name = groupName.trim().isEmpty ? 'مجموعة بدون اسم' : groupName.trim();
     try {
-      final id = await createGroupUseCase.call(creatorName: currentUserName, groupName: name);
-      await saveJoinedGroupUseCase(JoinedGroupEntity(id: id, name: name));
+      final id = await createGroupUseCase.call(
+        creatorId: currentUserId,
+        creatorName: currentUserName,
+        groupName: name,
+      );
       _startWatching(id, name);
     } catch (e) {
       emit(NotesGroupError('تعذر إنشاء المجموعة: $e'));
@@ -51,12 +54,11 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     if (trimmedId.isEmpty) return;
     emit(NotesGroupBusy());
     try {
-      final name = await joinGroupUseCase.call(trimmedId);
+      final name = await joinGroupUseCase.call(trimmedId, currentUserId);
       if (name == null) {
         emit(NotesGroupError('لا توجد مجموعة بهذا الرقم'));
         return;
       }
-      await saveJoinedGroupUseCase(JoinedGroupEntity(id: trimmedId, name: name));
       _startWatching(trimmedId, name);
     } catch (e) {
       emit(NotesGroupError('حدث خطأ: $e'));
