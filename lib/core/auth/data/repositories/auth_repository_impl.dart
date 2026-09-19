@@ -11,7 +11,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Stream<AuthUser?> get authStateChanges {
     return auth.authStateChanges().map((user) {
       if (user == null) return null;
-      return AuthUser(id: user.uid, email: user.email!);
+      return AuthUser(
+        id: user.uid,
+        email: user.email ?? '',
+        displayName: user.displayName,
+      );
     });
   }
 
