@@ -33,18 +33,13 @@ import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
 
 // shared_notes
 import 'package:myfarm/features/shared_notes/data/datasource/notes_group_remote_datasource.dart';
-import 'package:myfarm/features/shared_notes/data/local/joined_groups_storage.dart';
 import 'package:myfarm/features/shared_notes/data/repositories/notes_group_repository_impl.dart';
-import 'package:myfarm/features/shared_notes/data/repositories/joined_groups_repository_impl.dart';
 import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
-import 'package:myfarm/features/shared_notes/domain/repositories/joined_groups_repository.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
+import 'package:myfarm/features/shared_notes/domain/usecases/get_my_groups_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/join_group_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/watch_group_notes_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/get_joined_groups_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/save_joined_group_usecase.dart';
-
 // Signup
 import 'package:myfarm/features/signup/data/dataSource/signup_remote_data_source.dart';
 import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
@@ -172,7 +167,6 @@ void _setupTasks() {
 
 // ─── SharedNotes ────────────────────────────────────────
 void _setupSharedNotes() {
-  // Notes (Firestore)
   getIt.registerLazySingleton<NotesGroupRemoteDataSource>(
     () => NotesGroupRemoteDataSourceImpl(getIt()),
   );
@@ -183,12 +177,5 @@ void _setupSharedNotes() {
   getIt.registerLazySingleton(() => JoinGroupUseCase(getIt()));
   getIt.registerLazySingleton(() => WatchGroupNotesUseCase(getIt()));
   getIt.registerLazySingleton(() => AddGroupNoteUseCase(getIt()));
-
-  // Joined groups (local storage)
-  getIt.registerLazySingleton(() => JoinedGroupsLocalDataSource());
-  getIt.registerLazySingleton<JoinedGroupsRepository>(
-    () => JoinedGroupsRepositoryImpl(getIt()),
-  );
-  getIt.registerLazySingleton(() => GetJoinedGroupsUseCase(getIt()));
-  getIt.registerLazySingleton(() => SaveJoinedGroupUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetMyGroupsUseCase(getIt()));
 }
