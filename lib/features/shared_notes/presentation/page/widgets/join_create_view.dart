@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/core/widgets/app_text_feild.dart';
 import 'package:myfarm/core/widgets/auth_required_dialog.dart';
@@ -21,24 +22,28 @@ class JoinCreateView extends StatelessWidget {
     required this.busy,
   });
 
-  void _createGroup(BuildContext context) {
-    final user = fb.FirebaseAuth.instance.currentUser;
-    if (user == null) {
+/// بيرجع true لو المستخدم مسجل دخول، وبيعرض الديالوج ويرجع false لو لأ.
+  /// مفيش أي استيراد لـ firebase_auth هنا — القرار مبني على AuthCubit بس.
+  bool _requireAuth(BuildContext context) {
+    final isAuthenticated =
+        context.read<AuthCubit>().state is AuthAuthenticated;
+    if (!isAuthenticated) {
       AuthRequiredDialog.show(context, message: 'يجب تسجيل الدخول أولاً.');
-      return;
     }
+    return isAuthenticated;
+  }
+
+  void _createGroup(BuildContext context) {
+    if (!_requireAuth(context)) return;
     context.read<NotesGroupCubit>().createGroup(nameController.text);
     nameController.clear();
   }
 
   void _join(BuildContext context, {String? groupId}) {
-    final user = fb.FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      AuthRequiredDialog.show(context, message: 'يجب تسجيل الدخول أولاً.');
-      return;
-    }
+    if (!_requireAuth(context)) return;
     context.read<NotesGroupCubit>().joinGroup(groupId ?? joinController.text);
   }
+
 
   @override
   Widget build(BuildContext context) {
