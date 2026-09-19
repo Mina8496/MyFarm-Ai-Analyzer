@@ -9,7 +9,7 @@ import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_cub
 class GroupNotesView extends StatelessWidget {
   final String groupId;
   final String groupName;
-  final List notes; // List<GroupNoteModel>
+  final List notes;
   final TextEditingController noteController;
 
   const GroupNotesView({
@@ -34,6 +34,25 @@ class GroupNotesView extends StatelessWidget {
     return '$hour:$minute $period';
   }
 
+  // لون ثابت لكل اسم (زي واتساب لما مفيش صورة بروفايل)
+  static const List<Color> _avatarPalette = [
+    Color(0xFFE57373),
+    Color(0xFF64B5F6),
+    Color(0xFF81C784),
+    Color(0xFFFFB74D),
+    Color.fromARGB(255, 194, 135, 205),
+    Color(0xFF4DB6AC),
+    Color(0xFFF06292),
+    Color(0xFF9575CD),
+    Color(0xFFA1887F),
+  ];
+
+  Color _colorForName(String name) {
+    if (name.isEmpty) return _avatarPalette.first;
+    final index = name.hashCode.abs() % _avatarPalette.length;
+    return _avatarPalette[index];
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUserName = context.read<NotesGroupCubit>().currentUserName;
@@ -46,16 +65,33 @@ class GroupNotesView extends StatelessWidget {
               ? _buildEmptyState()
               : ListView.builder(
                   reverse: true,
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+                  padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
                   itemCount: notes.length,
                   itemBuilder: (context, index) {
                     final note = notes[index];
                     final isMine = note.authorName == currentUserName;
+
+                    final olderNote = index + 1 < notes.length
+                        ? notes[index + 1]
+                        : null;
+                    final newerNote = index - 1 >= 0 ? notes[index - 1] : null;
+
+                    final isFirstInGroup =
+                        olderNote == null ||
+                        olderNote.authorName != note.authorName;
+                    final isLastInGroup =
+                        newerNote == null ||
+                        newerNote.authorName != note.authorName;
+
                     return _NoteBubble(
                       content: note.content,
                       authorName: note.authorName,
                       time: _formatTime(note.createdAt),
                       isMine: isMine,
+                      showName: isFirstInGroup && !isMine,
+                      showAvatar: isLastInGroup && !isMine,
+                      avatarColor: _colorForName(note.authorName),
+                      topSpacing: isFirstInGroup ? 10 : 2,
                     );
                   },
                 ),
@@ -67,24 +103,26 @@ class GroupNotesView extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
       decoration: const BoxDecoration(
-        color: Color(0x0DFFFFFF),
-        border: Border(bottom: BorderSide(color: Colors.white12, width: 1)),
+        color: ColorPalette.kkPrimaryGreen,
+        border: Border(
+          bottom: BorderSide(color: ColorPalette.kBorder, width: 1),
+        ),
       ),
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: ColorPalette.kBlackColor),
+            icon: const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
             onPressed: () => context.read<NotesGroupCubit>().leaveGroup(),
             tooltip: 'رجوع للمجموعات',
           ),
           CircleAvatar(
-            radius: 18,
-            backgroundColor: Colors.teal.withValues(alpha: 0.9),
+            radius: 15,
+            backgroundColor: ColorPalette.kSecondaryGreen,
             child: Text(
               groupName.isNotEmpty ? groupName[0] : '?',
-              style: Styles.style16,
+              style: Styles.style12.copyWith(color: ColorPalette.kWhiteColor),
             ),
           ),
           SizedBox(width: 10.w),
@@ -94,15 +132,26 @@ class GroupNotesView extends StatelessWidget {
               children: [
                 Text(
                   groupName,
-                  style: Styles.style18,
+                  style: Styles.style18.copyWith(
+                    color: ColorPalette.kWhiteColor,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text('رقم المجموعة: $groupId', style: Styles.style16),
+                Text(
+                  'رقم المجموعة: $groupId',
+                  style: Styles.style14.copyWith(
+                    color: ColorPalette.kWhiteColor.withValues(alpha: 0.75),
+                  ),
+                ),
               ],
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.copy, size: 18, color: Colors.black),
+            icon: const Icon(
+              Icons.copy,
+              size: 15,
+              color: ColorPalette.kWhiteColor,
+            ),
             tooltip: 'نسخ رقم المجموعة',
             onPressed: () {
               Clipboard.setData(ClipboardData(text: groupId));
@@ -121,16 +170,20 @@ class GroupNotesView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.chat_bubble_outline, size: 48, color: Colors.white24),
+          Icon(
+            Icons.chat_bubble_outline,
+            size: 48,
+            color: ColorPalette.kBorder,
+          ),
           SizedBox(height: 12),
           Text(
             'لا توجد ملاحظات بعد',
-            style: TextStyle(color: Colors.white54, fontSize: 14),
+            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 14),
           ),
           SizedBox(height: 4),
           Text(
             'ابدأ أول ملاحظة في المجموعة',
-            style: TextStyle(color: Colors.white38, fontSize: 12),
+            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 12),
           ),
         ],
       ),
@@ -145,30 +198,34 @@ class GroupNotesView extends StatelessWidget {
         top: 8,
         bottom: MediaQuery.of(context).viewInsets.bottom + 8,
       ),
-      decoration: const BoxDecoration(
-        color: Color(0x0DFFFFFF),
-        border: Border(top: BorderSide(color: Colors.white12, width: 1)),
+      // خلفية بيضا واضحة + حد علوي رمادي فاتح ظاهر، بدل نفس لون
+      // الخلفية اللي كان بيلغي الحدود خالص.
+      decoration: BoxDecoration(
+        color: ColorPalette.kWhiteColor,
+        border: Border(top: BorderSide(color: ColorPalette.kgrey300, width: 1)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: Container(
-              constraints: BoxConstraints(maxHeight: 120),
+              constraints: const BoxConstraints(maxHeight: 120),
               decoration: BoxDecoration(
-                color: ColorPalette.kBlackColor.withValues(alpha: 0.09),
+                color: ColorPalette.kgrey200,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: TextField(
                 controller: noteController,
-                style: const TextStyle(color: ColorPalette.kBorder),
+                // نص أسود واضح فوق خلفية رمادي فاتح، بدل أخضر فاتح
+                // على خلفية فاتحة قريبة منه في اللون.
+                style: const TextStyle(color: ColorPalette.kBlackColor),
                 minLines: 1,
                 maxLines: 4,
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _sendNote(context),
                 decoration: const InputDecoration(
                   hintText: 'اكتب ملاحظة...',
-                  hintStyle: TextStyle(color: ColorPalette.kBlackColor),
+                  hintStyle: TextStyle(color: ColorPalette.kPrimaryGray),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 16,
@@ -180,7 +237,7 @@ class GroupNotesView extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Material(
-            color: Colors.teal,
+            color: ColorPalette.kSecondaryGreen,
             shape: const CircleBorder(),
             child: InkWell(
               customBorder: const CircleBorder(),
@@ -206,26 +263,41 @@ class _NoteBubble extends StatelessWidget {
   final String authorName;
   final String time;
   final bool isMine;
+  final bool showName;
+  final bool showAvatar;
+  final Color avatarColor;
+  final double topSpacing;
 
   const _NoteBubble({
     required this.content,
     required this.authorName,
     required this.time,
     required this.isMine,
+    required this.showName,
+    required this.showAvatar,
+    required this.avatarColor,
+    required this.topSpacing,
   });
 
   @override
   Widget build(BuildContext context) {
+    // رسايلي: أخضر واضح زي واتساب بالظبط + نص أبيض.
+    // رسايل التانيين: فقاعة بيضا واضحة + نص غامق — زي واتساب تمامًا.
     final bubbleColor = isMine
-        ? Colors.teal.withValues(alpha: 0.85)
-        : Colors.white.withValues(alpha: 0.10);
+        ? ColorPalette.kSecondaryGreen
+        : ColorPalette.kWhiteColor;
+    final textColor = isMine
+        ? ColorPalette.kWhiteColor
+        : ColorPalette.kkPrimaryGreen;
+    final timeColor = isMine
+        ? ColorPalette.kWhiteColor.withValues(alpha: 0.75)
+        : ColorPalette.kPrimaryGray;
 
-    return Align(
-      alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
+    final bubbleContent = Directionality(
+      textDirection: TextDirection.rtl,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.75,
+          maxWidth: MediaQuery.of(context).size.width * 0.72,
         ),
         padding: const EdgeInsets.fromLTRB(12, 8, 12, 6),
         decoration: BoxDecoration(
@@ -236,17 +308,24 @@ class _NoteBubble extends StatelessWidget {
             bottomRight: Radius.circular(isMine ? 2 : 14),
             bottomLeft: Radius.circular(isMine ? 14 : 2),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: ColorPalette.kBlackColor.withValues(alpha: 0.06),
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (!isMine)
+            if (showName)
               Padding(
                 padding: const EdgeInsets.only(bottom: 3),
                 child: Text(
                   authorName,
-                  style: const TextStyle(
-                    color: Colors.tealAccent,
+                  style: TextStyle(
+                    color: avatarColor,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
@@ -254,18 +333,57 @@ class _NoteBubble extends StatelessWidget {
               ),
             Text(
               content,
-              style: const TextStyle(color: Colors.white, fontSize: 14),
+              textAlign: TextAlign.right,
+              style: TextStyle(color: textColor, fontSize: 14),
             ),
             const SizedBox(height: 3),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 time,
-                style: const TextStyle(color: Colors.white54, fontSize: 10),
+                style: TextStyle(color: timeColor, fontSize: 10),
               ),
             ),
           ],
         ),
+      ),
+    );
+
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Padding(
+        padding: EdgeInsets.only(top: topSpacing, bottom: 2),
+        child: isMine
+            ? Align(alignment: Alignment.centerRight, child: bubbleContent)
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 30,
+                    child: showAvatar
+                        ? CircleAvatar(
+                            radius: 14,
+                            backgroundColor: avatarColor,
+                            child: Text(
+                              authorName.isNotEmpty
+                                  ? authorName.characters.first.toUpperCase()
+                                  : '?',
+                              style: const TextStyle(
+                                // أبيض ثابت بدل kcardGreen، عشان يفضل
+                                // مقروء فوق أي لون عشوائي من الـ palette.
+                                color: ColorPalette.kWhiteColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                  const SizedBox(width: 6),
+                  Flexible(child: bubbleContent),
+                ],
+              ),
       ),
     );
   }
