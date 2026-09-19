@@ -4,12 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
 import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_cubit.dart';
+import 'package:myfarm/features/shared_notes/presentation/page/widgets/note_bubble.dart';
+import 'package:myfarm/features/shared_notes/presentation/utils/avatar_color.dart';
+import 'package:myfarm/features/shared_notes/presentation/utils/note_time_formatter.dart';
 
 class GroupNotesView extends StatelessWidget {
   final String groupId;
   final String groupName;
-  final List notes;
+  final List<GroupNoteEntity> notes;
   final TextEditingController noteController;
 
   const GroupNotesView({
@@ -25,32 +29,6 @@ class GroupNotesView extends StatelessWidget {
     if (text.isEmpty) return;
     context.read<NotesGroupCubit>().addNote(text);
     noteController.clear();
-  }
-
-  String _formatTime(DateTime dt) {
-    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
-    final minute = dt.minute.toString().padLeft(2, '0');
-    final period = dt.hour >= 12 ? 'م' : 'ص';
-    return '$hour:$minute $period';
-  }
-
-  // لون ثابت لكل اسم (زي واتساب لما مفيش صورة بروفايل)
-  static const List<Color> _avatarPalette = [
-    Color(0xFFE57373),
-    Color(0xFF64B5F6),
-    Color(0xFF81C784),
-    Color(0xFFFFB74D),
-    Color.fromARGB(255, 194, 135, 205),
-    Color(0xFF4DB6AC),
-    Color(0xFFF06292),
-    Color(0xFF9575CD),
-    Color(0xFFA1887F),
-  ];
-
-  Color _colorForName(String name) {
-    if (name.isEmpty) return _avatarPalette.first;
-    final index = name.hashCode.abs() % _avatarPalette.length;
-    return _avatarPalette[index];
   }
 
   @override
@@ -71,26 +49,23 @@ class GroupNotesView extends StatelessWidget {
                     final note = notes[index];
                     final isMine = note.authorName == currentUserName;
 
-                    final olderNote = index + 1 < notes.length
-                        ? notes[index + 1]
-                        : null;
+                    final olderNote =
+                        index + 1 < notes.length ? notes[index + 1] : null;
                     final newerNote = index - 1 >= 0 ? notes[index - 1] : null;
 
-                    final isFirstInGroup =
-                        olderNote == null ||
+                    final isFirstInGroup = olderNote == null ||
                         olderNote.authorName != note.authorName;
-                    final isLastInGroup =
-                        newerNote == null ||
+                    final isLastInGroup = newerNote == null ||
                         newerNote.authorName != note.authorName;
 
-                    return _NoteBubble(
+                    return NoteBubble(
                       content: note.content,
                       authorName: note.authorName,
-                      time: _formatTime(note.createdAt),
+                      time: NoteTimeFormatter.format(note.createdAt),
                       isMine: isMine,
                       showName: isFirstInGroup && !isMine,
                       showAvatar: isLastInGroup && !isMine,
-                      avatarColor: _colorForName(note.authorName),
+                      avatarColor: AvatarColor.forName(note.authorName),
                       topSpacing: isFirstInGroup ? 10 : 2,
                     );
                   },
@@ -113,7 +88,8 @@ class GroupNotesView extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
+            icon:
+                const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
             onPressed: () => context.read<NotesGroupCubit>().leaveGroup(),
             tooltip: 'رجوع للمجموعات',
           ),
@@ -132,9 +108,8 @@ class GroupNotesView extends StatelessWidget {
               children: [
                 Text(
                   groupName,
-                  style: Styles.style18.copyWith(
-                    color: ColorPalette.kWhiteColor,
-                  ),
+                  style:
+                      Styles.style18.copyWith(color: ColorPalette.kWhiteColor),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
@@ -147,11 +122,8 @@ class GroupNotesView extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(
-              Icons.copy,
-              size: 15,
-              color: ColorPalette.kWhiteColor,
-            ),
+            icon: const Icon(Icons.copy,
+                size: 15, color: ColorPalette.kWhiteColor),
             tooltip: 'نسخ رقم المجموعة',
             onPressed: () {
               Clipboard.setData(ClipboardData(text: groupId));
@@ -170,21 +142,13 @@ class GroupNotesView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.chat_bubble_outline,
-            size: 48,
-            color: ColorPalette.kBorder,
-          ),
+          Icon(Icons.chat_bubble_outline, size: 48, color: ColorPalette.kBorder),
           SizedBox(height: 12),
-          Text(
-            'لا توجد ملاحظات بعد',
-            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 14),
-          ),
+          Text('لا توجد ملاحظات بعد',
+              style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 14)),
           SizedBox(height: 4),
-          Text(
-            'ابدأ أول ملاحظة في المجموعة',
-            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 12),
-          ),
+          Text('ابدأ أول ملاحظة في المجموعة',
+              style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 12)),
         ],
       ),
     );
@@ -198,8 +162,6 @@ class GroupNotesView extends StatelessWidget {
         top: 8,
         bottom: MediaQuery.of(context).viewInsets.bottom + 8,
       ),
-      // خلفية بيضا واضحة + حد علوي رمادي فاتح ظاهر، بدل نفس لون
-      // الخلفية اللي كان بيلغي الحدود خالص.
       decoration: BoxDecoration(
         color: ColorPalette.kWhiteColor,
         border: Border(top: BorderSide(color: ColorPalette.kgrey300, width: 1)),
@@ -216,8 +178,6 @@ class GroupNotesView extends StatelessWidget {
               ),
               child: TextField(
                 controller: noteController,
-                // نص أسود واضح فوق خلفية رمادي فاتح، بدل أخضر فاتح
-                // على خلفية فاتحة قريبة منه في اللون.
                 style: const TextStyle(color: ColorPalette.kBlackColor),
                 minLines: 1,
                 maxLines: 4,
@@ -227,10 +187,8 @@ class GroupNotesView extends StatelessWidget {
                   hintText: 'اكتب ملاحظة...',
                   hintStyle: TextStyle(color: ColorPalette.kPrimaryGray),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
-                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
               ),
             ),
@@ -244,146 +202,11 @@ class GroupNotesView extends StatelessWidget {
               onTap: () => _sendNote(context),
               child: const Padding(
                 padding: EdgeInsets.all(10),
-                child: Icon(
-                  Icons.send,
-                  color: ColorPalette.kWhiteColor,
-                  size: 20,
-                ),
+                child: Icon(Icons.send, color: ColorPalette.kWhiteColor, size: 20),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _NoteBubble extends StatelessWidget {
-  final String content;
-  final String authorName;
-  final String time;
-  final bool isMine;
-  final bool showName;
-  final bool showAvatar;
-  final Color avatarColor;
-  final double topSpacing;
-
-  const _NoteBubble({
-    required this.content,
-    required this.authorName,
-    required this.time,
-    required this.isMine,
-    required this.showName,
-    required this.showAvatar,
-    required this.avatarColor,
-    required this.topSpacing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // رسايلي: أخضر واضح زي واتساب بالظبط + نص أبيض.
-    // رسايل التانيين: فقاعة بيضا واضحة + نص غامق — زي واتساب تمامًا.
-    final bubbleColor = isMine
-        ? ColorPalette.kSecondaryGreen
-        : ColorPalette.kWhiteColor;
-    final textColor = isMine
-        ? ColorPalette.kWhiteColor
-        : ColorPalette.kkPrimaryGreen;
-    final timeColor = isMine
-        ? ColorPalette.kWhiteColor.withValues(alpha: 0.75)
-        : ColorPalette.kPrimaryGray;
-
-    final bubbleContent = Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.72,
-        ),
-        padding: const EdgeInsets.fromLTRB(12, 8, 12, 6),
-        decoration: BoxDecoration(
-          color: bubbleColor,
-          borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(14),
-            topRight: const Radius.circular(14),
-            bottomRight: Radius.circular(isMine ? 2 : 14),
-            bottomLeft: Radius.circular(isMine ? 14 : 2),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: ColorPalette.kBlackColor.withValues(alpha: 0.06),
-              blurRadius: 2,
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (showName)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  authorName,
-                  style: TextStyle(
-                    color: avatarColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            Text(
-              content,
-              textAlign: TextAlign.right,
-              style: TextStyle(color: textColor, fontSize: 14),
-            ),
-            const SizedBox(height: 3),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                time,
-                style: TextStyle(color: timeColor, fontSize: 10),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Padding(
-        padding: EdgeInsets.only(top: topSpacing, bottom: 2),
-        child: isMine
-            ? Align(alignment: Alignment.centerRight, child: bubbleContent)
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 30,
-                    child: showAvatar
-                        ? CircleAvatar(
-                            radius: 14,
-                            backgroundColor: avatarColor,
-                            child: Text(
-                              authorName.isNotEmpty
-                                  ? authorName.characters.first.toUpperCase()
-                                  : '?',
-                              style: const TextStyle(
-                                // أبيض ثابت بدل kcardGreen، عشان يفضل
-                                // مقروء فوق أي لون عشوائي من الـ palette.
-                                color: ColorPalette.kWhiteColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        : null,
-                  ),
-                  const SizedBox(width: 6),
-                  Flexible(child: bubbleContent),
-                ],
-              ),
       ),
     );
   }
