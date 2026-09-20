@@ -41,6 +41,13 @@ class GroupNotesView extends StatelessWidget {
     return note.authorName == cubit.currentUserName;
   }
 
+  bool _sameAuthor(GroupNoteEntity a, GroupNoteEntity b) {
+    if (a.authorId.isNotEmpty && b.authorId.isNotEmpty) {
+      return a.authorId == b.authorId;
+    }
+    return a.authorName == b.authorName;
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<GroupChatCubit>();
@@ -59,14 +66,15 @@ class GroupNotesView extends StatelessWidget {
                     final note = notes[index];
                     final isMine = _isMine(note, cubit);
 
-                    final olderNote =
-                        index + 1 < notes.length ? notes[index + 1] : null;
+                    final olderNote = index + 1 < notes.length
+                        ? notes[index + 1]
+                        : null;
                     final newerNote = index - 1 >= 0 ? notes[index - 1] : null;
 
-                    final isFirstInGroup = olderNote == null ||
-                        olderNote.authorName != note.authorName;
-                    final isLastInGroup = newerNote == null ||
-                        newerNote.authorName != note.authorName;
+                    final isFirstInGroup =
+                        olderNote == null || !_sameAuthor(olderNote, note);
+                    final isLastInGroup =
+                        newerNote == null || !_sameAuthor(newerNote, note);
 
                     return NoteBubble(
                       content: note.content,
@@ -98,8 +106,7 @@ class GroupNotesView extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            icon:
-                const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
+            icon: const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
             onPressed: () => context.read<GroupChatCubit>().leaveGroup(),
             tooltip: 'رجوع للمجموعات',
           ),
@@ -118,8 +125,9 @@ class GroupNotesView extends StatelessWidget {
               children: [
                 Text(
                   groupName,
-                  style:
-                      Styles.style18.copyWith(color: ColorPalette.kWhiteColor),
+                  style: Styles.style18.copyWith(
+                    color: ColorPalette.kWhiteColor,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
@@ -132,8 +140,11 @@ class GroupNotesView extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.copy,
-                size: 15, color: ColorPalette.kWhiteColor),
+            icon: const Icon(
+              Icons.copy,
+              size: 15,
+              color: ColorPalette.kWhiteColor,
+            ),
             tooltip: 'نسخ رقم المجموعة',
             onPressed: () {
               Clipboard.setData(ClipboardData(text: groupId));
@@ -152,13 +163,21 @@ class GroupNotesView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.chat_bubble_outline, size: 48, color: ColorPalette.kBorder),
+          Icon(
+            Icons.chat_bubble_outline,
+            size: 48,
+            color: ColorPalette.kBorder,
+          ),
           SizedBox(height: 12),
-          Text('لا توجد ملاحظات بعد',
-              style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 14)),
+          Text(
+            'لا توجد ملاحظات بعد',
+            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 14),
+          ),
           SizedBox(height: 4),
-          Text('ابدأ أول ملاحظة في المجموعة',
-              style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 12)),
+          Text(
+            'ابدأ أول ملاحظة في المجموعة',
+            style: TextStyle(color: ColorPalette.kkPrimaryGreen, fontSize: 12),
+          ),
         ],
       ),
     );
@@ -197,8 +216,10 @@ class GroupNotesView extends StatelessWidget {
                   hintText: 'اكتب ملاحظة...',
                   hintStyle: TextStyle(color: ColorPalette.kPrimaryGray),
                   border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                 ),
               ),
             ),
@@ -212,7 +233,11 @@ class GroupNotesView extends StatelessWidget {
               onTap: () => _sendNote(context),
               child: const Padding(
                 padding: EdgeInsets.all(10),
-                child: Icon(Icons.send, color: ColorPalette.kWhiteColor, size: 20),
+                child: Icon(
+                  Icons.send,
+                  color: ColorPalette.kWhiteColor,
+                  size: 20,
+                ),
               ),
             ),
           ),
