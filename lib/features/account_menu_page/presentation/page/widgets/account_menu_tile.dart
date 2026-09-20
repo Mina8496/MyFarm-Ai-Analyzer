@@ -3,25 +3,25 @@ import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
 
 class AccountMenuTile extends StatelessWidget {
-  final IconData? icon;
+  final IconData icon;
   final String title;
   final VoidCallback onTap;
   final Color iconColor;
 
   const AccountMenuTile({
     super.key,
-    this.icon,
+    required this.icon,
     required this.title,
     required this.onTap,
-    this.iconColor = Colors.black,
+    this.iconColor = ColorPalette.kBlackColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14.0),
+      padding: const EdgeInsets.only(bottom: 14),
       child: Material(
-        color: Colors.white.withOpacity(.18),
+        color: ColorPalette.kWhiteColor.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(18),
         child: ListTile(
           onTap: onTap,
