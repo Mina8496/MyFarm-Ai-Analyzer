@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// لون ثابت لكل اسم (زي واتساب لما مفيش صورة بروفايل).
 class AvatarColor {
   AvatarColor._();
 
@@ -16,8 +15,8 @@ class AvatarColor {
     Color(0xFFA1887F),
   ];
 
-  static Color forName(String name) {
-    if (name.isEmpty) return _palette.first;
-    return _palette[name.hashCode.abs() % _palette.length];
+  static Color forKey(String key) {
+    if (key.isEmpty) return _palette.first;
+    return _palette[key.hashCode.abs() % _palette.length];
   }
 }

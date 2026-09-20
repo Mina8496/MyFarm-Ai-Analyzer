@@ -87,7 +87,7 @@ class GroupNotesView extends StatelessWidget {
                       isMine: isMine,
                       showName: isFirstInGroup && !isMine,
                       showAvatar: isLastInGroup && !isMine,
-                      avatarColor: AvatarColor.forName(_authorKey(note)),
+                      avatarColor: AvatarColor.forKey(_authorKey(note)),
                       topSpacing: isFirstInGroup ? 10 : 2,
                     );
                   },
