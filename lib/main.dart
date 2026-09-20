@@ -126,9 +126,8 @@ class MyApp extends StatelessWidget {
                   navigatorKey:
                       navigatorKey, // مفتاح Navigator ثابت على مستوى التطبيق
                   debugShowCheckedModeBanner: false,
-                  theme: ThemeData.light().copyWith(
+                  theme: ThemeData.light(useMaterial3: true).copyWith(
                     scaffoldBackgroundColor: ColorPalette.kPrimaryColor,
-                    useMaterial3: true,
                   ),
                   translations: AppTranslations(),
                   locale: Get.deviceLocale,

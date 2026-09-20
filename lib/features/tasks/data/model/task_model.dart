@@ -1,3 +1,6 @@
+// Hive reads @HiveField only from fields declared on the model itself,
+// so these fields must re-declare (override) the TaskEntity ones.
+// ignore_for_file: overridden_fields
 import 'package:hive/hive.dart';
 import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 
