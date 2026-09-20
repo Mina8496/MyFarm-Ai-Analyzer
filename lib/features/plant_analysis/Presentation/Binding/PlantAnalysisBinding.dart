@@ -1,6 +1,5 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/plant_analysis_controller.dart';
 import 'package:myfarm/features/plant_analysis/data/datasources/plant_id_remote_datasource.dart';
 import 'package:myfarm/features/plant_analysis/data/repositories/plant_analysis_repository_impl.dart';

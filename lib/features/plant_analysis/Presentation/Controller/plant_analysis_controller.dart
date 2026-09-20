@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseArabicEnricher.dart';
 import 'package:myfarm/features/plant_analysis/data/knowledge/PlantNameArabicMapper.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';

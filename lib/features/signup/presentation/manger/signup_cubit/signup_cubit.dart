@@ -94,8 +94,9 @@ class SignupCubit extends Cubit<SignupState> {
   // Validators
   String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) return "Name_required".tr;
-    if (value.trim().length < 3)
-      return "الاسم قصير جدًا"; // "Name is too short" in Arabic
+    if (value.trim().length < 3) {
+      return "الاسم قصير جدًا";
+    }
     final nameRegex = RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$');
     if (!nameRegex.hasMatch(value.trim())) return "Enter valid name";
     return null;
