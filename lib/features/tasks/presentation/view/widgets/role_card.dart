@@ -61,9 +61,12 @@ class RoleCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.8),
+          color: Colors.white.withValues(alpha: .8),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: _accentColor.withOpacity(0.3), width: 1.5),
+          border: Border.all(
+            color: _accentColor.withValues(alpha: 0.3),
+            width: 1.5,
+          ),
         ),
         child: Row(
           children: [
@@ -71,7 +74,7 @@ class RoleCard extends StatelessWidget {
               width: 52,
               height: 52,
               decoration: BoxDecoration(
-                color: _accentColor.withOpacity(0.1),
+                color: _accentColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Center(
@@ -98,7 +101,7 @@ class RoleCard extends StatelessWidget {
             ),
             Icon(
               Icons.arrow_forward_ios,
-              color: _accentColor.withOpacity(0.6),
+              color: _accentColor.withValues(alpha: 0.6),
               size: 16,
             ),
           ],

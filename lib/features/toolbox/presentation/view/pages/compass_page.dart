@@ -74,7 +74,7 @@ class _CompassPageState extends State<CompassPage> {
                         color: Theme.of(context).colorScheme.surface,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
+                            color: Colors.black.withValues(alpha: 0.08),
                             blurRadius: 12,
                           ),
                         ],
@@ -117,7 +117,7 @@ class _CompassDialPainter extends CustomPainter {
     final radius = size.width / 2;
 
     final tickPaint = Paint()
-      ..color = Colors.grey.withOpacity(0.5)
+      ..color = Colors.grey.withValues(alpha: 0.5)
       ..strokeWidth = 1;
 
     final majorTickPaint = Paint()

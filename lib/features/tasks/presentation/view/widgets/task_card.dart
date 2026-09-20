@@ -71,12 +71,12 @@ class _TaskCardState extends State<TaskCard>
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: isCompleted
-                ? ColorPalette.kPrimaryColor.withOpacity(0.2)
+                ? ColorPalette.kPrimaryColor.withValues(alpha: 0.2)
                 : ColorPalette.kLightGreen,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: isCompleted
-                  ? ColorPalette.kSuccess.withOpacity(0.5)
+                  ? ColorPalette.kSuccess.withValues(alpha: 0.5)
                   : ColorPalette.kBorder,
               width: 1.5,
             ),

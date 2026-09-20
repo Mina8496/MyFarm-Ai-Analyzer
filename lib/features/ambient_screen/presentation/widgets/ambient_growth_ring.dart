@@ -27,7 +27,7 @@ class _GrowthRingPainter extends CustomPainter {
 
     // الحلقة الخارجية الرئيسية — مفتوحة من تحت زي قوس شمس
     final ringPaint = Paint()
-      ..color = AmbientTheme.accentGold.withOpacity(0.90)
+      ..color = AmbientTheme.accentGold.withValues(alpha: 0.90)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 10.2
       ..strokeCap = StrokeCap.round;
@@ -42,7 +42,7 @@ class _GrowthRingPainter extends CustomPainter {
 
     // حلقة داخلية أرفع، أخضر النمو — قوس مقابل
     final innerPaint = Paint()
-      ..color = AmbientTheme.accentLeaf.withOpacity(0.50)
+      ..color = AmbientTheme.accentLeaf.withValues(alpha: 0.50)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5.0;
 
@@ -56,7 +56,7 @@ class _GrowthRingPainter extends CustomPainter {
 
     // علامات دقيقة على الحلقة الخارجية — زي علامات الساعات الشمسية
     final tickPaint = Paint()
-      ..color = AmbientTheme.textTertiary.withOpacity(0.90)
+      ..color = AmbientTheme.textTertiary.withValues(alpha: 0.90)
       ..strokeWidth = 10.0;
 
     for (int i = 0; i < 12; i++) {

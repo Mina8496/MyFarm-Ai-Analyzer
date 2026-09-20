@@ -94,7 +94,7 @@ class _HomeMainShellState extends State<HomeMainShell> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: _handlePop,
+      onPopInvokedWithResult: (didPop, result) => _handlePop(didPop),
       child: Scaffold(
         backgroundColor: Color(0xFF388E3C),
         body: SafeArea(child: pages[currentIndex]),

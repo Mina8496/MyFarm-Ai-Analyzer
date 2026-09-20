@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -461,7 +460,7 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
             separatorBuilder: (context, index) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final video = videos[index];
-              return Container(
+              return SizedBox(
                 width: MediaQuery.of(context).size.width * 0.65,
                 child: Card(
                   color: Colors.white,
@@ -509,7 +508,7 @@ class _TFLiteClassifierPageState extends State<TFLiteClassifierPage> {
                                 child: Center(
                                   child: Icon(
                                     Icons.play_circle_fill,
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withValues(alpha: 0.8),
                                     size: 40,
                                   ),
                                 ),
@@ -625,28 +624,7 @@ class VideoPlayerScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: PopScope(
-        canPop: true,
-        onPopInvoked: (didPop) {},
-        child: Center(
-          // child: YoutubePlayer(
-          //   controller: YoutubePlayerController(
-          //     initialVideoId: videoId,
-          //     flags: const YoutubePlayerFlags(
-          //       autoPlay: true,
-          //       mute: false,
-          //       enableCaption: true,
-          //     ),
-          //   ),
-          //   showVideoProgressIndicator: true,
-          //   progressIndicatorColor: Colors.red,
-          //   progressColors: ProgressBarColors(
-          //     playedColor: Colors.red.shade700,
-          //     handleColor: Colors.red.shade900,
-          //   ),
-          // ),
-        ),
-      ),
+      body: const Center(),
     );
   }
 }

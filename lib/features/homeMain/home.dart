@@ -180,7 +180,7 @@ class HomePage2 extends StatelessWidget {
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Colors.white.withOpacity(0.9),
+        color: Colors.white.withValues(alpha: 0.9),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(

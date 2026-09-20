@@ -20,7 +20,7 @@ class PageViewOnBoarding extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.asset(item.image, fit: BoxFit.cover),
-            Container(color: Colors.black.withOpacity(0.3)),
+            Container(color: Colors.black.withValues(alpha: 0.3)),
 
             TextViewPageViewItem(item: item),
           ],

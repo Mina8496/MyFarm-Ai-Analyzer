@@ -35,7 +35,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
           Image.asset(AssetPaths.background_2, fit: BoxFit.cover),
 
           ///  طبقة شفافة
-          Container(color: Colors.black.withOpacity(0.3)),
+          Container(color: Colors.black.withValues(alpha: .3)),
 
           // logo and text
           Column(
@@ -62,5 +62,4 @@ class _SplashViewBodyState extends State<SplashViewBody>
     ).animate(animationController);
     animationController.forward();
   }
-
 }

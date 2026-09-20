@@ -327,7 +327,7 @@ class _DiseaseCard extends StatelessWidget {
             //     Container(
             //       padding: EdgeInsets.symmetric(horizontal: 8.h, vertical: 4.w),
             //       decoration: BoxDecoration(
-            //         color: severityColor(disease.severity).withOpacity(0.15),
+            //         color: severityColor(disease.severity).withValues(alpha:0.15),
             //         borderRadius: BorderRadius.circular(12),
             //       ),
             //       child: Text(

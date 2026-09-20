@@ -216,7 +216,7 @@ class _PayButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1D9E75),
-          disabledBackgroundColor: const Color(0xFF1D9E75).withOpacity(0.6),
+          disabledBackgroundColor: const Color(0xFF1D9E75).withValues(alpha:0.6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
