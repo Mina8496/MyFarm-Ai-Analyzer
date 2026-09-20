@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
 import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
 import 'package:myfarm/features/shared_notes/domain/usecases/get_my_groups_usecase.dart';
@@ -14,10 +17,16 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   final WatchGroupNotesUseCase watchGroupNotesUseCase;
   final AddGroupNoteUseCase addGroupNoteUseCase;
   final GetMyGroupsUseCase getMyGroupsUseCase;
-  final String currentUserId;
-  final String currentUserName;
+  final AuthCubit authCubit;
+
+  String _currentUserId;
+  String _currentUserName;
+
+  String get currentUserId => _currentUserId;
+  String get currentUserName => _currentUserName;
 
   StreamSubscription<List<GroupNoteEntity>>? _sub;
+  StreamSubscription<AuthState>? _authSub;
   String? _groupId;
 
   NotesGroupCubit({
@@ -26,36 +35,54 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     required this.watchGroupNotesUseCase,
     required this.addGroupNoteUseCase,
     required this.getMyGroupsUseCase,
-    required this.currentUserId,
-    required this.currentUserName,
-  }) : super(NotesGroupInitial()) {
+    required this.authCubit,
+  }) : _currentUserId = _idFromAuthState(authCubit.state),
+       _currentUserName = _nameFromAuthState(authCubit.state),
+       super(NotesGroupInitial()) {
+    _authSub = authCubit.stream.listen(_onAuthChanged);
     refreshJoinedGroups();
   }
 
-  /// بيحمّل "مجموعاتك" ويبعتها كجزء من NotesGroupInitial. أي widget بيسمع
-  /// الـ Cubit هياخدها أوتوماتيك — من غير ما هو نفسه يعمل fetch.
+  static String _idFromAuthState(AuthState state) =>
+      state is AuthAuthenticated ? state.user.id : '';
+
+  static String _nameFromAuthState(AuthState state) =>
+      state is AuthAuthenticated ? state.user.displayNameOrFallback : 'مستخدم';
+
+  void _onAuthChanged(AuthState authState) {
+    final newId = _idFromAuthState(authState);
+    if (newId == _currentUserId) return;
+
+    _currentUserId = newId;
+    _currentUserName = _nameFromAuthState(authState);
+
+    _sub?.cancel();
+    _groupId = null;
+    refreshJoinedGroups();
+  }
+
   Future<void> refreshJoinedGroups() async {
     final current = state is NotesGroupInitial
         ? (state as NotesGroupInitial).joinedGroups
-        : const [];
+        : const <JoinedGroupEntity>[];
     emit(NotesGroupInitial(joinedGroups: current, loadingJoinedGroups: true));
     try {
-      final groups = await getMyGroupsUseCase(currentUserId);
+      final groups = await getMyGroupsUseCase(_currentUserId);
       emit(NotesGroupInitial(joinedGroups: groups));
     } catch (_) {
-      // فشل تحميل "مجموعاتك" مينفعش يطيّح باقي الشاشة (إنشاء/انضمام).
       emit(NotesGroupInitial());
     }
   }
 
   Future<void> createGroup(String groupName) async {
     emit(NotesGroupBusy());
-    final name =
-        groupName.trim().isEmpty ? 'مجموعة بدون اسم' : groupName.trim();
+    final name = groupName.trim().isEmpty
+        ? 'مجموعة بدون اسم'
+        : groupName.trim();
     try {
       final id = await createGroupUseCase.call(
-        creatorId: currentUserId,
-        creatorName: currentUserName,
+        creatorId: _currentUserId,
+        creatorName: _currentUserName,
         groupName: name,
       );
       _startWatching(id, name);
@@ -69,7 +96,7 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     if (trimmedId.isEmpty) return;
     emit(NotesGroupBusy());
     try {
-      final name = await joinGroupUseCase.call(trimmedId, currentUserId);
+      final name = await joinGroupUseCase.call(trimmedId, _currentUserId);
       if (name == null) {
         emit(NotesGroupError('لا توجد مجموعة بهذا الرقم'));
         return;
@@ -83,19 +110,24 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   void leaveGroup() {
     _sub?.cancel();
     _groupId = null;
-    // بيرجع الشاشة وبيحدّث "مجموعاتك" في نفس الوقت — خطوة واحدة بدل اتنين.
     refreshJoinedGroups();
   }
 
   void _startWatching(String groupId, String groupName) {
     _groupId = groupId;
     _sub?.cancel();
-    _sub = watchGroupNotesUseCase.call(groupId).listen(
-      (notes) => emit(
-        NotesGroupReady(groupId: groupId, groupName: groupName, notes: notes),
-      ),
-      onError: (e) => emit(NotesGroupError('حدث خطأ أثناء التحميل: $e')),
-    );
+    _sub = watchGroupNotesUseCase
+        .call(groupId)
+        .listen(
+          (notes) => emit(
+            NotesGroupReady(
+              groupId: groupId,
+              groupName: groupName,
+              notes: notes,
+            ),
+          ),
+          onError: (e) => emit(NotesGroupError('حدث خطأ أثناء التحميل: $e')),
+        );
   }
 
   Future<void> addNote(String content) async {
@@ -106,7 +138,7 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
       await addGroupNoteUseCase.call(
         groupId: id,
         content: text,
-        authorName: currentUserName,
+        authorName: _currentUserName,
       );
     } catch (e) {
       emit(NotesGroupError('تعذر إرسال الملاحظة: $e'));
@@ -116,6 +148,7 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   @override
   Future<void> close() {
     _sub?.cancel();
+    _authSub?.cancel();
     return super.close();
   }
 }

@@ -53,6 +53,7 @@ dependencies:
   webview_flutter: ^4.13.1
   just_audio_background: ^0.0.1-beta.17
   package_info_plus: ^9.0.1
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   analyzer: ^6.4.1
