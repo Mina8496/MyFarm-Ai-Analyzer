@@ -45,6 +45,7 @@ class RoleCard extends StatelessWidget {
         }
 
         await AppStorage.saveUserType(role.name);
+        if (!context.mounted) return;
 
         // نداء واحد فقط: بيفتح TasksPage ويشيل كل الستاك اللي فوقها.
         // (النداء المزدوج القديم كان بيفتح HomePage ثم TasksPage على طول،

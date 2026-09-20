@@ -24,10 +24,11 @@ class _RadioPageState extends State<RadioPage> {
 
   Future<void> _playStation(RadioStation station) async {
     if (_currentStation?.streamUrl == station.streamUrl && _isPlaying) {
-      await _player.stop();
-      setState(() => _isPlaying = false);
-      return;
-    }
+  await _player.stop();
+  if (!mounted) return;
+  setState(() => _isPlaying = false);
+  return;
+}
 
     setState(() {
       _currentStation = station;
@@ -50,11 +51,13 @@ class _RadioPageState extends State<RadioPage> {
         ),
       );
       _player.play();
+      if (!mounted) return;
       setState(() {
         _isPlaying = true;
         _isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(
         context,

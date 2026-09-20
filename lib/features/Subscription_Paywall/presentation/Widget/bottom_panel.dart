@@ -28,13 +28,13 @@ class BottomPanel extends StatelessWidget {
             FirebaseFirestore.instance,
           ).call();
 
-          final selectedPlan = state.selectedPlan;
+          if (!context.mounted) return;
 
-          // حوّل السعر من نص لـ cents (شيل أي حروف زيادة زي "ج" والمسافات)
+          final selectedPlan = state.selectedPlan;
           final priceText = selectedPlan.price.replaceAll(
             RegExp(r'[^\d.]'),
             '',
-          ); // يسيب الأرقام والنقطة بس
+          );
           final amountCents = (double.parse(priceText) * 100).round();
 
           await showPaymentBottomSheet(
@@ -42,6 +42,7 @@ class BottomPanel extends StatelessWidget {
             amountCents: amountCents,
             billingData: billingData,
           );
+          return;
         }
         if (state is SubscriptionNavigateToLogin) {
           showDialogMethod(context);
