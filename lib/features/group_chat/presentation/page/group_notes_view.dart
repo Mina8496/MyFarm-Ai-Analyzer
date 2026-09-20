@@ -48,6 +48,10 @@ class GroupNotesView extends StatelessWidget {
     return a.authorName == b.authorName;
   }
 
+  /// مفتاح ثابت للكاتب: الـ id لو موجود، وإلا الاسم (ملاحظات قديمة).
+  String _authorKey(GroupNoteEntity note) =>
+      note.authorId.isNotEmpty ? note.authorId : note.authorName;
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<GroupChatCubit>();
@@ -83,7 +87,7 @@ class GroupNotesView extends StatelessWidget {
                       isMine: isMine,
                       showName: isFirstInGroup && !isMine,
                       showAvatar: isLastInGroup && !isMine,
-                      avatarColor: AvatarColor.forName(note.authorName),
+                      avatarColor: AvatarColor.forName(_authorKey(note)),
                       topSpacing: isFirstInGroup ? 10 : 2,
                     );
                   },
@@ -211,7 +215,7 @@ class GroupNotesView extends StatelessWidget {
                 minLines: 1,
                 maxLines: 4,
                 textInputAction: TextInputAction.send,
-                onSubmitted: (_) => _sendNote(context),
+                onEditingComplete: () => _sendNote(context),
                 decoration: const InputDecoration(
                   hintText: 'اكتب ملاحظة...',
                   hintStyle: TextStyle(color: ColorPalette.kPrimaryGray),
