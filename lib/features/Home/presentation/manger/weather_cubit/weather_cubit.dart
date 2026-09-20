@@ -3,6 +3,7 @@ import 'package:myfarm/core/services/location_service.dart';
 import 'package:myfarm/core/services/weather_service.dart';
 import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
 import 'weather_state.dart';
+import 'dart:developer' as dev;
 
 class WeatherCubit extends Cubit<WeatherState> {
   final WeatherService weatherService;
@@ -30,16 +31,19 @@ class WeatherCubit extends Cubit<WeatherState> {
       );
       await localDataSource.cacheWeather(data);
 
-      print("✅ Location: ${pos.latitude}, ${pos.longitude}"); // ← أضف
+      dev.log(
+        'Location: ${pos.latitude}, ${pos.longitude}',
+        name: 'WeatherCubit',
+      );
 
       emit(WeatherSuccess(data, fromCache: false));
 
-      print("✅ Weather data: $data"); // ← أضف
+      dev.log('Weather data: $data', name: 'WeatherCubit');
     } catch (e) {
       if (cached == null) {
         emit(WeatherError(_mapError(e)));
       }
-      print("⚠️ تعذر تحديث الطقس، هيفضل الكاش ظاهر: $e");
+      dev.log('تعذر تحديث الطقس', name: 'WeatherCubit', error: e);
     }
   }
 

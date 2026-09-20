@@ -5,15 +5,18 @@ import 'package:myfarm/app_config.dart';
 import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseKnowledge.dart';
 import 'package:myfarm/features/plant_analysis/data/model/plant_analysis_model.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'dart:developer' as dev;
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 class PlantIdRemoteDataSource {
+  static const _tag = 'PlantIdDataSource';
   static const _apiKey = 'v9ckNDdkBWYAYWpKjaXBMQRkPROZwrMPUSxlucOPIOIjAJtSdK';
   static const _baseUrl = 'https://api.plant.id/v3/identification';
 
   final lang = AppConfig.lang;
 
   Future<PlantAnalysisModel> analyzeImage(File imageFile) async {
-    print('🟡 DataSource started');
+    dev.log('DataSource started', name: _tag);
 
     final bytes = await imageFile.readAsBytes();
     final base64Image = base64Encode(bytes);
@@ -42,8 +45,8 @@ class PlantIdRemoteDataSource {
         )
         .timeout(const Duration(seconds: 60));
 
-    print('📥 CREATE status: ${createResponse.statusCode}');
-    print('📦 CREATE body: ${createResponse.body}');
+    dev.log('CREATE status: ${createResponse.statusCode}', name: _tag);
+    if (kDebugMode) dev.log('CREATE body: ${createResponse.body}', name: _tag);
 
     if (createResponse.statusCode != 201) {
       throw Exception('Create identification failed');
@@ -60,8 +63,8 @@ class PlantIdRemoteDataSource {
       headers: {'Api-Key': _apiKey},
     );
 
-    print('📥 RESULT status: ${resultResponse.statusCode}');
-    print('📦 RESULT body: ${resultResponse.body}');
+    dev.log('RESULT status: ${resultResponse.statusCode}', name: _tag);
+    if (kDebugMode) dev.log('RESULT body: ${resultResponse.body}', name: _tag);
 
     if (resultResponse.statusCode != 200) {
       throw Exception('Fetch result failed');
@@ -114,8 +117,10 @@ class PlantIdRemoteDataSource {
   DiseaseModel _fallbackLocalDisease(DiseaseModel disease) {
     final local = DiseaseKnowledge.data[disease.name];
     if (local == null) return disease;
-    print('ENTITY ID => ${disease.entityId}');
-    print('NAME => ${disease.name}');
+    dev.log(
+      'Fallback: entityId=${disease.entityId}, name=${disease.name}',
+      name: _tag,
+    );
 
     return disease.copyWith(
       // name: data['name'], // عربي

@@ -9,10 +9,6 @@ class AnalyzePlantUseCase {
   AnalyzePlantUseCase(this.repository);
 
   Future<PlantAnalysisEntity> call(File imageFile) {
-    print('🟡 UseCase started');
-    print('🟢 UseCase finished');
     return repository.analyzePlantImage(imageFile);
-    
   }
 }
-
