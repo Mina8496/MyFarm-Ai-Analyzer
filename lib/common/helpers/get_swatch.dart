@@ -19,7 +19,7 @@ MaterialColor getSwatch(Color color) {
   final lowStep = (1.0 - lightness) / lowDivisor;
   final highStep = lightness / highDivisor;
 
-  return MaterialColor(color.value, {
+  return MaterialColor(color.toARGB32(), {
     50: (hslColor.withLightness(lightness + (lowStep * 5))).toColor(),
     100: (hslColor.withLightness(lightness + (lowStep * 4))).toColor(),
     200: (hslColor.withLightness(lightness + (lowStep * 3))).toColor(),
