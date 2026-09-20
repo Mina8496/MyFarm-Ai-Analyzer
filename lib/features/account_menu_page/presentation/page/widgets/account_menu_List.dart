@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/account_menu_page/presentation/view/widgets/account_menu_tile.dart';
+import 'package:myfarm/features/account_menu_page/presentation/page/widgets/account_menu_tile.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_settings_page.dart';
 
 class AccountMenuList extends StatelessWidget {
