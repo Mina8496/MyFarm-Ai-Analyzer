@@ -2,16 +2,16 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/get_my_groups_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/join_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/watch_group_notes_usecase.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_state.dart';
+import 'package:myfarm/features/group_chat/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/group_chat/domain/entities/joined_group_entity.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/add_group_note_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/create_group_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/get_my_groups_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/join_group_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/watch_group_notes_usecase.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_state.dart';
 
-class NotesGroupCubit extends Cubit<NotesGroupState> {
+class GroupChatCubit extends Cubit<GroupChatState> {
   final CreateGroupUseCase createGroupUseCase;
   final JoinGroupUseCase joinGroupUseCase;
   final WatchGroupNotesUseCase watchGroupNotesUseCase;
@@ -29,7 +29,7 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   StreamSubscription<AuthState>? _authSub;
   String? _groupId;
 
-  NotesGroupCubit({
+  GroupChatCubit({
     required this.createGroupUseCase,
     required this.joinGroupUseCase,
     required this.watchGroupNotesUseCase,
@@ -38,7 +38,7 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     required this.authCubit,
   }) : _currentUserId = _idFromAuthState(authCubit.state),
        _currentUserName = _nameFromAuthState(authCubit.state),
-       super(NotesGroupInitial()) {
+       super(GroupChatInitial()) {
     _authSub = authCubit.stream.listen(_onAuthChanged);
     refreshJoinedGroups();
   }
@@ -62,20 +62,20 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
   }
 
   Future<void> refreshJoinedGroups() async {
-    final current = state is NotesGroupInitial
-        ? (state as NotesGroupInitial).joinedGroups
+    final current = state is GroupChatInitial
+        ? (state as GroupChatInitial).joinedGroups
         : const <JoinedGroupEntity>[];
-    emit(NotesGroupInitial(joinedGroups: current, loadingJoinedGroups: true));
+    emit(GroupChatInitial(joinedGroups: current, loadingJoinedGroups: true));
     try {
       final groups = await getMyGroupsUseCase(_currentUserId);
-      emit(NotesGroupInitial(joinedGroups: groups));
+      emit(GroupChatInitial(joinedGroups: groups));
     } catch (_) {
-      emit(NotesGroupInitial());
+      emit(GroupChatInitial());
     }
   }
 
   Future<void> createGroup(String groupName) async {
-    emit(NotesGroupBusy());
+    emit(GroupChatBusy());
     final name = groupName.trim().isEmpty
         ? 'مجموعة بدون اسم'
         : groupName.trim();
@@ -87,23 +87,23 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
       );
       _startWatching(id, name);
     } catch (e) {
-      emit(NotesGroupError('تعذر إنشاء المجموعة: $e'));
+      emit(GroupChatError('تعذر إنشاء المجموعة: $e'));
     }
   }
 
   Future<void> joinGroup(String groupId) async {
     final trimmedId = groupId.trim();
     if (trimmedId.isEmpty) return;
-    emit(NotesGroupBusy());
+    emit(GroupChatBusy());
     try {
       final name = await joinGroupUseCase.call(trimmedId, _currentUserId);
       if (name == null) {
-        emit(NotesGroupError('لا توجد مجموعة بهذا الرقم'));
+        emit(GroupChatError('لا توجد مجموعة بهذا الرقم'));
         return;
       }
       _startWatching(trimmedId, name);
     } catch (e) {
-      emit(NotesGroupError('حدث خطأ: $e'));
+      emit(GroupChatError('حدث خطأ: $e'));
     }
   }
 
@@ -120,13 +120,13 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
         .call(groupId)
         .listen(
           (notes) => emit(
-            NotesGroupReady(
+            GroupChatReady(
               groupId: groupId,
               groupName: groupName,
               notes: notes,
             ),
           ),
-          onError: (e) => emit(NotesGroupError('حدث خطأ أثناء التحميل: $e')),
+          onError: (e) => emit(GroupChatError('حدث خطأ أثناء التحميل: $e')),
         );
   }
 
@@ -137,11 +137,12 @@ class NotesGroupCubit extends Cubit<NotesGroupState> {
     try {
       await addGroupNoteUseCase.call(
         groupId: id,
+        authorId: _currentUserId,
         content: text,
         authorName: _currentUserName,
       );
     } catch (e) {
-      emit(NotesGroupError('تعذر إرسال الملاحظة: $e'));
+      emit(GroupChatError('تعذر إرسال الملاحظة: $e'));
     }
   }
 

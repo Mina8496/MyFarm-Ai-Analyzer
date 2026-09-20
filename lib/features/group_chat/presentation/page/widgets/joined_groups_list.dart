@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_cubit.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_state.dart';
+import 'package:myfarm/features/group_chat/domain/entities/joined_group_entity.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_cubit.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_state.dart';
 
 class JoinedGroupsList extends StatelessWidget {
   final bool busy;
@@ -18,10 +18,10 @@ class JoinedGroupsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotesGroupCubit, NotesGroupState>(
-      buildWhen: (previous, current) => current is NotesGroupInitial,
+    return BlocBuilder<GroupChatCubit, GroupChatState>(
+      buildWhen: (previous, current) => current is GroupChatInitial,
       builder: (context, state) {
-        if (state is! NotesGroupInitial) return const SizedBox.shrink();
+        if (state is! GroupChatInitial) return const SizedBox.shrink();
         if (state.joinedGroups.isEmpty && !state.loadingJoinedGroups) {
           return const SizedBox.shrink();
         }

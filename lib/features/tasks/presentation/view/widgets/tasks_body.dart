@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/features/shared_notes/presentation/page/shared_notes_tab.dart';
+import 'package:myfarm/features/group_chat/presentation/page/group_chat_tab.dart';
 import 'package:myfarm/features/tasks/data/model/task_model.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
@@ -28,14 +28,14 @@ class TasksBody extends StatelessWidget {
     return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) => switch (state) {
         TaskLoading() => const _LoadingIndicator(),
-        TaskError()   => _ErrorMessage(message: state.message),
-        TaskLoaded()  => _TabContent(
-            tabController: tabController,
-            state: state,
-            role: role,
-            onEditTask: onEditTask,
-          ),
-        _             => const SizedBox.shrink(),
+        TaskError() => _ErrorMessage(message: state.message),
+        TaskLoaded() => _TabContent(
+          tabController: tabController,
+          state: state,
+          role: role,
+          onEditTask: onEditTask,
+        ),
+        _ => const SizedBox.shrink(),
       },
     );
   }
@@ -48,8 +48,8 @@ class _LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Center(
-        child: CircularProgressIndicator(color: ColorPalette.kPrimaryBlue),
-      );
+    child: CircularProgressIndicator(color: ColorPalette.kPrimaryBlue),
+  );
 }
 
 class _ErrorMessage extends StatelessWidget {
@@ -58,11 +58,11 @@ class _ErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Text(
-          message,
-          style: Styles.style14.copyWith(color: Colors.redAccent),
-        ),
-      );
+    child: Text(
+      message,
+      style: Styles.style14.copyWith(color: Colors.redAccent),
+    ),
+  );
 }
 
 class _TabContent extends StatelessWidget {
@@ -95,7 +95,7 @@ class _TabContent extends StatelessWidget {
           emptyMessage: TasksBody._emptyMessage,
           onEdit: onEditTask,
         ),
-        const SharedNotesTab(),
+        const GroupChatTab(),
       ],
     );
   }

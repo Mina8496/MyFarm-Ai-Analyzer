@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/group_chat/domain/entities/group_note_entity.dart';
 
 class GroupNoteModel extends GroupNoteEntity {
   const GroupNoteModel({
     required super.id,
     required super.groupId,
     required super.content,
+    required super.authorId,
     required super.authorName,
     required super.createdAt,
   });
@@ -15,6 +16,10 @@ class GroupNoteModel extends GroupNoteEntity {
       id: id,
       groupId: groupId,
       content: map['content'] as String? ?? '',
+      // ملاحظات قديمة اتكتبت قبل إضافة الحقل ده هترجع authorId فاضي —
+      // الـ UI بتعمل fallback للمقارنة بالاسم في الحالة دي (شوف _isMine
+      // في group_notes_view.dart).
+      authorId: map['authorId'] as String? ?? '',
       authorName: map['authorName'] as String? ?? '',
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
@@ -23,6 +28,7 @@ class GroupNoteModel extends GroupNoteEntity {
   Map<String, dynamic> toMap() {
     return {
       'content': content,
+      'authorId': authorId,
       'authorName': authorName,
       'createdAt': FieldValue.serverTimestamp(),
     };

@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:myfarm/features/shared_notes/data/model/group_note_model.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
+import 'package:myfarm/features/group_chat/data/model/group_note_model.dart';
+import 'package:myfarm/features/group_chat/domain/entities/joined_group_entity.dart';
 
-abstract class NotesGroupRemoteDataSource {
+abstract class GroupChatRemoteDataSource {
   Future<String> createGroup({
     required String creatorId,
     required String creatorName,
@@ -20,9 +20,9 @@ abstract class NotesGroupRemoteDataSource {
   Future<void> addNote(GroupNoteModel note);
 }
 
-class NotesGroupRemoteDataSourceImpl implements NotesGroupRemoteDataSource {
+class GroupChatRemoteDataSourceImpl implements GroupChatRemoteDataSource {
   final FirebaseFirestore _firestore;
-  NotesGroupRemoteDataSourceImpl(this._firestore);
+  GroupChatRemoteDataSourceImpl(this._firestore);
 
   CollectionReference<Map<String, dynamic>> get _groups =>
       _firestore.collection('note_groups');
@@ -42,7 +42,7 @@ class NotesGroupRemoteDataSourceImpl implements NotesGroupRemoteDataSource {
           'name': groupName,
           'createdAt': FieldValue.serverTimestamp(),
           'createdBy': creatorName,
-          'memberIds': [creatorId], // ⬅️ جديد: المنشئ عضو تلقائيًا
+          'memberIds': [creatorId],
         });
         return id;
       }

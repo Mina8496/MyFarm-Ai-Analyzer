@@ -1,14 +1,19 @@
-
-import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
+import 'package:myfarm/features/group_chat/domain/repositories/group_chat_repository.dart';
 
 class AddGroupNoteUseCase {
-  final NotesGroupRepo repo;
+  final GroupChatRepository repo;
   AddGroupNoteUseCase(this.repo);
 
   Future<void> call({
     required String groupId,
+    required String authorId,
     required String content,
     required String authorName,
   }) =>
-      repo.addNote(groupId: groupId, content: content, authorName: authorName);
+      repo.addNote(
+        groupId: groupId,
+        authorId: authorId,
+        content: content,
+        authorName: authorName,
+      );
 }

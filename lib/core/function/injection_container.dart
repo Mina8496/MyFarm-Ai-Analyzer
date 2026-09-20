@@ -31,15 +31,16 @@ import 'package:myfarm/features/login/domain/repo/login_repo.dart';
 import 'package:myfarm/features/login/domain/use_cases/login_usecase.dart';
 import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
 
-// shared_notes
-import 'package:myfarm/features/shared_notes/data/datasource/notes_group_remote_datasource.dart';
-import 'package:myfarm/features/shared_notes/data/repositories/notes_group_repository_impl.dart';
-import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/add_group_note_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/create_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/get_my_groups_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/join_group_usecase.dart';
-import 'package:myfarm/features/shared_notes/domain/usecases/watch_group_notes_usecase.dart';
+// Group Chat
+import 'package:myfarm/features/group_chat/data/datasource/group_chat_remote_datasource.dart';
+import 'package:myfarm/features/group_chat/data/repositories/group_chat_repository_impl.dart';
+import 'package:myfarm/features/group_chat/domain/repositories/group_chat_repository.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/add_group_note_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/create_group_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/get_my_groups_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/join_group_usecase.dart';
+import 'package:myfarm/features/group_chat/domain/usecases/watch_group_notes_usecase.dart';
+
 // Signup
 import 'package:myfarm/features/signup/data/dataSource/signup_remote_data_source.dart';
 import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
@@ -67,7 +68,7 @@ void setupDependencies() {
   _setupSignup();
   _setupAppUpdate();
   _setupPlantTips();
-  _setupSharedNotes();
+  _setupGroupChat();
 }
 
 // ─── PlantTips ──────────────────────────────────────────
@@ -165,13 +166,13 @@ void _setupTasks() {
   getIt.registerLazySingleton(() => ToggleCompleteUseCase(getIt<TaskRepo>()));
 }
 
-// ─── SharedNotes ────────────────────────────────────────
-void _setupSharedNotes() {
-  getIt.registerLazySingleton<NotesGroupRemoteDataSource>(
-    () => NotesGroupRemoteDataSourceImpl(getIt()),
+// ─── Group Chat ────────────────────────────────────────
+void _setupGroupChat() {
+  getIt.registerLazySingleton<GroupChatRemoteDataSource>(
+    () => GroupChatRemoteDataSourceImpl(getIt()),
   );
-  getIt.registerLazySingleton<NotesGroupRepo>(
-    () => NotesGroupRepositoryImpl(getIt()),
+  getIt.registerLazySingleton<GroupChatRepository>(
+    () => GroupChatRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton(() => CreateGroupUseCase(getIt()));
   getIt.registerLazySingleton(() => JoinGroupUseCase(getIt()));

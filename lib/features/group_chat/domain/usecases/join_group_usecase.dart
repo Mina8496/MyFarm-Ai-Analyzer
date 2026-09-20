@@ -1,7 +1,7 @@
-import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
+import 'package:myfarm/features/group_chat/domain/repositories/group_chat_repository.dart';
 
 class JoinGroupUseCase {
-  final NotesGroupRepo repo;
+  final GroupChatRepository repo;
   JoinGroupUseCase(this.repo);
 
   Future<String?> call(String groupId, String userId) async {

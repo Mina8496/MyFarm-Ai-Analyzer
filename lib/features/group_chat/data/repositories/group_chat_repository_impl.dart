@@ -1,12 +1,12 @@
-import 'package:myfarm/features/shared_notes/data/datasource/notes_group_remote_datasource.dart';
-import 'package:myfarm/features/shared_notes/data/model/group_note_model.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
-import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
+import 'package:myfarm/features/group_chat/data/datasource/group_chat_remote_datasource.dart';
+import 'package:myfarm/features/group_chat/data/model/group_note_model.dart';
+import 'package:myfarm/features/group_chat/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/group_chat/domain/entities/joined_group_entity.dart';
+import 'package:myfarm/features/group_chat/domain/repositories/group_chat_repository.dart';
 
-class NotesGroupRepositoryImpl implements NotesGroupRepo {
-  final NotesGroupRemoteDataSource dataSource;
-  NotesGroupRepositoryImpl(this.dataSource);
+class GroupChatRepositoryImpl implements GroupChatRepository {
+  final GroupChatRemoteDataSource dataSource;
+  GroupChatRepositoryImpl(this.dataSource);
 
   @override
   Future<String> createGroup({
@@ -38,12 +38,17 @@ class NotesGroupRepositoryImpl implements NotesGroupRepo {
   @override
   Future<void> addNote({
     required String groupId,
+    required String authorId,
     required String content,
     required String authorName,
   }) {
     final note = GroupNoteModel(
-      id: '', groupId: groupId, content: content,
-      authorName: authorName, createdAt: DateTime.now(),
+      id: '',
+      groupId: groupId,
+      content: content,
+      authorId: authorId,
+      authorName: authorName,
+      createdAt: DateTime.now(),
     );
     return dataSource.addNote(note);
   }

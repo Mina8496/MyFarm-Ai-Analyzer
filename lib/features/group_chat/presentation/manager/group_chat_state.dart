@@ -1,31 +1,30 @@
-import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/joined_group_entity.dart';
+import 'package:myfarm/features/group_chat/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/group_chat/domain/entities/joined_group_entity.dart';
 
-abstract class NotesGroupState {}
+abstract class GroupChatState {}
 
-/// بقت بتحمل قايمة "مجموعاتك" نفسها، مش الـ widget هو اللي بيجيبها.
-class NotesGroupInitial extends NotesGroupState {
+class GroupChatInitial extends GroupChatState {
   final List<JoinedGroupEntity> joinedGroups;
   final bool loadingJoinedGroups;
 
-  NotesGroupInitial({
+  GroupChatInitial({
     this.joinedGroups = const [],
     this.loadingJoinedGroups = false,
   });
 }
 
-class NotesGroupBusy extends NotesGroupState {}
+class GroupChatBusy extends GroupChatState {}
 
-class NotesGroupError extends NotesGroupState {
+class GroupChatError extends GroupChatState {
   final String message;
-  NotesGroupError(this.message);
+  GroupChatError(this.message);
 }
 
-class NotesGroupReady extends NotesGroupState {
+class GroupChatReady extends GroupChatState {
   final String groupId;
   final String groupName;
   final List<GroupNoteEntity> notes;
-  NotesGroupReady({
+  GroupChatReady({
     required this.groupId,
     required this.groupName,
     required this.notes,

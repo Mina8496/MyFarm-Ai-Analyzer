@@ -1,7 +1,7 @@
-import 'package:myfarm/features/shared_notes/domain/repositories/notes_group_repository.dart';
+import 'package:myfarm/features/group_chat/domain/repositories/group_chat_repository.dart';
 
 class CreateGroupUseCase {
-  final NotesGroupRepo repo;
+  final GroupChatRepository repo;
   CreateGroupUseCase(this.repo);
 
   Future<String> call({

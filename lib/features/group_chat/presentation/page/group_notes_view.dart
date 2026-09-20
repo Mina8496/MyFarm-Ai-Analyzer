@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/features/shared_notes/domain/entities/group_note_entity.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_cubit.dart';
-import 'package:myfarm/features/shared_notes/presentation/page/widgets/note_bubble.dart';
-import 'package:myfarm/features/shared_notes/presentation/utils/avatar_color.dart';
-import 'package:myfarm/features/shared_notes/presentation/utils/note_time_formatter.dart';
+import 'package:myfarm/features/group_chat/domain/entities/group_note_entity.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_cubit.dart';
+import 'package:myfarm/features/group_chat/presentation/page/widgets/note_bubble.dart';
+import 'package:myfarm/features/group_chat/presentation/utils/avatar_color.dart';
+import 'package:myfarm/features/group_chat/presentation/utils/note_time_formatter.dart';
 
 class GroupNotesView extends StatelessWidget {
   final String groupId;
@@ -27,13 +27,23 @@ class GroupNotesView extends StatelessWidget {
   void _sendNote(BuildContext context) {
     final text = noteController.text.trim();
     if (text.isEmpty) return;
-    context.read<NotesGroupCubit>().addNote(text);
+    context.read<GroupChatCubit>().addNote(text);
     noteController.clear();
+  }
+
+  /// ملاحظات بعد الفيكس هيبقى عندها authorId، فبنعتمد عليه (أدق، ومش
+  /// بيتلخبط لو فيه اسمين متطابقين). ملاحظات قديمة قبل الفيكس هترجع
+  /// authorId فاضي من Firestore، فبنرجع للمقارنة بالاسم عشانها بس.
+  bool _isMine(GroupNoteEntity note, GroupChatCubit cubit) {
+    if (note.authorId.isNotEmpty) {
+      return note.authorId == cubit.currentUserId;
+    }
+    return note.authorName == cubit.currentUserName;
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentUserName = context.read<NotesGroupCubit>().currentUserName;
+    final cubit = context.read<GroupChatCubit>();
 
     return Column(
       children: [
@@ -47,7 +57,7 @@ class GroupNotesView extends StatelessWidget {
                   itemCount: notes.length,
                   itemBuilder: (context, index) {
                     final note = notes[index];
-                    final isMine = note.authorName == currentUserName;
+                    final isMine = _isMine(note, cubit);
 
                     final olderNote =
                         index + 1 < notes.length ? notes[index + 1] : null;
@@ -90,7 +100,7 @@ class GroupNotesView extends StatelessWidget {
           IconButton(
             icon:
                 const Icon(Icons.arrow_back, color: ColorPalette.kWhiteColor),
-            onPressed: () => context.read<NotesGroupCubit>().leaveGroup(),
+            onPressed: () => context.read<GroupChatCubit>().leaveGroup(),
             tooltip: 'رجوع للمجموعات',
           ),
           CircleAvatar(

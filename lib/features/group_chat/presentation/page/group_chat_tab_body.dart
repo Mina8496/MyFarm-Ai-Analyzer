@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_cubit.dart';
-import 'package:myfarm/features/shared_notes/presentation/manger/notes_group_state.dart';
-import 'package:myfarm/features/shared_notes/presentation/page/widgets/group_notes_view.dart';
-import 'package:myfarm/features/shared_notes/presentation/page/widgets/join_create_view.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_cubit.dart';
+import 'package:myfarm/features/group_chat/presentation/manager/group_chat_state.dart';
+import 'package:myfarm/features/group_chat/presentation/page/group_notes_view.dart';
+import 'package:myfarm/features/group_chat/presentation/page/join_create_view.dart';
 
-class SharedNotesTabBody extends StatefulWidget {
-  const SharedNotesTabBody({super.key});
+class GroupChatTabBody extends StatefulWidget {
+  const GroupChatTabBody({super.key});
 
   @override
-  State<SharedNotesTabBody> createState() => _SharedNotesTabBodyState();
+  State<GroupChatTabBody> createState() => _GroupChatTabBodyState();
 }
 
-class _SharedNotesTabBodyState extends State<SharedNotesTabBody> {
+class _GroupChatTabBodyState extends State<GroupChatTabBody> {
   final _joinController = TextEditingController();
   final _nameController = TextEditingController();
   final _noteController = TextEditingController();
@@ -27,16 +27,16 @@ class _SharedNotesTabBodyState extends State<SharedNotesTabBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NotesGroupCubit, NotesGroupState>(
+    return BlocConsumer<GroupChatCubit, GroupChatState>(
       listener: (context, state) {
-        if (state is NotesGroupError) {
+        if (state is GroupChatError) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
-        if (state is NotesGroupReady) {
+        if (state is GroupChatReady) {
           return GroupNotesView(
             groupId: state.groupId,
             groupName: state.groupName,
@@ -47,7 +47,7 @@ class _SharedNotesTabBodyState extends State<SharedNotesTabBody> {
         return JoinCreateView(
           joinController: _joinController,
           nameController: _nameController,
-          busy: state is NotesGroupBusy,
+          busy: state is GroupChatBusy,
         );
       },
     );
