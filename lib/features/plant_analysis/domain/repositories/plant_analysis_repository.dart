@@ -1,5 +1,5 @@
 import 'dart:io';
-import '../entities/Disease_Model.dart';
+import '../entities/disease_model.dart';
 import '../entities/plant_analysis_entity.dart';
 
 abstract class PlantAnalysisRepository {

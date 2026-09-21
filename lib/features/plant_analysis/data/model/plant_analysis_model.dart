@@ -1,4 +1,4 @@
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/plant_analysis_entity.dart';
 
 class PlantAnalysisModel {

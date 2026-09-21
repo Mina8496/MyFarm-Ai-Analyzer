@@ -1,4 +1,4 @@
-  import 'Disease_Model.dart';
+  import 'disease_model.dart';
 
   class PlantAnalysisEntity {
     final bool isPlant;

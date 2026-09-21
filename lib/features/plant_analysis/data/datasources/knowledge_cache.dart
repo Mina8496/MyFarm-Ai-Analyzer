@@ -1,4 +1,4 @@
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 
 class KnowledgeCache {
   static final KnowledgeCache _instance = KnowledgeCache._();

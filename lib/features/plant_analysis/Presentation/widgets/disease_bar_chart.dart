@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../domain/entities/Disease_Model.dart';
+import '../../domain/entities/disease_model.dart';
 
 class DiseaseBarChart extends StatelessWidget {
   final List<DiseaseModel> diseases;
