@@ -21,11 +21,15 @@ class _VideoHeaderState extends State<VideoHeader> {
   }
 
   Future<void> _initializeVideo() async {
-    await controller.initialize();
-
-    await controller.setLooping(true);
-    await controller.setVolume(0);
-    await controller.play();
+    try {
+      await controller.initialize();
+      await controller.setLooping(true);
+      await controller.setVolume(0);
+      await controller.play();
+    } catch (e) {
+      debugPrint('VideoHeader init error: $e');
+      _hasError = true;
+    }
 
     if (mounted) {
       setState(() {});
@@ -39,9 +43,13 @@ class _VideoHeaderState extends State<VideoHeader> {
     controller.dispose();
     super.dispose();
   }
+  bool _hasError = false;
 
   @override
   Widget build(BuildContext context) {
+    if (_hasError) {
+    return const SizedBox.expand(); // أو صورة/خلفية بديلة
+  }
     if (!controller.value.isInitialized) {
       return const SizedBox.expand();
     }
