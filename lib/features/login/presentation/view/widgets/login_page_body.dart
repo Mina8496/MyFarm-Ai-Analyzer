@@ -10,7 +10,7 @@ import 'package:myfarm/core/widgets/google_button.dart';
 import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
 import 'package:myfarm/features/login/manger/cubit/login_state.dart';
 import 'package:myfarm/features/login/presentation/view/widgets/login_input_section.dart';
-import 'package:myfarm/features/signup/presentation/view/widgets/textButton_login_and_signin.dart';
+import 'package:myfarm/features/signup/presentation/view/widgets/text_button_login_and_signin.dart';
 
 class LoginPageBody extends StatelessWidget {
   LoginPageBody({super.key});

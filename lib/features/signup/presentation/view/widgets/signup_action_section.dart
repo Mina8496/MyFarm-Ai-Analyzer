@@ -8,7 +8,7 @@ import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/core/widgets/google_button.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_state.dart';
-import 'package:myfarm/features/signup/presentation/view/widgets/LoginRedirect.dart';
+import 'package:myfarm/features/signup/presentation/view/widgets/login_redirect.dart';
 
 class SignupActionSection extends StatelessWidget {
   const SignupActionSection({super.key});

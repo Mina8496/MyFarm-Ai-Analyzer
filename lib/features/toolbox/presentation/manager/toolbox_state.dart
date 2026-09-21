@@ -1,4 +1,4 @@
-part of 'toolboxPage_cubit.dart';
+part of 'toolbox_page_cubit.dart';
 
 abstract class ToolboxPageState {}
 

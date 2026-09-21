@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import '../manager/toolboxPage_cubit.dart';
+import '../manager/toolbox_page_cubit.dart';
 import 'widgets/toolbox_tool_card.dart';
 import 'pages/alarm_page.dart';
 import 'pages/radio_page.dart';

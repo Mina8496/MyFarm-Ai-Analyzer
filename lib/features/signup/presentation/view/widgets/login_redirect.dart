@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/signup/presentation/view/widgets/textButton_login_and_signin.dart';
+import 'package:myfarm/features/signup/presentation/view/widgets/text_button_login_and_signin.dart';
 
 class LoginRedirect extends StatelessWidget {
   const LoginRedirect({super.key});

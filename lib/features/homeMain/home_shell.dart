@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
+import 'package:myfarm/features/homeMain/plant_analysis_page.dart';
 import 'package:myfarm/features/homeMain/home.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Pages/image_classification/mango_leaf_disease_detection/tFLite_classifier_page.dart';
 

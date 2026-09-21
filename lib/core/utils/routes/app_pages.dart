@@ -12,7 +12,7 @@ import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysi
 import 'package:myfarm/features/login/presentation/view/login_page.dart';
 import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
 import 'package:myfarm/features/boarding/presentation/views/onboarding_page.dart';
-import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
+import 'package:myfarm/features/homeMain/plant_analysis_page.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
 
 class AppPages {
