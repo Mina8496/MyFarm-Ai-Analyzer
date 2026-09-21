@@ -4,7 +4,7 @@ import 'package:myfarm/app_config.dart';
 import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/core/services/onboarding_service.dart';
 import 'package:myfarm/features/boarding/presentation/viewModel/onboarding_repository.dart';
-import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
+import 'package:myfarm/features/boarding/presentation/views/widgets/page_view_item.dart';
 
 class ControllerOnboardingPage extends GetxController {
   final OnboardingRepository repository;

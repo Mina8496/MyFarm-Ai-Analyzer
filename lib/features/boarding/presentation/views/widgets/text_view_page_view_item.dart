@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_text_view.dart';
-import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
+import 'package:myfarm/features/boarding/presentation/views/widgets/page_view_item.dart';
 
 class TextViewPageViewItem extends StatelessWidget {
   const TextViewPageViewItem({super.key, required this.item});

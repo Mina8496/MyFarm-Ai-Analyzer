@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_planModel.dart';
-import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/plan_Card.dart';
+import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_plan_model.dart';
+import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/plan_card.dart';
 
 class PlansRow extends StatelessWidget {
   final List<SubscriptionPlanViewModel> plans;

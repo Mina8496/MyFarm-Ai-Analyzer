@@ -1,5 +1,5 @@
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_planModel.dart';
+import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_plan_model.dart';
 
 class GetPlansUseCase {
   List<SubscriptionPlanViewModel> call() {

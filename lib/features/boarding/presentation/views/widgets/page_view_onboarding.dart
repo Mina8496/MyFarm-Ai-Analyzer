@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/features/boarding/presentation/controllers/controller_onboarding.dart';
-import 'package:myfarm/features/boarding/presentation/views/widgets/TextView_PageView_Item.dart';
+import 'package:myfarm/features/boarding/presentation/views/widgets/text_view_page_view_item.dart';
 
 class PageViewOnBoarding extends StatelessWidget {
   const PageViewOnBoarding({super.key, required this.controller});

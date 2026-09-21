@@ -6,12 +6,12 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/subscription_p
 import 'package:myfarm/features/ambient_screen/presentation/bindings/ambient_binding.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_screen_page.dart';
 
-import 'package:myfarm/features/boarding/presentation/binding/OnboardingBinding.dart';
+import 'package:myfarm/features/boarding/presentation/binding/onboarding_binding.dart';
 import 'package:myfarm/features/forget_password/presentation/view/forget_password.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Binding/PlantAnalysisBinding.dart';
 import 'package:myfarm/features/login/presentation/view/login_page.dart';
 import 'package:myfarm/features/signup/presentation/view/signup_page.dart';
-import 'package:myfarm/features/boarding/presentation/views/onBoarding_Page.dart';
+import 'package:myfarm/features/boarding/presentation/views/onboarding_page.dart';
 import 'package:myfarm/features/homeMain/PlantAnalysisPage.dart';
 import 'package:myfarm/features/splah/presentation/views/splash_view.dart';
 

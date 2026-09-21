@@ -1,4 +1,4 @@
-import 'package:myfarm/features/boarding/presentation/views/widgets/PageView_item.dart';
+import 'package:myfarm/features/boarding/presentation/views/widgets/page_view_item.dart';
 
 class OnboardingRepository {
   Future<List<PageViewItem>> fetchOnboardingItems(String langCode) async {
