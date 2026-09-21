@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
-import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseArabicEnricher.dart';
-import 'package:myfarm/features/plant_analysis/data/knowledge/PlantNameArabicMapper.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/PlantHistoryEntity.dart';
+import 'package:myfarm/features/plant_analysis/data/knowledge/disease_arabic_enricher.dart';
+import 'package:myfarm/features/plant_analysis/data/knowledge/plant_name_arabic_mapper.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/plant_history_entity.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/plant_analysis_entity.dart';
-import 'package:myfarm/features/plant_analysis/domain/usecases/GetDiseaseDetailsUseCase.dart';
+import 'package:myfarm/features/plant_analysis/domain/usecases/get_disease_details_usecase.dart';
 import 'package:myfarm/features/plant_analysis/domain/usecases/analyze_plant_usecase.dart';
 
 class PlantAnalysisController extends GetxController {

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/plant_analysis_controller.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/widgets/_ImagePickerCard.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/Presentation/widgets/image_picker_card.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/plant_analysis_entity.dart';
 
 class PlantAnalysisPage extends GetView<PlantAnalysisController> {

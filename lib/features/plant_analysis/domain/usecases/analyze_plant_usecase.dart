@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:myfarm/features/plant_analysis/domain/repositories/PlantAnalysisRepository.dart';
+import 'package:myfarm/features/plant_analysis/domain/repositories/plant_analysis_repository.dart';
 
 import '../entities/plant_analysis_entity.dart';
 

@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:myfarm/features/plant_analysis/data/datasources/plant_id_remote_datasource.dart';
-import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseArabicEnricher.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/data/knowledge/disease_arabic_enricher.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 import 'package:myfarm/features/plant_analysis/domain/entities/plant_analysis_entity.dart';
-import 'package:myfarm/features/plant_analysis/domain/repositories/PlantAnalysisRepository.dart';
+import 'package:myfarm/features/plant_analysis/domain/repositories/plant_analysis_repository.dart';
 
 class PlantAnalysisRepositoryImpl implements PlantAnalysisRepository {
   final PlantIdRemoteDataSource remote;

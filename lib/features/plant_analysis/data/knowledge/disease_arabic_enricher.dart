@@ -1,5 +1,5 @@
-import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseKnowledgeHelper.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/data/knowledge/disease_knowledge_helper.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 
 class DiseaseArabicEnricher {
   static DiseaseModel enrich(DiseaseModel disease) {

@@ -1,41 +1,38 @@
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get.dart';
+import 'package:myfarm/core/localization/translation_controller.dart';
 import 'package:myfarm/features/plant_analysis/Presentation/Controller/plant_analysis_controller.dart';
 import 'package:myfarm/features/plant_analysis/data/datasources/plant_id_remote_datasource.dart';
 import 'package:myfarm/features/plant_analysis/data/repositories/plant_analysis_repository_impl.dart';
-import 'package:myfarm/features/plant_analysis/domain/repositories/PlantAnalysisRepository.dart';
-import 'package:myfarm/features/plant_analysis/domain/usecases/GetDiseaseDetailsUseCase.dart';
+import 'package:myfarm/features/plant_analysis/domain/usecases/get_disease_details_usecase.dart';
 import 'package:myfarm/features/plant_analysis/domain/usecases/analyze_plant_usecase.dart';
 
-class PlantAnalysisBinding extends Bindings {
+class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    // DataSource
+    Get.put(TranslationController());
+
     Get.lazyPut<PlantIdRemoteDataSource>(
       () => PlantIdRemoteDataSource(),
       fenix: true,
     );
 
-    // Repository
-    Get.lazyPut<PlantAnalysisRepository>(
+    Get.lazyPut<PlantAnalysisRepositoryImpl>(
       () => PlantAnalysisRepositoryImpl(Get.find<PlantIdRemoteDataSource>()),
       fenix: true,
     );
 
-    // UseCases
-    Get.lazyPut(() => AnalyzePlantUseCase(Get.find<PlantAnalysisRepository>()));
-
-    Get.lazyPut(
-      () => GetDiseaseDetailsUseCase(Get.find<PlantAnalysisRepository>()),
-    );
-
-    // Controller
     Get.lazyPut<PlantAnalysisController>(
       () => PlantAnalysisController(
-        analyzePlantUseCase: Get.find(),
-        getDiseaseDetailsUseCase: Get.find(),
+        analyzePlantUseCase: AnalyzePlantUseCase(
+          Get.find<PlantAnalysisRepositoryImpl>(),
+        ),
+        getDiseaseDetailsUseCase: GetDiseaseDetailsUseCase(
+          Get.find<PlantAnalysisRepositoryImpl>(),
+        ),
       ),
       fenix: true,
     );
   }
 }
+
+

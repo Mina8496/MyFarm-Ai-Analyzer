@@ -20,7 +20,7 @@ import 'package:myfarm/features/app_update/presentation/manger/app_update_cubit.
 import 'package:myfarm/features/app_update/presentation/manger/app_update_state.dart';
 import 'package:myfarm/features/app_update/presentation/page/widgets/update_dialog.dart';
 import 'package:myfarm/features/boarding/manger/cubit/onboarding_cubit_cubit.dart';
-import 'package:myfarm/features/plant_analysis/Presentation/Binding/InitialBinding.dart';
+import 'package:myfarm/features/plant_analysis/Presentation/Binding/initial_binding.dart';
 import 'package:myfarm/features/tasks/data/model/task_model.dart';
 
 Future<void> main() async {

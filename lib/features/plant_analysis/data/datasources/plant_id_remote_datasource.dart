@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:myfarm/app_config.dart';
-import 'package:myfarm/features/plant_analysis/data/knowledge/DiseaseKnowledge.dart';
+import 'package:myfarm/features/plant_analysis/data/knowledge/disease_knowledge.dart';
 import 'package:myfarm/features/plant_analysis/data/model/plant_analysis_model.dart';
-import 'package:myfarm/features/plant_analysis/domain/entities/Disease_Model.dart';
+import 'package:myfarm/features/plant_analysis/domain/entities/disease_model.dart';
 import 'dart:developer' as dev;
 import 'package:flutter/foundation.dart' show kDebugMode;
 
