@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_actions_menu.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_completion_indicator.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_content.dart';
 
 class TaskCard extends StatefulWidget {
-  final TaskModel task;
+  final TaskEntity task;
   final UserRole currentRole;
   final VoidCallback onDoubleTap;
   final VoidCallback? onEdit;

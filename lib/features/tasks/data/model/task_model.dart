@@ -1,35 +1,21 @@
-// Hive reads @HiveField only from fields declared on the model itself,
-// so these fields must re-declare (override) the TaskEntity ones.
-// ignore_for_file: overridden_fields
 import 'package:hive/hive.dart';
 import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 
 part 'task_model.g.dart';
 
 @HiveType(typeId: 2)
-class TaskModel extends TaskEntity with HiveObjectMixin {
+class TaskModel with HiveObjectMixin {
   @HiveField(0)
-  @override
   final String id;
-
   @HiveField(1)
-  @override
   final String title;
-
   @HiveField(2)
-  @override
   final String description;
-
   @HiveField(3)
-  @override
   final bool isCompleted;
-
   @HiveField(4)
-  @override
   final DateTime createdAt;
-
   @HiveField(5)
-  @override
   final String createdByRole;
 
   TaskModel({
@@ -39,14 +25,25 @@ class TaskModel extends TaskEntity with HiveObjectMixin {
     required this.isCompleted,
     required this.createdAt,
     required this.createdByRole,
-  }) : super(
-         id: id,
-         title: title,
-         description: description,
-         isCompleted: isCompleted,
-         createdAt: createdAt,
-         createdByRole: createdByRole,
-       );
+  });
+
+  factory TaskModel.fromEntity(TaskEntity e) => TaskModel(
+    id: e.id,
+    title: e.title,
+    description: e.description,
+    isCompleted: e.isCompleted,
+    createdAt: e.createdAt,
+    createdByRole: e.createdByRole,
+  );
+
+  TaskEntity toEntity() => TaskEntity(
+    id: id,
+    title: title,
+    description: description,
+    isCompleted: isCompleted,
+    createdAt: createdAt,
+    createdByRole: createdByRole,
+  );
 
   TaskModel copyWith({String? title, String? description, bool? isCompleted}) {
     return TaskModel(

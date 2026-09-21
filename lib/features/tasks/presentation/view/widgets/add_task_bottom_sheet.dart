@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_text_field.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
-  final TaskModel? task;
+  final TaskEntity? task;
   const AddTaskBottomSheet({super.key, this.task});
 
   @override

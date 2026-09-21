@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/delete_task_dialog.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_card.dart';
 
 class TaskList extends StatelessWidget {
-  final List<TaskModel> tasks;
+  final List<TaskEntity> tasks;
   final UserRole role;
   final String emptyMessage;
-  final Function(TaskModel task)? onEdit;
+  final Function(TaskEntity task)? onEdit;
 
   const TaskList({
     super.key,

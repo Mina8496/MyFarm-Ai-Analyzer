@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/domin/usecases/add_task_usecase.dart';
 import 'package:myfarm/features/tasks/domin/usecases/delete_task_usecase.dart';
@@ -36,7 +36,7 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  void _emitLoaded(List<TaskModel> allTasks) {
+  void _emitLoaded(List<TaskEntity> allTasks) {
     final sorted = [...allTasks]
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
@@ -53,7 +53,7 @@ class TaskCubit extends Cubit<TaskState> {
   }) async {
     if (!currentRole.canCreate) return;
 
-    final task = TaskModel(
+    final task = TaskEntity(
       isCompleted: false,
       id: const Uuid().v4(),
       title: title,

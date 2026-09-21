@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/features/group_chat/presentation/page/group_chat_tab.dart';
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_state.dart';
@@ -12,7 +12,7 @@ import 'package:myfarm/features/tasks/presentation/view/widgets/task_list.dart';
 class TasksBody extends StatelessWidget {
   final TabController tabController;
   final UserRole role;
-  final void Function(TaskModel task) onEditTask;
+  final void Function(TaskEntity task) onEditTask;
 
   const TasksBody({
     super.key,
@@ -69,7 +69,7 @@ class _TabContent extends StatelessWidget {
   final TabController tabController;
   final TaskLoaded state;
   final UserRole role;
-  final void Function(TaskModel) onEditTask;
+  final void Function(TaskEntity) onEditTask;
 
   const _TabContent({
     required this.tabController,

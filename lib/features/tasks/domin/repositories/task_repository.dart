@@ -1,9 +1,8 @@
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
-
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 
 abstract class TaskRepo {
-  Future<List<TaskModel>> getAllTasks();
-  Future<void> addTask(TaskModel task);
+  Future<List<TaskEntity>> getAllTasks();
+  Future<void> addTask(TaskEntity task);
   Future<void> editTask({
     required String taskId,
     required String newTitle,

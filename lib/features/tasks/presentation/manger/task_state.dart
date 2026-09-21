@@ -1,5 +1,4 @@
-
-import 'package:myfarm/features/tasks/data/model/task_model.dart';
+import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 
 abstract class TaskState {}
 
@@ -8,8 +7,8 @@ class TaskInitial extends TaskState {}
 class TaskLoading extends TaskState {}
 
 class TaskLoaded extends TaskState {
-  final List<TaskModel> tasks;
-  final List<TaskModel> top5Tasks;
+  final List<TaskEntity> tasks;
+  final List<TaskEntity> top5Tasks;
 
   TaskLoaded({
     required this.tasks,
