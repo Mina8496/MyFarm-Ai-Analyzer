@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/ViewModel/subscription_planModel.dart';
 
 class PlanCard extends StatelessWidget {

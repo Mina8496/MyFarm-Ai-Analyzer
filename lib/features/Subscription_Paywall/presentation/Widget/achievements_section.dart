@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/Asset_Paths.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 
 class AchievementsSection extends StatelessWidget {
   final String subtext;

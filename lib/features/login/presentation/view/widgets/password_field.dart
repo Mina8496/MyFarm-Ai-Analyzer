@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/Validators.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/core/widgets/app_text_feild.dart';
 import 'package:myfarm/features/login/manger/cubit/login_cubit.dart';
 import 'package:myfarm/features/login/manger/cubit/login_state.dart';

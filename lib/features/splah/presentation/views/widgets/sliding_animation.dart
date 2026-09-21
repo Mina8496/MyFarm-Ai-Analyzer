@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 
 class SlidingAnimation extends StatelessWidget {
   const SlidingAnimation({super.key, required this.slidingAnimation});

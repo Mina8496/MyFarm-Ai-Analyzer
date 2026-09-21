@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
 import 'package:myfarm/core/widgets/app_header_rich_text.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/core/widgets/app_text_feild.dart';
 
 class ForgetPasswordBody extends StatelessWidget {

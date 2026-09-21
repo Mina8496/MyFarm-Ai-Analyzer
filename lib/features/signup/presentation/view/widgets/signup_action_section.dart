@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/core/widgets/google_button.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_state.dart';

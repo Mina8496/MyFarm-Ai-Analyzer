@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/widgets/app_Button.dart';
-import 'package:myfarm/core/widgets/app_textView.dart';
+import 'package:myfarm/core/widgets/app_text_view.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
 import 'package:myfarm/core/widgets/app_header_rich_text.dart';
 import 'package:myfarm/core/widgets/google_button.dart';
