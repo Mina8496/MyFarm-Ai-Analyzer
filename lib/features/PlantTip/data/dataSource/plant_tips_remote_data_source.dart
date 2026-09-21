@@ -1,5 +1,5 @@
 import 'package:myfarm/core/services/firestore_service.dart';
-import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
+import 'package:myfarm/features/PlantTip/data/model/plant_tip_model.dart';
 
 class PlantTipsRemoteDataSource {
   final FirestoreService<PlantTipModel> service;

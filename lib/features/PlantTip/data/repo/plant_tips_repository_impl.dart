@@ -1,8 +1,8 @@
-import 'package:myfarm/features/PlantTip/data/dataSource/PlantTipsRemoteDataSource.dart';
-import 'package:myfarm/features/PlantTip/data/dataSource/plantTips_local_data_source.dart';
-import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
-import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
+import 'package:myfarm/features/PlantTip/data/dataSource/plant_tips_remote_data_source.dart';
+import 'package:myfarm/features/PlantTip/data/dataSource/plant_tips_local_data_source.dart';
+import 'package:myfarm/features/PlantTip/data/model/plant_tip_model.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
+import 'package:myfarm/features/PlantTip/domin/repo/plant_tips_repository.dart';
 
 class PlantTipsRepositoryImpl implements PlantTipsRepository {
   final PlantTipsRemoteDataSource remote;

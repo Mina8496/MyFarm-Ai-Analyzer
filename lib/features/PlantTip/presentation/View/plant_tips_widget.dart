@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
-import 'package:myfarm/features/PlantTip/presentation/View/plantTip_Card.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
+import 'package:myfarm/features/PlantTip/presentation/View/plant_tip_card.dart';
 
 class PlantTipsWidget extends StatelessWidget {
   final List<PlantTip> tips;

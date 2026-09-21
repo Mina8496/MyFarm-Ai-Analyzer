@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:myfarm/features/PlantTip/data/model/plantTip_model.dart';
+import 'package:myfarm/features/PlantTip/data/model/plant_tip_model.dart';
 
 class PlantTipsLocalDataSource {
   static const String _boxName = 'plantTipsBox';

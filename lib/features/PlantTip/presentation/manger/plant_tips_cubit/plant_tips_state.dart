@@ -1,4 +1,4 @@
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
 
 abstract class PlantTipsState {}
 

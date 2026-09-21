@@ -1,8 +1,8 @@
 // _plant_tips_section.dart  (private widget)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myfarm/features/Home/presentation/view/widget/plantTips_Error_view.dart';
-import 'package:myfarm/features/PlantTip/presentation/View/plant_Tips_widget.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/plant_tips_error_view.dart';
+import 'package:myfarm/features/PlantTip/presentation/View/plant_tips_widget.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_state.dart';
 

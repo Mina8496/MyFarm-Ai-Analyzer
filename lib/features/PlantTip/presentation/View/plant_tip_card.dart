@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myfarm/core/widgets/app_text_view.dart';
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
-import 'package:myfarm/features/PlantTip/presentation/View/viewImage_In_PlantTips.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
+import 'package:myfarm/features/PlantTip/presentation/View/view_image_in_plant_tips.dart';
 
 class PlantTipCard extends StatelessWidget {
   final PlantTip tip;

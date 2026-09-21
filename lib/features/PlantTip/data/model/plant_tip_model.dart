@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
 
-part 'plantTip_model.g.dart';
+part 'plant_tip_model.g.dart';
 
 @HiveType(typeId: 1)
 class PlantTipModel {

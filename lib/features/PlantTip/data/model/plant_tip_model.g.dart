@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'plantTip_model.dart';
+part of 'plant_tip_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

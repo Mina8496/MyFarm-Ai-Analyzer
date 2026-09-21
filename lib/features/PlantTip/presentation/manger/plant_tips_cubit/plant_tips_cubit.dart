@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myfarm/features/PlantTip/data/service/PlantTips_rotation_service.dart';
-import 'package:myfarm/features/PlantTip/domin/Entity/PlantTip.dart';
-import 'package:myfarm/features/PlantTip/domin/repo/PlantTipsRepository.dart';
+import 'package:myfarm/features/PlantTip/data/service/plant_tips_rotation_service.dart';
+import 'package:myfarm/features/PlantTip/domin/Entity/plant_tip.dart';
+import 'package:myfarm/features/PlantTip/domin/repo/plant_tips_repository.dart';
 import 'plant_tips_state.dart';
 
 class PlantTipsCubit extends Cubit<PlantTipsState> {

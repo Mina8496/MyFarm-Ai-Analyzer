@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/common/constants/home_page_constants.dart';
 import 'package:myfarm/core/widgets/app_auth_header.dart';
-import 'package:myfarm/features/Home/presentation/view/widget/PlantTipsSection.dart';
-import 'package:myfarm/features/Home/presentation/view/widget/WeatherCardOverlay.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/plant_tips_section.dart';
+import 'package:myfarm/features/Home/presentation/view/widget/weather_card_overlay.dart';
 
 
 class HomePageBody extends StatelessWidget {
