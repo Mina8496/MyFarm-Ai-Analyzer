@@ -1,16 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:myfarm/features/signup/domain/entities/signup_user.dart';
+import 'package:myfarm/features/signup/domain/usecase/sign_in_with_google_usecase.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_params.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_usecase.dart';
 import 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   final SignupUseCase signupUseCase;
+  final SignInWithGoogleUseCase signInWithGoogleUseCase;
 
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -19,7 +17,8 @@ class SignupCubit extends Cubit<SignupState> {
   final passwordController = TextEditingController();
   bool isPasswordHidden = true;
 
-  SignupCubit(this.signupUseCase) : super(SignupInitial());
+  SignupCubit(this.signupUseCase, this.signInWithGoogleUseCase)
+    : super(SignupInitial());
 
   void togglePasswordVisibility() {
     isPasswordHidden = !isPasswordHidden;
@@ -48,47 +47,13 @@ class SignupCubit extends Cubit<SignupState> {
 
   Future<void> signInWithGoogle() async {
     emit(SignupLoading());
-    try {
-      final googleSignIn = GoogleSignIn.instance;
-      await googleSignIn.initialize();
 
-      final googleUser = await googleSignIn.authenticate();
-      final googleAuth = googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-      );
+    final result = await signInWithGoogleUseCase();
 
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(
-        credential,
-      );
-
-      final user = userCredential.user;
-      if (user == null) {
-        emit(SignupError('Google sign-in failed'));
-        return;
-      }
-
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'id': user.uid,
-        'email': user.email ?? '',
-        'name': user.displayName ?? 'Google User',
-        'phone': user.phoneNumber ?? '',
-        'createdAt': FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
-
-      emit(
-        SignupGoogleSignInSuccess(
-          SignupUser(
-            id: user.uid,
-            email: user.email ?? '',
-            name: user.displayName ?? 'Google User',
-            phone: user.phoneNumber ?? '',
-          ),
-        ),
-      );
-    } catch (e) {
-      emit(SignupError('Google sign-in failed: $e'));
-    }
+    result.fold(
+      (failure) => emit(SignupError(failure.message)),
+      (signupUser) => emit(SignupGoogleSignInSuccess(signupUser)),
+    );
   }
 
   // Validators
