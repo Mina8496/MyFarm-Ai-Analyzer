@@ -64,6 +64,12 @@ import 'package:myfarm/features/tasks/domin/usecases/edit_task_usecase.dart';
 import 'package:myfarm/features/tasks/domin/usecases/get_tasks_usecase.dart';
 import 'package:myfarm/features/tasks/domin/usecases/toggle_complete_usecase.dart';
 
+// ─── Home / Weather ───────────────────────────────────
+import 'package:myfarm/core/services/location_service.dart';
+import 'package:myfarm/core/services/weather_service.dart';
+import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
+import 'package:myfarm/features/Home/presentation/manger/weather_cubit/weather_cubit.dart';
+
 final getIt = GetIt.instance;
 
 void setupDependencies() {
@@ -75,6 +81,7 @@ void setupDependencies() {
   _setupSignup();
   _setupSubscription();
   _setupAppUpdate();
+  _setupHome();
   _setupPlantTips();
   _setupGroupChat();
 }
@@ -158,9 +165,7 @@ void _setupSignup() {
 
 // ─── Subscription ───────────────────────────────────────
 void _setupSubscription() {
-  getIt.registerLazySingleton(
-    () => GetBillingDataUseCase(getIt(), getIt()),
-  );
+  getIt.registerLazySingleton(() => GetBillingDataUseCase(getIt(), getIt()));
   getIt.registerFactory(() => SubscriptionCubit(getIt()));
 }
 
@@ -175,6 +180,21 @@ void _setupAppUpdate() {
     () => CheckForUpdateUseCase(getIt()),
   );
   getIt.registerFactory<AppUpdateCubit>(() => AppUpdateCubit(getIt()));
+}
+
+// ─── Home / Weather ───────────────────────────────────
+void _setupHome() {
+  getIt.registerLazySingleton(() => WeatherLocalDataSource());
+  getIt.registerLazySingleton(() => WeatherService());
+  getIt.registerLazySingleton(() => LocationService());
+
+  getIt.registerFactory(
+    () => WeatherCubit(
+      weatherService: getIt(),
+      locationService: getIt(),
+      localDataSource: getIt(),
+    ),
+  );
 }
 
 // ─── Tasks ──────────────────────────────────────────────
