@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/Video_header.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/bottom_panel.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/subscripion_header.dart';
@@ -17,7 +18,7 @@ class _SubscriptionPageBodyState extends State<SubscriptionPageBody> {
   @override
   void initState() {
     super.initState();
-    cubit = SubscriptionCubit();
+    cubit = getIt<SubscriptionCubit>();
   }
 
   @override

@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/features_section.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/footer_section.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/plans_row.dart';
@@ -12,7 +12,6 @@ import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/show_di
 import 'package:myfarm/features/Subscription_Paywall/presentation/Widget/subscribe_button.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_cubit.dart';
 import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_state.dart';
-import 'package:myfarm/features/payment/domain/usecase/get_billing_data.dart';
 import 'package:myfarm/features/payment/presentation/widgets/payment_bottom_sheet.dart';
 
 class BottomPanel extends StatelessWidget {
@@ -23,13 +22,6 @@ class BottomPanel extends StatelessWidget {
     return BlocConsumer<SubscriptionCubit, SubscriptionState>(
       listener: (context, state) async {
         if (state is SubscriptionNavigateToPayment) {
-          final billingData = await GetBillingDataUseCase(
-            FirebaseAuth.instance,
-            FirebaseFirestore.instance,
-          ).call();
-
-          if (!context.mounted) return;
-
           final selectedPlan = state.selectedPlan;
           final priceText = selectedPlan.price.replaceAll(
             RegExp(r'[^\d.]'),
@@ -40,7 +32,7 @@ class BottomPanel extends StatelessWidget {
           await showPaymentBottomSheet(
             context: context,
             amountCents: amountCents,
-            billingData: billingData,
+            billingData: state.billingData, // جاي من الـ state دلوقتي
           );
           return;
         }
@@ -80,12 +72,15 @@ class BottomPanel extends StatelessWidget {
                   onPlanSelected: (index) =>
                       context.read<SubscriptionCubit>().selectPlan(index),
                 ),
-
                 SizedBox(height: 25.h),
-
                 SubscribeButton(
-                  onTap: () =>
-                      context.read<SubscriptionCubit>().onSubscribeTapped(),
+                  onTap: () {
+                    final isAuthenticated =
+                        context.read<AuthCubit>().state is AuthAuthenticated;
+                    context.read<SubscriptionCubit>().onSubscribeTapped(
+                      isAuthenticated: isAuthenticated,
+                    );
+                  },
                   text: "Unlock_Access".tr,
                   linearGradient: const LinearGradient(
                     colors: [
@@ -95,11 +90,11 @@ class BottomPanel extends StatelessWidget {
                   ),
                 ),
                 SubscribeButton(
-                  onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, '/home'),
                   text: "free_trial".tr,
                   color: Colors.grey,
                 ),
-
                 SizedBox(height: 10.h),
                 const FooterSection(),
               ],
