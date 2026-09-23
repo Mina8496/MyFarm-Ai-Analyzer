@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 // Auth
 import 'package:myfarm/core/auth/data/repositories/auth_repository_impl.dart';
@@ -18,6 +19,7 @@ import 'package:myfarm/features/PlantTip/data/repo/plant_tips_repository_impl.da
 import 'package:myfarm/features/PlantTip/data/service/plant_tips_rotation_service.dart';
 import 'package:myfarm/features/PlantTip/domin/repo/plant_tips_repository.dart';
 import 'package:myfarm/features/PlantTip/presentation/manger/plant_tips_cubit/plant_tips_cubit.dart';
+import 'package:myfarm/features/Subscription_Paywall/presentation/manger/cubit/subscription_page_cubit.dart';
 import 'package:myfarm/features/app_update/data/repositories/firestore_app_update_repository.dart';
 import 'package:myfarm/features/app_update/domain/repositories/app_update_repository.dart';
 import 'package:myfarm/features/app_update/domain/usecases/check_for_update_usecase.dart';
@@ -40,11 +42,15 @@ import 'package:myfarm/features/group_chat/domain/usecases/create_group_usecase.
 import 'package:myfarm/features/group_chat/domain/usecases/get_my_groups_usecase.dart';
 import 'package:myfarm/features/group_chat/domain/usecases/join_group_usecase.dart';
 import 'package:myfarm/features/group_chat/domain/usecases/watch_group_notes_usecase.dart';
+import 'package:myfarm/features/payment/domain/usecase/get_billing_data.dart';
 
 // Signup
 import 'package:myfarm/features/signup/data/dataSource/signup_remote_data_source.dart';
-import 'package:myfarm/features/signup/data/repoImp/signup_repository_imp.dart';
+import 'package:myfarm/features/signup/data/repo/google_sign_in_repository_impl.dart';
+import 'package:myfarm/features/signup/data/repo/signup_repository_imp.dart';
+import 'package:myfarm/features/signup/domain/repo/google_sign_in_repository.dart';
 import 'package:myfarm/features/signup/domain/repo/signup_repository.dart';
+import 'package:myfarm/features/signup/domain/usecase/sign_in_with_google_usecase.dart';
 import 'package:myfarm/features/signup/domain/usecase/signup_usecase.dart';
 import 'package:myfarm/features/signup/presentation/manger/signup_cubit/signup_cubit.dart';
 import 'package:myfarm/features/tasks/data/datasource/task_local_datasource.dart';
@@ -65,7 +71,9 @@ void setupDependencies() {
   _setupTasks();
   _setupAuth();
   _setupLogin();
+  _setupGoogleSignInRepository();
   _setupSignup();
+  _setupSubscription();
   _setupAppUpdate();
   _setupPlantTips();
   _setupGroupChat();
@@ -124,6 +132,18 @@ void _setupLogin() {
   getIt.registerFactory(() => LoginCubit(getIt()));
 }
 
+// ─── Google SignIn Repository ────────────────────────────────────────
+void _setupGoogleSignInRepository() {
+  getIt.registerLazySingleton<GoogleSignInRepository>(
+    () => GoogleSignInRepositoryImpl(
+      firebaseAuth: getIt(),
+      firestore: getIt(),
+      googleSignIn: GoogleSignIn.instance,
+    ),
+  );
+  getIt.registerFactory(() => SignInWithGoogleUseCase(getIt()));
+}
+
 // ─── Signup ─────────────────────────────────────────────
 void _setupSignup() {
   getIt.registerLazySingleton<SignupRemoteDataSource>(
@@ -133,7 +153,15 @@ void _setupSignup() {
     () => SignupRepositoryImpl(getIt()),
   );
   getIt.registerLazySingleton(() => SignupUseCase(getIt()));
-  getIt.registerFactory(() => SignupCubit(getIt()));
+  getIt.registerFactory(() => SignupCubit(getIt(), getIt()));
+}
+
+// ─── Subscription ───────────────────────────────────────
+void _setupSubscription() {
+  getIt.registerLazySingleton(
+    () => GetBillingDataUseCase(getIt(), getIt()),
+  );
+  getIt.registerFactory(() => SubscriptionCubit(getIt()));
 }
 
 // ─── app_update ──────────────────────────────────────────────
