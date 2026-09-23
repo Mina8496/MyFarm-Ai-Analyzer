@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
+import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
 import 'package:myfarm/core/storage/app_storage.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/core/widgets/auth_required_dialog.dart';
@@ -36,7 +38,8 @@ class RoleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (FirebaseAuth.instance.currentUser == null) {
+        final authState = context.read<AuthCubit>().state;
+        if (authState is! AuthAuthenticated) {
           AuthRequiredDialog.show(
             context,
             message: 'يجب تسجيل الدخول أولاً قبل اختيار الدور.',
@@ -47,10 +50,6 @@ class RoleCard extends StatelessWidget {
         await AppStorage.saveUserType(role.name);
         if (!context.mounted) return;
 
-        // نداء واحد فقط: بيفتح TasksPage ويشيل كل الستاك اللي فوقها.
-        // (النداء المزدوج القديم كان بيفتح HomePage ثم TasksPage على طول،
-        // وده كان بيخلي الاتنين يتبنوا في نفس اللحظة فيحصل تصادم
-        // Hero tag على الـ FloatingActionButton ويفضل عالق على الشاشة).
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => TasksPage(role: role)),
