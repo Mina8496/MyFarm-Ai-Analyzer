@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/core/storage/app_storage.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
 
   final pages = [
     const HomePageBody(), // 0
-    const ToolboxPage(),
+    const ToolboxPage(), //1
     const HomeTasksEntryPage(), // 2
     const AccountMenuPage(), // 3
   ];
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () => context.read<MainNavCubit>().changePage(0),
+                    onPressed: () => Get.toNamed('/plant-analysis'),
                     child: Card(
                       color: ColorPalette.kkPrimaryGreen,
                       child: const Icon(
