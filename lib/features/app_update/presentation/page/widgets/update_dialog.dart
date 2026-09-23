@@ -36,7 +36,7 @@ class UpdateDialog {
   static Future<void> _openStore() async {
     final packageInfo = await PackageInfo.fromPlatform();
     final uri = Platform.isIOS
-        ? Uri.parse('https://apps.apple.com/app/idYOUR_APPLE_ID') // TODO: حط الـ Apple ID الحقيقي
+        ? Uri.parse('https://apps.apple.com/app/idYOUR_APPLE_ID')
         : Uri.parse('https://play.google.com/store/apps/details?id=${packageInfo.packageName}');
 
     if (await canLaunchUrl(uri)) {

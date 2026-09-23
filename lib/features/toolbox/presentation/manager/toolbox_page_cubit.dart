@@ -8,7 +8,6 @@ class ToolboxPageCubit extends Cubit<ToolboxPageState> {
   Future<void> init() async {
     emit(ToolboxPageLoading());
     try {
-      // TODO: استدعي الـ use case أو الـ repository هنا
       emit(ToolboxPageLoaded(data: null));
     } catch (e) {
       emit(ToolboxPageError(message: e.toString()));
