@@ -2,7 +2,7 @@ class DiseaseModel {
   final String name;
   final String originalName;
   final double confidence;
-  final String entityId; // 👈 جديد
+  final String entityId; 
   final String? description;
   final List<String> causes;
   final List<String> symptoms;
