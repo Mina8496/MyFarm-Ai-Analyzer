@@ -10,14 +10,19 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 
 class PlantIdRemoteDataSource {
   static const _tag = 'PlantIdDataSource';
-  static const _apiKey = 'v9ckNDdkBWYAYWpKjaXBMQRkPROZwrMPUSxlucOPIOIjAJtSdK';
+  static const _apiKey = String.fromEnvironment('PLANT_ID_API_KEY');
   static const _baseUrl = 'https://api.plant.id/v3/identification';
 
   final lang = AppConfig.lang;
 
   Future<PlantAnalysisModel> analyzeImage(File imageFile) async {
+    if (_apiKey.isEmpty) {
+      throw StateError(
+        'PLANT_ID_API_KEY is missing. Run with --dart-define-from-file=env.json',
+      );
+    }
     dev.log('DataSource started', name: _tag);
-
+  
     final bytes = await imageFile.readAsBytes();
     final base64Image = base64Encode(bytes);
 
