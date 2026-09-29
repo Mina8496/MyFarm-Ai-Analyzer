@@ -32,19 +32,24 @@ class WeatherCubit extends Cubit<WeatherState> {
       );
       await localDataSource.cacheWeather(data);
 
-      dev.log(
-        'Location: ${pos.latitude}, ${pos.longitude}',
-        name: 'WeatherCubit',
-      );
+      if (kDebugMode) {
+        dev.log(
+          'Location: ${pos.latitude}, ${pos.longitude}',
+          name: 'WeatherCubit',
+        );
+        dev.log('Weather data: $data', name: 'WeatherCubit');
+      }
 
+      if (isClosed) return;
       emit(WeatherSuccess(data, fromCache: false));
-
-        if (kDebugMode) dev.log('Weather data: $data', name: 'WeatherCubit');
     } catch (e) {
+      if (kDebugMode) {
+        dev.log('تعذر تحديث الطقس', name: 'WeatherCubit', error: e);
+      }
+      if (isClosed) return;
       if (cached == null) {
         emit(WeatherError(_mapError(e)));
       }
-      dev.log('تعذر تحديث الطقس', name: 'WeatherCubit', error: e);
     }
   }
 
