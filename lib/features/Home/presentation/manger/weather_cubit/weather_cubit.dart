@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/services/location_service.dart';
 import 'package:myfarm/core/services/weather_service.dart';
@@ -38,7 +39,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
       emit(WeatherSuccess(data, fromCache: false));
 
-      dev.log('Weather data: $data', name: 'WeatherCubit');
+        if (kDebugMode) dev.log('Weather data: $data', name: 'WeatherCubit');
     } catch (e) {
       if (cached == null) {
         emit(WeatherError(_mapError(e)));

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/core/network/paymob_client.dart';
 import 'package:myfarm/core/services/paymob_service.dart';
@@ -69,7 +70,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     final result = await _paymentRepository.savePayment(payment);
     result.fold((failure) {
       // ignore: avoid_print
-      print('فشل تسجيل عملية الدفع الناجحة: ${failure.message}');
+      if (kDebugMode) debugPrint('فشل تسجيل عملية الدفع الناجحة: ${failure.message}');
     }, (_) {});
 
     emit(PaymentSuccess(transactionId: event.transactionId));
@@ -91,8 +92,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
     final result = await _paymentRepository.savePayment(payment);
     result.fold((failure) {
-      // ignore: avoid_print
-      print('فشل تسجيل عملية الدفع الفاشلة: ${failure.message}');
+      if (kDebugMode) debugPrint('فشل تسجيل عملية الدفع الناجحة: ${failure.message}');
     }, (_) {});
 
     emit(PaymentFailure(message: event.reason));

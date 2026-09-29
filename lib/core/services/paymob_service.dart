@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:myfarm/features/payment/domain/entities/billing_data.dart';
 import '../network/paymob_client.dart';
 
@@ -36,10 +36,11 @@ class PaymobService {
       }
       return iframeUrl;
     } on DioException catch (e) {
-      // ← وده كمان
-      debugPrint('❌ DIO ERROR TYPE: ${e.type}');
-      debugPrint('❌ DIO STATUS: ${e.response?.statusCode}');
-      debugPrint('❌ DIO RESPONSE: ${e.response?.data}');
+      if (kDebugMode) {
+        debugPrint('❌ DIO ERROR TYPE: ${e.type}');
+        debugPrint('❌ DIO STATUS: ${e.response?.statusCode}');
+        debugPrint('❌ DIO RESPONSE: ${e.response?.data}');
+      }
 
       throw PaymobApiException(
         message: switch (e.type) {
