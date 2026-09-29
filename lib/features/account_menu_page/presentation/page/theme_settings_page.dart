@@ -33,14 +33,16 @@ class ThemeSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('المظهر'), centerTitle: true),
-      body: Obx(
-        () => ListView.separated(
+      body: Obx(() {
+        final current = c.mode.value;
+
+        return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemCount: options.length,
           separatorBuilder: (_, _) => const SizedBox(height: 12),
           itemBuilder: (_, i) {
             final o = options[i];
-            final selected = c.mode.value == o.mode;
+            final selected = current == o.mode; 
             return InkWell(
               borderRadius: BorderRadius.circular(16),
               onTap: () => c.setMode(o.mode),
@@ -90,8 +92,8 @@ class ThemeSettingsPage extends StatelessWidget {
               ),
             );
           },
-        ),
-      ),
+        );
+      }),
     );
   }
 }

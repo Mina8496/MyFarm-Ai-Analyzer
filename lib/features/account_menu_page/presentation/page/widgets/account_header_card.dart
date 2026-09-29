@@ -6,12 +6,14 @@ import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 
 class AccountHeaderCard extends StatelessWidget {
   const AccountHeaderCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Padding(
       padding: const EdgeInsets.all(18),
       child: Container(
@@ -19,7 +21,7 @@ class AccountHeaderCard extends StatelessWidget {
         height: 150.h,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: ColorPalette.kWhiteColor,
+          color: colors.surface,
           borderRadius: BorderRadius.circular(18),
         ),
         child: Row(
@@ -40,7 +42,7 @@ class AccountHeaderCard extends StatelessWidget {
                   if (state is AuthAuthenticated) {
                     return Text(
                       state.user.displayNameOrFallback,
-                      style: Styles.style20,
+                      style: Styles.style20.copyWith(color: colors.textPrimary),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     );
@@ -51,7 +53,7 @@ class AccountHeaderCard extends StatelessWidget {
                     child: Text(
                       'تسجيل الدخول / التسجيل',
                       style: Styles.style20.copyWith(
-                        color: Colors.grey.shade700,
+                        color: colors.textSecondary,
                       ),
                     ),
                   );
