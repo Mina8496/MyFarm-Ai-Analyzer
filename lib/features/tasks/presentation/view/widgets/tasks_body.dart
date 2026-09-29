@@ -41,14 +41,12 @@ class TasksBody extends StatelessWidget {
   }
 }
 
-// Private helpers
-
 class _LoadingIndicator extends StatelessWidget {
   const _LoadingIndicator();
 
   @override
   Widget build(BuildContext context) => const Center(
-    child: CircularProgressIndicator(color: ColorPalette.kPrimaryBlue),
+    child: CircularProgressIndicator(color: ColorPalette.kSecondaryGreen),
   );
 }
 
@@ -60,7 +58,7 @@ class _ErrorMessage extends StatelessWidget {
   Widget build(BuildContext context) => Center(
     child: Text(
       message,
-      style: Styles.style14.copyWith(color: Colors.redAccent),
+      style: Styles.style14.copyWith(color: ColorPalette.kLightRed),
     ),
   );
 }

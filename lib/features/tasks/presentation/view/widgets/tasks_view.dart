@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
@@ -45,7 +46,6 @@ class _TasksViewState extends State<TasksView>
 
   @override
   Widget build(BuildContext context) {
-
     return AppBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -80,6 +80,7 @@ class _TasksViewState extends State<TasksView>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: context.colors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
       ),

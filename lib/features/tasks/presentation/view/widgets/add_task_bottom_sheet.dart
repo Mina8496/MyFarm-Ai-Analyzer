@@ -5,6 +5,7 @@ import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/features/tasks/domin/entities/task_entity.dart';
 import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_text_field.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   final TaskEntity? task;
@@ -37,6 +38,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TaskCubit>();
+    final colors = context.colors;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -53,14 +55,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             children: [
               Text(
                 _isEdit ? 'تعديل المهمة' : 'إضافة مهمة جديدة',
-                style: Styles.styleBold18,
+                style: Styles.styleBold18.copyWith(color: colors.textPrimary),
               ),
               const Spacer(),
               IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: ColorPalette.kPrimaryColor,
-                ),
+                icon: Icon(Icons.close, color: colors.textSecondary),
                 onPressed: () => Navigator.pop(context),
               ),
             ],
@@ -78,7 +77,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorPalette.kPrimaryColor,
+                backgroundColor: ColorPalette.kSecondaryGreen,
+                foregroundColor: ColorPalette.kWhiteColor,
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -87,7 +87,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               onPressed: _submit(cubit),
               child: Text(
                 _isEdit ? 'حفظ التعديل' : 'إضافة المهمة',
-                style: Styles.style16,
+                style: Styles.style16.copyWith(color: ColorPalette.kWhiteColor),
               ),
             ),
           ),
