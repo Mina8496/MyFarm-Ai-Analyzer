@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 import 'package:myfarm/core/utils/styles.dart';
 
 class TaskTextField extends StatelessWidget {
@@ -16,27 +17,30 @@ class TaskTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: colors.border),
+    );
+
     return TextField(
       controller: controller,
       maxLines: maxLines,
       textDirection: TextDirection.rtl,
-      style: Styles.style14.copyWith(color: ColorPalette.kWhiteColor),
+      style: Styles.style14.copyWith(color: colors.textPrimary),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: Styles.style14.copyWith(color: ColorPalette.kWhiteColor),
+        hintStyle: Styles.style14.copyWith(color: colors.textSecondary),
         filled: true,
-        fillColor: ColorPalette.kPrimaryColor,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF3D5A3C)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF3D5A3C)),
-        ),
+        fillColor: colors.card,
+        border: border,
+        enabledBorder: border,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF4CAF50), width: 2),
+          borderSide: const BorderSide(
+            color: ColorPalette.kSecondaryGreen,
+            width: 2,
+          ),
         ),
       ),
     );

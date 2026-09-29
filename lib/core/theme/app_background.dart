@@ -11,7 +11,11 @@ class AppBackground extends StatelessWidget {
     final base = isDark ? const Color(0xFF0D1512) : const Color(0xFFF4F7F5);
     final blobs = isDark
         ? const [Color(0xFF14503B), Color(0xFF1B3A4B), Color(0xFF2A2F55)]
-        : const [Color(0xFFBFE3D2), Color(0xFFCFE0F5), Color(0xFFE6DDF5)];
+        : const [
+            Color(0xFFBFE3D2),
+            Color.fromARGB(255, 178, 200, 227),
+            Color.fromARGB(255, 184, 155, 232),
+          ];
 
     return Stack(
       children: [

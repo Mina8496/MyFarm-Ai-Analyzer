@@ -8,6 +8,7 @@ import 'package:myfarm/features/tasks/presentation/manger/task_cubit.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_app_bar.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/tasks_body.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/add_task_bottom_sheet.dart';
+import 'package:myfarm/core/theme/app_background.dart';
 
 class TasksView extends StatefulWidget {
   final UserRole role;
@@ -44,23 +45,32 @@ class _TasksViewState extends State<TasksView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorPalette.kPrimaryColor,
-      appBar: TasksAppBar(role: widget.role, tabController: _tabController),
-      body: TasksBody(
-        tabController: _tabController,
-        role: widget.role,
-        onEditTask: (task) => _openBottomSheet(context, task: task),
+
+    return AppBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: TasksAppBar(role: widget.role, tabController: _tabController),
+        body: TasksBody(
+          tabController: _tabController,
+          role: widget.role,
+          onEditTask: (task) => _openBottomSheet(context, task: task),
+        ),
+        floatingActionButton: _tabController.index == 2
+            ? null
+            : FloatingActionButton.extended(
+                heroTag: 'tasks_view_fab',
+                onPressed: () => _openBottomSheet(context),
+                backgroundColor: ColorPalette.kSecondaryGreen,
+                foregroundColor: ColorPalette.kWhiteColor,
+                icon: const Icon(Icons.add),
+                label: Text(
+                  'مهمة جديدة',
+                  style: Styles.style14.copyWith(
+                    color: ColorPalette.kWhiteColor,
+                  ),
+                ),
+              ),
       ),
-      floatingActionButton: _tabController.index == 2
-          ? null
-          : FloatingActionButton.extended(
-              heroTag: 'tasks_view_fab',
-              onPressed: () => _openBottomSheet(context),
-              backgroundColor: ColorPalette.kLightGreen,
-              icon: const Icon(Icons.add),
-              label: Text('مهمة جديدة', style: Styles.style14),
-            ),
     );
   }
 
