@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 
 class TaskActionsMenu extends StatelessWidget {
   final bool canEdit;
@@ -18,9 +19,11 @@ class TaskActionsMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return PopupMenuButton<String>(
-      icon: const Icon(Icons.more_vert, color: ColorPalette.kGreen, size: 18),
-      color: ColorPalette.kkPrimaryGreen,
+      icon: Icon(Icons.more_vert, color: colors.textSecondary, size: 18),
+      color: colors.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       onSelected: (value) {
         if (value == 'edit' && onEdit != null) {
@@ -37,15 +40,13 @@ class TaskActionsMenu extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.edit_outlined,
-                  color: ColorPalette.kLightGreen,
+                  color: ColorPalette.kSecondaryGreen,
                   size: 18,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'تعديل',
-                  style: Styles.style14.copyWith(
-                    color: ColorPalette.kWhiteColor,
-                  ),
+                  style: Styles.style14.copyWith(color: colors.textPrimary),
                 ),
               ],
             ),
@@ -57,13 +58,13 @@ class TaskActionsMenu extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.delete_outline,
-                  color: ColorPalette.kLightGreen,
+                  color: ColorPalette.kLightRed,
                   size: 18,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'حذف',
-                  style: Styles.style14.copyWith(color: ColorPalette.kLightGreen),
+                  style: Styles.style14.copyWith(color: ColorPalette.kLightRed),
                 ),
               ],
             ),

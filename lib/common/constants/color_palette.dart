@@ -21,6 +21,7 @@ class ColorPalette {
   static const kWhiteColor = Colors.white;
   static const kBlackColor = Colors.black;
   static const kPrimaryBlue = Colors.blue;
+  static const kLightRed = Color(0xFFEF5350);
   static const kPrimaryGray = Colors.grey;
   static Color kgrey300 = Colors.grey.shade300;
   static Color kgrey200 = Colors.grey.shade200;

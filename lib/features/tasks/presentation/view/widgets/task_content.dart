@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/utils/styles.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_card.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 
 class TaskContent extends StatelessWidget {
   const TaskContent({super.key, required this.task, required this.isCompleted});
@@ -11,6 +11,8 @@ class TaskContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,9 +20,7 @@ class TaskContent extends StatelessWidget {
           Text(
             task.task.title,
             style: TextStyle(
-              color: isCompleted
-                  ? ColorPalette.kGreen
-                  : ColorPalette.kWhiteColor,
+              color: isCompleted ? colors.textSecondary : colors.textPrimary,
               fontSize: 15,
               fontWeight: FontWeight.bold,
               fontFamily: 'Cairo',
@@ -35,8 +35,8 @@ class TaskContent extends StatelessWidget {
               task.task.description,
               style: Styles.style12.copyWith(
                 color: isCompleted
-                    ? ColorPalette.kcardGreen
-                    : ColorPalette.kSGreen,
+                    ? colors.textSecondary.withValues(alpha: 0.7)
+                    : colors.textSecondary,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -45,18 +45,18 @@ class TaskContent extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(Icons.person_outline, size: 12, color: ColorPalette.kGreen),
+              Icon(Icons.person_outline, size: 12, color: colors.textSecondary),
               const SizedBox(width: 4),
               Text(
                 task.task.createdByRole,
-                style: Styles.style12.copyWith(color: ColorPalette.kGreen),
+                style: Styles.style12.copyWith(color: colors.textSecondary),
               ),
               const Spacer(),
               if (!isCompleted)
                 Text(
                   'Double Tap للإكمال',
                   style: Styles.style12.copyWith(
-                    color: ColorPalette.kcardGreen,
+                    color: colors.textSecondary.withValues(alpha: 0.7),
                   ),
                 ),
             ],

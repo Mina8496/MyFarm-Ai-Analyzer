@@ -6,6 +6,7 @@ import 'package:myfarm/features/tasks/domin/entities/user_role.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_actions_menu.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_completion_indicator.dart';
 import 'package:myfarm/features/tasks/presentation/view/widgets/task_content.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
 
 class TaskCard extends StatefulWidget {
   final TaskEntity task;
@@ -60,24 +61,25 @@ class _TaskCardState extends State<TaskCard>
   @override
   Widget build(BuildContext context) {
     final isCompleted = widget.task.isCompleted;
+    final colors = context.colors;
 
     return ScaleTransition(
       scale: _scaleAnim,
       child: GestureDetector(
         onDoubleTap: _handleDoubleTap,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          margin: EdgeInsets.only(bottom: 12),
-          padding: EdgeInsets.all(16),
+          duration: const Duration(milliseconds: 300),
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: isCompleted
-                ? ColorPalette.kPrimaryColor.withValues(alpha: 0.2)
-                : ColorPalette.kLightGreen,
+                ? ColorPalette.kSuccess.withValues(alpha: 0.2)
+                : colors.card,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: isCompleted
                   ? ColorPalette.kSuccess.withValues(alpha: 0.5)
-                  : ColorPalette.kBorder,
+                  : colors.border,
               width: 1.5,
             ),
           ),
