@@ -57,13 +57,13 @@ class TaskActionsMenu extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.delete_outline,
-                  color: ColorPalette.kLightRed,
+                  color: ColorPalette.kLightGreen,
                   size: 18,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'حذف',
-                  style: Styles.style14.copyWith(color: ColorPalette.kLightRed),
+                  style: Styles.style14.copyWith(color: ColorPalette.kLightGreen),
                 ),
               ],
             ),

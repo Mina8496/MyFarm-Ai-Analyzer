@@ -28,7 +28,7 @@ Future<void> showDeleteTaskDialog(
           },
           child: Text(
             'حذف',
-            style: Styles.style14.copyWith(color: ColorPalette.kLightRed),
+            style: Styles.style14.copyWith(color: ColorPalette.kLightGreen),
           ),
         ),
       ],
