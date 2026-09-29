@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:myfarm/app_config.dart';
-import 'package:myfarm/common/constants/color_palette.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/function/injection_container.dart';
 import 'package:myfarm/core/localization/app_translations.dart';
+import 'package:myfarm/core/theme/app_theme.dart';
+import 'package:myfarm/core/theme/theme_controller.dart';
 import 'package:myfarm/core/utils/routes/app_pages.dart';
 import 'package:myfarm/features/Home/data/datasources/weather_local_datasource.dart';
 import 'package:myfarm/features/PlantTip/data/dataSource/plant_tips_local_data_source.dart';
@@ -73,6 +74,8 @@ Future<void> _initializeApp() async {
 
   Hive.registerAdapter(PlantTipModelAdapter());
   Hive.registerAdapter(TaskModelAdapter());
+  await Hive.openBox(ThemeController.boxName);
+  Get.put(ThemeController(), permanent: true);
 
   await Future.wait([
     PlantTipsLocalDataSource.openBox(),
@@ -122,18 +125,19 @@ class MyApp extends StatelessWidget {
                     );
                   }
                 },
-                child: GetMaterialApp(
-                  navigatorKey:
-                      navigatorKey, // مفتاح Navigator ثابت على مستوى التطبيق
-                  debugShowCheckedModeBanner: false,
-                  theme: ThemeData.light(useMaterial3: true).copyWith(
-                    scaffoldBackgroundColor: ColorPalette.kPrimaryColor,
+                child: Obx(
+                  () => GetMaterialApp(
+                    navigatorKey: navigatorKey,
+                    debugShowCheckedModeBanner: false,
+                    theme: AppTheme.light,
+                    darkTheme: AppTheme.dark,
+                    themeMode: Get.find<ThemeController>().mode.value,
+                    translations: AppTranslations(),
+                    locale: Get.deviceLocale,
+                    initialBinding: InitialBinding(),
+                    initialRoute: '/splash',
+                    getPages: AppPages.pages,
                   ),
-                  translations: AppTranslations(),
-                  locale: Get.deviceLocale,
-                  initialBinding: InitialBinding(),
-                  initialRoute: '/splash',
-                  getPages: AppPages.pages,
                 ),
               );
             },

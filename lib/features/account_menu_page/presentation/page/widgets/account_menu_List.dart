@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_cubit.dart';
 import 'package:myfarm/core/auth/presentation/cubit/auth_state.dart';
+import 'package:myfarm/features/account_menu_page/presentation/page/theme_settings_page.dart';
 import 'package:myfarm/features/account_menu_page/presentation/page/widgets/account_menu_tile.dart';
 import 'package:myfarm/features/account_menu_page/presentation/page/widgets/logout_confirm_dialog.dart';
 import 'package:myfarm/features/ambient_screen/presentation/view/ambient_settings_page.dart';
@@ -42,18 +43,18 @@ class AccountMenuList extends StatelessWidget {
           title: 'الارشادات',
           onTap: () => _comingSoon(context),
         ),
+        // AccountMenuTile(
+        //   icon: Icons.favorite_outline,
+        //   title: 'العناصر المفضلة',
+        //   onTap: () => _comingSoon(context),
+        // ),
         AccountMenuTile(
-          icon: Icons.favorite_outline,
-          title: 'العناصر المفضلة',
-          onTap: () => _comingSoon(context),
+          icon: Icons.dark_mode_outlined,
+          title: 'المظهر',
+          onTap: () => Get.to(() => const ThemeSettingsPage()),
         ),
         AccountMenuTile(
           icon: Icons.settings_outlined,
-          title: 'الإعدادات',
-          onTap: () => _comingSoon(context),
-        ),
-        AccountMenuTile(
-          icon: Icons.dark_mode_outlined,
           title: 'Ambient Screen',
           onTap: () => Get.to(() => const AmbientSettingsPage()),
         ),
